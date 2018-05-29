@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue-resume-2018</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+    <div class="app">
+        <aside>
+            <ul class="upper">
+                <li>
+                    <button>保存</button>
+                </li>
+                <li>
+                    <button>分享</button>
+                </li>
+                <li>
+                    <button>打印</button>
+                </li>
+                <li>
+                    <button>换肤</button>
+                </li>
+                <li>
+                    <button>退出</button>
+                </li>
+            </ul>
+        </aside>
+        <div class="main">
+            <div class="resume">
+                <section class="self-introduction">
+                    <h1>XXX</h1>
+                    <p>
+                        出生年月 | 应聘职位 | 性别 | 邮箱 | 手机
+                    </p>
+                </section>
+                <section class="skills">
+                    <h1>技能描述</h1>
+                    <ul>
+                        <div class="start">
+                            <li>
+                                <span class="name"> 静态页面制作</span>
+                                <div class="description">
+                                    完美实现设计稿
+                                </div>
+                            </li>
+                            <li>
+                                <span class="name"> 静态页面制作</span>
+                                <div class="description">
+                                    完美实现设计稿
+                                </div>
+                            </li>
+                        </div>
+                        <div class="end">
+                            <li>
+                                <span class="name"> 静态页面制作</span>
+                                <div class="description">
+                                    完美实现设计稿
+                                </div>
+                            </li>
+                            <li>
+                                <span class="name"> 静态页面制作</span>
+                                <div class="description">
+                                    完美实现设计稿
+                                </div>
+                            </li>
+                        </div>
+                    </ul>
+                </section>
+                <section class="projects">
+                    <h2>项目经历</h2>
+                    <ol>
+                        <li>
+                            <span class="nam">我的简历</span>
+                            <span class="keywords">CSS3.jQuery.响应式</span>
+                            <span class="description">我是怎么做这个项目的</span>
+                            <span class="links">https://aaa.bbb.com</span>
+                            <span class="cover">https://ccc.ddd.com</span>
+                        </li>
+                    </ol>
+                </section>
+            </div>
+        </div>
+    </div>
+    <script src="vendors/leancloud-storage/av-min.js"></script>
+    <script>
+        const APP_ID = 'gKlxr3zU2H1DsBFny1Pgo7Hh-gzGzoHsz';
+        const APP_KEY = 'xYwcOuEd5HVMEnDqdOcTVtiq';
+        AV.init({
+            appId: APP_ID,
+            appKey: APP_KEY
+        });
+        // var TestObject = AV.Object.extend('TestObject');
+        // var testObject = new TestObject();
+        // testObject.save({
+        //     words: 'Hello World'
+        // }).then(function(object) {
+        //     alert('lean is work!')
+        // })
+    </script>
+</body>
+
+</html>
