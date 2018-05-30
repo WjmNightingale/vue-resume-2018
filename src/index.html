@@ -8,12 +8,13 @@
     <title>vue-resume-2018</title>
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/index.css">
+    <script src="//at.alicdn.com/t/font_631516_g58cn91ktwo5stt9.js"></script>
 </head>
 
 <body>
     <div id="app" class="app">
         <aside>
-            <ul class="upper">
+            <ul class="side-navigation">
                 <li>
                     <button>保存</button>
                 </li>
@@ -34,9 +35,42 @@
         <div class="main">
             <div class="resume">
                 <section class="self-introduction">
+                    <h1>个人简介</h1>
+                    <div>
+                        <editable-span v-bind:value="resume.name" v-on:edit="onEdit('name',$event)"></editable-span>
+                        <div class="details">
+                            <span>男</span> |
+                            <span>24岁</span> |
+                            <span>江西景德镇</span> |
+                            <span>13588307831</span>
+                        </div>
+                        <div>
+                            Blog:
+                            <a href="#">
+                                <span>https://aa.bb.com</span>
+                            </a>
+                        </div>
+                        <div>
+                            Github:
+                            <a href="#">
+                                <span>https://cc.dd.com</span>
+                            </a>
+                        </div>
+                        <div>
+                            Job-Search:
+                            <span>前端工程师</span>
+                        </div>
+                    </div>
+                    <!-- <editable-span v-bind:value="resume.name" v-on:edit="onEdit('name',$event)"></editable-span>
+                    <editable-span v-bind:value="resume.jobTitle" v-on:edit="onEdit('jobTitle',$event)"></editable-span>
+                    <editable-span v-bind:value="resume." v-on:edit="onEdit('name',$event)"></editable-span>
                     <editable-span v-bind:value="resume.name" v-on:edit="onEdit('name',$event)"></editable-span>
-                   <p>{{resume.name}}</p>
+                    <editable-span v-bind:value="resume.name" v-on:edit="onEdit('name',$event)"></editable-span> -->
                 </section>
+                <!-- <section class="education">
+                    <h1>教育经历</h1>
+                    <p>XXX</p>
+                </section> -->
                 <section class="skills">
                     <h1>技能描述</h1>
                     <ul>
@@ -71,7 +105,7 @@
                     </ul>
                 </section>
                 <section class="projects">
-                    <h2>项目经历</h2>
+                    <h1>项目经历</h1>
                     <ol>
                         <li>
                             <span class="nam">我的简历</span>
@@ -116,12 +150,14 @@
     </script>
     <script>
         Vue.component('editable-span', {
-            props:['value'],
+            props: ['value'],
             template: `
             <div>
-                    <span v-show="!editingName" contenteditable="false">{{value}}</span>
+                    <span class="name" v-show="!editingName" contenteditable="false">{{value}}</span>
                     <input v-show="editingName" type="text" v-bind:value="value" @input="update">
-                    <button @click="editingName = !editingName" class="edit" >编辑</button>
+                    <svg class="icon edit" aria-hidden="true"  @click="editingName = !editingName">
+                        <use xlink:href="#icon-edit"></use>
+                    </svg>
             </div>`,
             data() {
                 return {
@@ -129,9 +165,9 @@
                 }
             },
             methods: {
-               update(e) {
+                update(e) {
                     console.log(e.target.value)
-                    this.$emit('edit',e.target.value)
+                    this.$emit('edit', e.target.value)
                 }
             }
         })
@@ -143,16 +179,19 @@
                     name: 'wjm',
                     gender: '男',
                     birthday: '1994/09/29',
-                    jobTitle: '前端工程师',
+                    position: '江西景德镇',
                     phone: '13599307813',
-                    email: 'example@example.com'
+                    email: 'example@example.com',
+                    blog: 'https://wjmnightingale.github.io/wjmBlog.github.io',
+                    github: 'https://github.com/WjmNightingale',
+                    jobTitle: '前端工程师',
                 }
             },
             methods: {
                 contentChange(e) {
                     console.log(e)
                 },
-                onEdit(key,data) {
+                onEdit(key, data) {
                     console.log(this.resume)
                     this.resume[key] = data
                 }

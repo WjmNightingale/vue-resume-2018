@@ -1,71 +1,79 @@
 @media (min-width: 500px) {
     .app {
-        height: 100vh;
-        overflow: hidden;
+        /* height: 100vh; */
         display: flex;
         flex-direction: row;
         justify-content: space-between;
     }
-    .app>aside {
-        width: 100px;
-        border-right: 1px solid #999;
-        padding: 20px 4px;
-    }
-    .app>aside>.upper {
-        border: 1px solid orange;
+    .app>aside>.side-navigation {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 140px;
+        height: 100vh;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: space-around;
         align-items: center;
     }
-    .app>aside>.upper > li {
+    .app>aside>.side-navigation>li {
         margin: 4px 0;
     }
+    .app>aside>.side-navigation>li>button {
+        width: 60px;
+        height: 40px;
+        border-radius: 5px;
+        border: none;
+        outline: none;
+        background: #c62f2f;
+        color: white;
+        font-size: 18px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .app>aside>.side-navigation>li>button:hover {
+        cursor: pointer;
+        transition: all 0.2s linear;
+        transform: scale(1.1);
+    }
     .app>.main {
-        border: 1px solid green;
-        flex-grow: 1;
+        flex-grow: 1; /* main宽度自动填充 */
+        padding: 0 40px;
+        margin-left: 140px;
+        background-color: #0070c0;
+        overflow: auto;
     }
     .app>.main>.resume {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
-        align-items: center;
+        align-items: flex-start;
+        border: 1px solid blue;
+        background-color: white;
+    }
+    .app>.main>.resume section {
         border: 1px solid red;
+        margin-top: 60px;
     }
-    .app>.main>.resume>.self-introduction {
-        border: 1px solid orange;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 20px;
+    .app>.main>.resume section h1 {
+        border: 1px solid #0070c0;
+        padding: 4px 0;
+        width: 180px;
+        margin-bottom: 12px;
+        border-radius: 26px;
+        text-align: center;
+        color: #0070c0;
     }
-    .app>.main>.resume>.skills {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+    .app>.main>.resume>.self-introduction>div {
+        margin-left: 36px;
     }
-    .app>.main>.resume>.skills .start,
-    .app>.main>.resume>.skills .end {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        margin: 20px 20px;
+    .app>.main>.resume>.self-introduction>div>div {
+        margin-top: 6px;
     }
-    .app>.main>.resume>.skills li {
-        border: 1px solid red;
-        margin: 0px 20px;
+    .app>.main>.resume>.self-introduction .name {
+        font-size: 26px;
+        color: black;
     }
-    .app>.main>.resume>.projects {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+    .app>.main>.resume>.self-introduction svg:hover {
+        cursor: pointer;
     }
-    .app>.main>.resume>.projects li {
-        display: flex;
-        flex-direction: column;
-    }
-
 }
