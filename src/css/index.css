@@ -36,7 +36,8 @@
         transform: scale(1.1);
     }
     .app>.main {
-        flex-grow: 1; /* main宽度自动填充 */
+        flex-grow: 1;
+        /* main宽度自动填充 */
         padding: 0 40px;
         margin-left: 140px;
         background-color: #0070c0;
@@ -66,12 +67,20 @@
     .app>.main>.resume>.self-introduction>div {
         margin-left: 66px;
     }
-    .app>.main>.resume>.self-introduction>div>div {
+    .app>.main>.resume>.self-introduction>div>div,
+    .app>.main>.resume>.self-introduction>div>div.links a {
         margin-top: 6px;
     }
-    .app>.main>.resume>.self-introduction .name {
+    .app>.main>.resume>.self-introduction>div>div.template>span {
         font-size: 26px;
         color: black;
+    }
+    .app>.main>.resume>.self-introduction>div>div.details,
+    .app>.main>.resume>.self-introduction>div>div.links a,
+    .app>.main>.resume>.self-introduction>div>div.job-title {
+        display: flex;
+        flex-direction: row;
+        color: gray;
     }
     .app>.main>.resume>.self-introduction svg:hover {
         cursor: pointer;

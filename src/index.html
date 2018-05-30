@@ -39,33 +39,26 @@
                     <div>
                         <editable-span v-bind:value="resume.name" v-on:edit="onEdit('name',$event)"></editable-span>
                         <div class="details">
-                            <span>男</span> |
-                            <span>24岁</span> |
-                            <span>江西景德镇</span> |
-                            <span>13588307831</span>
+                            <editable-span v-bind:value="resume.gender" v-on:edit="onEdit('gender',$event)"></editable-span> |&nbsp;
+                            <editable-span v-bind:value="resume.age" v-on:edit="onEdit('age',$event)"></editable-span> |&nbsp;
+                            <editable-span v-bind:value="resume.address" v-on:edit="onEdit('address',$event)"></editable-span> |&nbsp;
+                            <editable-span v-bind:value="resume.phone" v-on:edit="onEdit('phone',$event)"></editable-span>
                         </div>
-                        <div>
-                            博客:
+                        <div class="links">
                             <a href="#">
-                                <span>https://aa.bb.com</span>
+                                <span>博客: &nbsp;</span>
+                                <editable-span v-bind:value="resume.blogLink" v-on:edit="onEdit('blogLink',$event)"></editable-span>
+                            </a>
+                            <a href="#">
+                                <span>Github: &nbsp;</span>
+                                <editable-span v-bind:value="resume.githubLink" v-on:edit="onEdit('githubLink',$event)"></editable-span>
                             </a>
                         </div>
-                        <div>
-                            Github:
-                            <a href="#">
-                                <span>https://cc.dd.com</span>
-                            </a>
-                        </div>
-                        <div>
-                            求职意向:
-                            <span>前端工程师</span>
+                        <div class="job-title">
+                            <span>求职意向:  &nbsp;</span>
+                            <editable-span v-bind:value="resume.jobTitle" v-on:edit="onEdit('jobTitle',$event)"></editable-span>
                         </div>
                     </div>
-                    <!-- <editable-span v-bind:value="resume.name" v-on:edit="onEdit('name',$event)"></editable-span>
-                    <editable-span v-bind:value="resume.jobTitle" v-on:edit="onEdit('jobTitle',$event)"></editable-span>
-                    <editable-span v-bind:value="resume." v-on:edit="onEdit('name',$event)"></editable-span>
-                    <editable-span v-bind:value="resume.name" v-on:edit="onEdit('name',$event)"></editable-span>
-                    <editable-span v-bind:value="resume.name" v-on:edit="onEdit('name',$event)"></editable-span> -->
                 </section>
                 <!-- <section class="education">
                     <h1>教育经历</h1>
@@ -152,8 +145,8 @@
         Vue.component('editable-span', {
             props: ['value'],
             template: `
-            <div>
-                    <span class="name" v-show="!editingName" contenteditable="false">{{value}}</span>
+            <div class="template">
+                    <span v-show="!editingName" contenteditable="false">{{value}}</span>
                     <input v-show="editingName" type="text" v-bind:value="value" @input="update">
                     <svg class="icon edit" aria-hidden="true"  @click="editingName = !editingName">
                         <use xlink:href="#icon-edit"></use>
@@ -176,14 +169,14 @@
             data: {
                 // editingName: false,
                 resume: {
-                    name: 'wjm',
+                    name: '王峻名',
                     gender: '男',
-                    birthday: '1994/09/29',
-                    position: '江西景德镇',
+                    age: '24岁',
+                    address: '江西景德镇',
                     phone: '13599307813',
                     email: 'example@example.com',
-                    blog: 'https://wjmnightingale.github.io/wjmBlog.github.io',
-                    github: 'https://github.com/WjmNightingale',
+                    blogLink: 'https://wjmnightingale.github.io/wjmBlog.github.io',
+                    githubLink: 'https://github.com/WjmNightingale',
                     jobTitle: '前端工程师',
                 }
             },
