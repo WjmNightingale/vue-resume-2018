@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <div class="app">
+    <div id="app" class="app">
         <aside>
             <ul class="upper">
                 <li>
@@ -34,10 +34,8 @@
         <div class="main">
             <div class="resume">
                 <section class="self-introduction">
-                    <h1>XXX</h1>
-                    <p>
-                        出生年月 | 应聘职位 | 性别 | 邮箱 | 手机
-                    </p>
+                    <editable-span v-bind:value="resume.name" v-on:edit="onEdit('name',$event)"></editable-span>
+                   <p>{{resume.name}}</p>
                 </section>
                 <section class="skills">
                     <h1>技能描述</h1>
@@ -87,7 +85,8 @@
             </div>
         </div>
     </div>
-    <script src="vendors/leancloud-storage/av-min.js"></script>
+    <script src="../vendors/leancloud-storage/av-min.js"></script>
+    <script src="../vendors/vue/vue.min.js"></script>
     <script>
         const APP_ID = 'gKlxr3zU2H1DsBFny1Pgo7Hh-gzGzoHsz';
         const APP_KEY = 'xYwcOuEd5HVMEnDqdOcTVtiq';
@@ -102,6 +101,63 @@
         // }).then(function(object) {
         //     alert('lean is work!')
         // })
+        function twoSum(numbers, target) {
+            let length = numbers.length
+            for (let i = 0; i < length; i++) {
+                for (let j = length - 1; j < length; j--) {
+                    if (i === j) {
+                        break
+                    } else if (numbers[i] + numbers[j] === target) {
+                        return [i, j]
+                    }
+                }
+            }
+        }
+    </script>
+    <script>
+        Vue.component('editable-span', {
+            props:['value'],
+            template: `
+            <div>
+                    <span v-show="!editingName" contenteditable="false">{{value}}</span>
+                    <input v-show="editingName" type="text" v-bind:value="value" @input="update">
+                    <button @click="editingName = !editingName" class="edit" >编辑</button>
+            </div>`,
+            data() {
+                return {
+                    editingName: false
+                }
+            },
+            methods: {
+               update(e) {
+                    console.log(e.target.value)
+                    this.$emit('edit',e.target.value)
+                }
+            }
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                // editingName: false,
+                resume: {
+                    name: 'wjm',
+                    gender: '男',
+                    birthday: '1994/09/29',
+                    jobTitle: '前端工程师',
+                    phone: '13599307813',
+                    email: 'example@example.com'
+                }
+            },
+            methods: {
+                contentChange(e) {
+                    console.log(e)
+                },
+                onEdit(key,data) {
+                    console.log(this.resume)
+                    this.resume[key] = data
+                }
+            }
+        })
     </script>
 </body>
 
