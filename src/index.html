@@ -9,10 +9,12 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/index.css">
     <script src="//at.alicdn.com/t/font_631516_g58cn91ktwo5stt9.js"></script>
+    <script src="../vendors/leancloud-storage/av-min.js"></script>
+    <script src="../vendors/vue/vue.min.js"></script>
 </head>
 
 <body>
-    <div id="app" class="app">
+    <div id="app" class="app" style="display: none;">
         <aside>
             <ul class="side-navigation">
                 <li>
@@ -55,7 +57,7 @@
                             </a>
                         </div>
                         <div class="job-title">
-                            <span>求职意向:  &nbsp;</span>
+                            <span>求职意向: &nbsp;</span>
                             <editable-span v-bind:value="resume.jobTitle" v-on:edit="onEdit('jobTitle',$event)"></editable-span>
                         </div>
                     </div>
@@ -101,96 +103,127 @@
                     <h1>项目经历</h1>
                     <ol>
                         <li>
-                            <span class="nam">我的简历</span>
-                            <span class="keywords">CSS3.jQuery.响应式</span>
+                            <div class="title">
+                                <span class="nam">我的简历</span>
+                                <span class="keywords">CSS3.jQuery.响应式</span>
+                            </div>
                             <span class="description">我是怎么做这个项目的</span>
-                            <span class="links">https://aaa.bbb.com</span>
-                            <span class="cover">https://ccc.ddd.com</span>
+                            <div class="links">
+                                <span>阅览链接：
+                                    <span>https://aaa.bbb.com</span>
+                                </span>
+                            </div>
+                            <div class="cover">
+                                <span>源码链接：
+                                    <span class="cover">https://ccc.ddd.com</span>
+                                </span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="title">
+                                <span class="nam">作品1</span>
+                                <span class="keywords">CSS3.jQuery.响应式</span>
+                            </div>
+                            <span class="description">我是怎么做这个项目的</span>
+                            <div class="links">
+                                <span>阅览链接：
+                                    <span>https://aaa.bbb.com</span>
+                                </span>
+                            </div>
+                            <div class="cover">
+                                <span>源码链接：
+                                    <span class="cover">https://ccc.ddd.com</span>
+                                </span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="title">
+                                <span class="nam">作品2</span>
+                                <span class="keywords">CSS3.jQuery.响应式</span>
+                            </div>
+                            <span class="description">我是怎么做这个项目的</span>
+                            <div class="links">
+                                <span>阅览链接：
+                                    <span>https://aaa.bbb.com</span>
+                                </span>
+                            </div>
+                            <div class="cover">
+                                <span>源码链接：
+                                    <span class="cover">https://ccc.ddd.com</span>
+                                </span>
+                            </div>
                         </li>
                     </ol>
                 </section>
             </div>
         </div>
     </div>
-    <script src="../vendors/leancloud-storage/av-min.js"></script>
-    <script src="../vendors/vue/vue.min.js"></script>
-    <script>
-        const APP_ID = 'gKlxr3zU2H1DsBFny1Pgo7Hh-gzGzoHsz';
-        const APP_KEY = 'xYwcOuEd5HVMEnDqdOcTVtiq';
-        AV.init({
-            appId: APP_ID,
-            appKey: APP_KEY
-        });
-        // var TestObject = AV.Object.extend('TestObject');
-        // var testObject = new TestObject();
-        // testObject.save({
-        //     words: 'Hello World'
-        // }).then(function(object) {
-        //     alert('lean is work!')
-        // })
-        function twoSum(numbers, target) {
-            let length = numbers.length
-            for (let i = 0; i < length; i++) {
-                for (let j = length - 1; j < length; j--) {
-                    if (i === j) {
-                        break
-                    } else if (numbers[i] + numbers[j] === target) {
-                        return [i, j]
-                    }
-                }
-            }
-        }
-    </script>
-    <script>
-        Vue.component('editable-span', {
-            props: ['value'],
-            template: `
-            <div class="template">
-                    <span v-show="!editingName" contenteditable="false">{{value}}</span>
-                    <input v-show="editingName" type="text" v-bind:value="value" @input="update">
-                    <svg class="icon edit" aria-hidden="true"  @click="editingName = !editingName">
-                        <use xlink:href="#icon-edit"></use>
-                    </svg>
-            </div>`,
-            data() {
-                return {
-                    editingName: false
-                }
-            },
-            methods: {
-                update(e) {
-                    console.log(e.target.value)
-                    this.$emit('edit', e.target.value)
-                }
-            }
-        })
-        var vm = new Vue({
-            el: '#app',
-            data: {
-                // editingName: false,
-                resume: {
-                    name: '王峻名',
-                    gender: '男',
-                    age: '24岁',
-                    address: '江西景德镇',
-                    phone: '13599307813',
-                    email: 'example@example.com',
-                    blogLink: 'https://wjmnightingale.github.io/wjmBlog.github.io',
-                    githubLink: 'https://github.com/WjmNightingale',
-                    jobTitle: '前端工程师',
-                }
-            },
-            methods: {
-                contentChange(e) {
-                    console.log(e)
-                },
-                onEdit(key, data) {
-                    console.log(this.resume)
-                    this.resume[key] = data
-                }
-            }
-        })
-    </script>
+    <div class="login-or-registered" v-if="!currentUser">
+        <div class="registered container" v-if="actionType === 'registered'">
+            <h1>Vue.js简历编辑器</h1>
+            <p>欢迎注册</p>
+            <form  @submit.prevent=singUp>
+                <div class="formRow">
+                    <span>用户名:</span>
+                    <input type="text" v-model="user.name" placeholder="请输入您的用户名">
+                </div>
+                <div class="horizon"></div>
+                <div class="formRow">
+                    <span>密码:</span>
+                    <input type="password" v-model="user.pwd" placeholder="请输入您的密码">
+                </div>
+                <div class="horizon"></div>
+                <div class="formRow">
+                    <span>确认密码:</span>
+                    <input type="password" v-model="user.pwd" placeholder="请输入您的密码">
+                </div>
+                <div class="horizon"></div>
+                <label for="formActions" class="formActions">
+                    <input  type="submit" value="注册">
+                </label>
+            </form>
+            <div class="protocol">
+                <p>注册即代表你使用《假装协议》</p>
+                <a href="#">注册机构号</a>
+            </div>
+            <div class="change">
+                <span>已有账号？</span>
+                <label for="login">
+                    <input id="login" type="radio" name="type" v-model="actionType">去登陆
+                </label>
+            </div>
+        </div>
+        <div class="login container" v-if="actionType === 'login'" style="display:none;">
+            <h1>Vue.js简历编辑器</h1>
+            <p>欢迎使用</p>
+            <form @submit.prevent="login">
+                <div class="formRow">
+                    <input type="text" v-model="formData.username" placeholder="请输入您的用户名">
+                </div>
+                <div class="horizon"></div>
+                <div class="formRow">
+                    <input type="password" v-model="formData.password" placeholder="请输入您的密码">
+                </div>
+                <div class="horizon"></div>
+                <label for="formActions" class="formActions">
+                    <input type="submit" value="登陆">
+                </label>
+            </form>
+            <div class="protocol">
+                <a href="#">手机验证码登陆</a>
+                <a href="#">忘记密码？</a>
+            </div>
+            <div class="change">
+                <span>没有账号？</span>
+                <label for="singUp">
+                    <input type="radio" name="type" value="singUp" v-model="actionType">请注册
+                </label>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src="./js/component.js"></script>
+    <script src="./js/app.js"></script>
 </body>
 
 </html>
