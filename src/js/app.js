@@ -2,10 +2,9 @@
     var vm = new Vue({
         el: '#app',
         data: {
-            pageType: '',
-            actionType: 'login',
+            pageType: 'showLogin',
             user: {
-                name: '',
+                name: 'wjm',
                 pwd: '',
                 confirmPwd: '',
                 currentUser: null

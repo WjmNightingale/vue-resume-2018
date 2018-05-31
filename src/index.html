@@ -14,213 +14,216 @@
 </head>
 
 <body>
-    <div id="app" class="app" style="display: none;">
-        <aside>
-            <ul class="side-navigation">
-                <li>
-                    <button>保存</button>
-                </li>
-                <li>
-                    <button>分享</button>
-                </li>
-                <li>
-                    <button>打印</button>
-                </li>
-                <li>
-                    <button>换肤</button>
-                </li>
-                <li>
-                    <button>退出</button>
-                </li>
-            </ul>
-        </aside>
-        <div class="main">
-            <div class="resume">
-                <section class="self-introduction">
-                    <h1>个人简介</h1>
-                    <div>
-                        <editable-span v-bind:value="resume.name" v-on:edit="onEdit('name',$event)"></editable-span>
-                        <div class="details">
-                            <editable-span v-bind:value="resume.gender" v-on:edit="onEdit('gender',$event)"></editable-span> |&nbsp;
-                            <editable-span v-bind:value="resume.age" v-on:edit="onEdit('age',$event)"></editable-span> |&nbsp;
-                            <editable-span v-bind:value="resume.address" v-on:edit="onEdit('address',$event)"></editable-span> |&nbsp;
-                            <editable-span v-bind:value="resume.phone" v-on:edit="onEdit('phone',$event)"></editable-span>
+    <div id="app" class="app">
+        <div id="index" class="index" v-if="pageType === 'showIndex'">
+            <aside>
+                <ul class="side-navigation">
+                    <li>
+                        <button>保存</button>
+                    </li>
+                    <li>
+                        <button>分享</button>
+                    </li>
+                    <li>
+                        <button>打印</button>
+                    </li>
+                    <li>
+                        <button>换肤</button>
+                    </li>
+                    <li>
+                        <button>退出</button>
+                    </li>
+                </ul>
+            </aside>
+            <div class="main">
+                <div class="resume">
+                    <section class="self-introduction">
+                        <h1>个人简介</h1>
+                        <div>
+                            <editable-span v-bind:value="resume.name" v-on:edit="onEdit('name',$event)"></editable-span>
+                            <div class="details">
+                                <editable-span v-bind:value="resume.gender" v-on:edit="onEdit('gender',$event)"></editable-span> |&nbsp;
+                                <editable-span v-bind:value="resume.age" v-on:edit="onEdit('age',$event)"></editable-span> |&nbsp;
+                                <editable-span v-bind:value="resume.address" v-on:edit="onEdit('address',$event)"></editable-span> |&nbsp;
+                                <editable-span v-bind:value="resume.phone" v-on:edit="onEdit('phone',$event)"></editable-span>
+                            </div>
+                            <div class="links">
+                                <a href="#">
+                                    <span>博客: &nbsp;</span>
+                                    <editable-span v-bind:value="resume.blogLink" v-on:edit="onEdit('blogLink',$event)"></editable-span>
+                                </a>
+                                <a href="#">
+                                    <span>Github: &nbsp;</span>
+                                    <editable-span v-bind:value="resume.githubLink" v-on:edit="onEdit('githubLink',$event)"></editable-span>
+                                </a>
+                            </div>
+                            <div class="job-title">
+                                <span>求职意向: &nbsp;</span>
+                                <editable-span v-bind:value="resume.jobTitle" v-on:edit="onEdit('jobTitle',$event)"></editable-span>
+                            </div>
                         </div>
-                        <div class="links">
-                            <a href="#">
-                                <span>博客: &nbsp;</span>
-                                <editable-span v-bind:value="resume.blogLink" v-on:edit="onEdit('blogLink',$event)"></editable-span>
-                            </a>
-                            <a href="#">
-                                <span>Github: &nbsp;</span>
-                                <editable-span v-bind:value="resume.githubLink" v-on:edit="onEdit('githubLink',$event)"></editable-span>
-                            </a>
-                        </div>
-                        <div class="job-title">
-                            <span>求职意向: &nbsp;</span>
-                            <editable-span v-bind:value="resume.jobTitle" v-on:edit="onEdit('jobTitle',$event)"></editable-span>
-                        </div>
+                    </section>
+                    <!-- <section class="education">
+                        <h1>教育经历</h1>
+                        <p>XXX</p>
+                    </section> -->
+                    <section class="skills">
+                        <h1>技能描述</h1>
+                        <ul>
+                            <div class="start">
+                                <li>
+                                    <span class="name"> 静态页面制作</span>
+                                    <div class="description">
+                                        完美实现设计稿
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="name"> 静态页面制作</span>
+                                    <div class="description">
+                                        完美实现设计稿
+                                    </div>
+                                </li>
+                            </div>
+                            <div class="end">
+                                <li>
+                                    <span class="name"> 静态页面制作</span>
+                                    <div class="description">
+                                        完美实现设计稿
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="name"> 静态页面制作</span>
+                                    <div class="description">
+                                        完美实现设计稿
+                                    </div>
+                                </li>
+                            </div>
+                        </ul>
+                    </section>
+                    <section class="projects">
+                        <h1>项目经历</h1>
+                        <ol>
+                            <li>
+                                <div class="title">
+                                    <span class="nam">我的简历</span>
+                                    <span class="keywords">CSS3.jQuery.响应式</span>
+                                </div>
+                                <span class="description">我是怎么做这个项目的</span>
+                                <div class="links">
+                                    <span>阅览链接：
+                                        <span>https://aaa.bbb.com</span>
+                                    </span>
+                                </div>
+                                <div class="cover">
+                                    <span>源码链接：
+                                        <span class="cover">https://ccc.ddd.com</span>
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="title">
+                                    <span class="nam">作品1</span>
+                                    <span class="keywords">CSS3.jQuery.响应式</span>
+                                </div>
+                                <span class="description">我是怎么做这个项目的</span>
+                                <div class="links">
+                                    <span>阅览链接：
+                                        <span>https://aaa.bbb.com</span>
+                                    </span>
+                                </div>
+                                <div class="cover">
+                                    <span>源码链接：
+                                        <span class="cover">https://ccc.ddd.com</span>
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="title">
+                                    <span class="nam">作品2</span>
+                                    <span class="keywords">CSS3.jQuery.响应式</span>
+                                </div>
+                                <span class="description">我是怎么做这个项目的</span>
+                                <div class="links">
+                                    <span>阅览链接：
+                                        <span>https://aaa.bbb.com</span>
+                                    </span>
+                                </div>
+                                <div class="cover">
+                                    <span>源码链接：
+                                        <span class="cover">https://ccc.ddd.com</span>
+                                    </span>
+                                </div>
+                            </li>
+                        </ol>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <div class="login-or-registered" v-if="pageType === 'showLogin'">
+            <!-- <div class="registered container" v-if="actionType === 'registered'">
+                <h1>Vue.js简历编辑器</h1>
+                <p>欢迎注册</p>
+                <form @submit.prevent=singUp>
+                    <div class="formRow">
+                        <span>用户名:</span>
+                        <input type="text" v-model="user.name" placeholder="请输入您的用户名">
                     </div>
-                </section>
-                <!-- <section class="education">
-                    <h1>教育经历</h1>
-                    <p>XXX</p>
-                </section> -->
-                <section class="skills">
-                    <h1>技能描述</h1>
-                    <ul>
-                        <div class="start">
-                            <li>
-                                <span class="name"> 静态页面制作</span>
-                                <div class="description">
-                                    完美实现设计稿
-                                </div>
-                            </li>
-                            <li>
-                                <span class="name"> 静态页面制作</span>
-                                <div class="description">
-                                    完美实现设计稿
-                                </div>
-                            </li>
-                        </div>
-                        <div class="end">
-                            <li>
-                                <span class="name"> 静态页面制作</span>
-                                <div class="description">
-                                    完美实现设计稿
-                                </div>
-                            </li>
-                            <li>
-                                <span class="name"> 静态页面制作</span>
-                                <div class="description">
-                                    完美实现设计稿
-                                </div>
-                            </li>
-                        </div>
-                    </ul>
-                </section>
-                <section class="projects">
-                    <h1>项目经历</h1>
-                    <ol>
-                        <li>
-                            <div class="title">
-                                <span class="nam">我的简历</span>
-                                <span class="keywords">CSS3.jQuery.响应式</span>
-                            </div>
-                            <span class="description">我是怎么做这个项目的</span>
-                            <div class="links">
-                                <span>阅览链接：
-                                    <span>https://aaa.bbb.com</span>
-                                </span>
-                            </div>
-                            <div class="cover">
-                                <span>源码链接：
-                                    <span class="cover">https://ccc.ddd.com</span>
-                                </span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="title">
-                                <span class="nam">作品1</span>
-                                <span class="keywords">CSS3.jQuery.响应式</span>
-                            </div>
-                            <span class="description">我是怎么做这个项目的</span>
-                            <div class="links">
-                                <span>阅览链接：
-                                    <span>https://aaa.bbb.com</span>
-                                </span>
-                            </div>
-                            <div class="cover">
-                                <span>源码链接：
-                                    <span class="cover">https://ccc.ddd.com</span>
-                                </span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="title">
-                                <span class="nam">作品2</span>
-                                <span class="keywords">CSS3.jQuery.响应式</span>
-                            </div>
-                            <span class="description">我是怎么做这个项目的</span>
-                            <div class="links">
-                                <span>阅览链接：
-                                    <span>https://aaa.bbb.com</span>
-                                </span>
-                            </div>
-                            <div class="cover">
-                                <span>源码链接：
-                                    <span class="cover">https://ccc.ddd.com</span>
-                                </span>
-                            </div>
-                        </li>
-                    </ol>
-                </section>
-            </div>
+                    <div class="horizon"></div>
+                    <div class="formRow">
+                        <span>密码:</span>
+                        <input type="password" v-model="user.pwd" placeholder="请输入您的密码">
+                    </div>
+                    <div class="horizon"></div>
+                    <div class="formRow">
+                        <span>确认密码:</span>
+                        <input type="password" v-model="user.pwd" placeholder="请输入您的密码">
+                    </div>
+                    <div class="horizon"></div>
+                    <label for="formActions" class="formActions">
+                        <input type="submit" value="注册">
+                    </label>
+                </form>
+                <div class="protocol">
+                    <p>注册即代表你使用《假装协议》</p>
+                    <a href="#">注册机构号</a>
+                </div>
+                <div class="change">
+                    <span>已有账号？</span>
+                    <label for="login">
+                        <input id="login" type="radio" name="type" v-model="actionType">去登陆
+                    </label>
+                </div>
+            </div> -->
+            <div is="registered-template" v-bind:user="user"></div>
+            <div is="login-template" v-bind:user="user"></div>
+            <!-- <div class="login container" v-if="actionType === 'login'">
+                <h1>Vue.js简历编辑器</h1>
+                <p>欢迎使用</p>
+                <form @submit.prevent="login">
+                    <div class="formRow">
+                        <input type="text" v-model="user.username" placeholder="请输入您的用户名">
+                    </div>
+                    <div class="horizon"></div>
+                    <div class="formRow">
+                        <input type="password" v-model="user.password" placeholder="请输入您的密码">
+                    </div>
+                    <div class="horizon"></div>
+                    <label for="formActions" class="formActions">
+                        <input type="submit" value="登陆">
+                    </label>
+                </form>
+                <div class="protocol">
+                    <a href="#">手机验证码登陆</a>
+                    <a href="#">忘记密码？</a>
+                </div>
+                <div class="change">
+                    <span>没有账号？</span>
+                    <label for="singUp">
+                        <input type="radio" name="type" value="singUp" v-model="actionType">去注册
+                    </label>
+                </div>
+            </div> -->
         </div>
-    </div>
-    <div class="login-or-registered" v-if="!currentUser">
-        <div class="registered container" v-if="actionType === 'registered'">
-            <h1>Vue.js简历编辑器</h1>
-            <p>欢迎注册</p>
-            <form  @submit.prevent=singUp>
-                <div class="formRow">
-                    <span>用户名:</span>
-                    <input type="text" v-model="user.name" placeholder="请输入您的用户名">
-                </div>
-                <div class="horizon"></div>
-                <div class="formRow">
-                    <span>密码:</span>
-                    <input type="password" v-model="user.pwd" placeholder="请输入您的密码">
-                </div>
-                <div class="horizon"></div>
-                <div class="formRow">
-                    <span>确认密码:</span>
-                    <input type="password" v-model="user.pwd" placeholder="请输入您的密码">
-                </div>
-                <div class="horizon"></div>
-                <label for="formActions" class="formActions">
-                    <input  type="submit" value="注册">
-                </label>
-            </form>
-            <div class="protocol">
-                <p>注册即代表你使用《假装协议》</p>
-                <a href="#">注册机构号</a>
-            </div>
-            <div class="change">
-                <span>已有账号？</span>
-                <label for="login">
-                    <input id="login" type="radio" name="type" v-model="actionType">去登陆
-                </label>
-            </div>
-        </div>
-        <div class="login container" v-if="actionType === 'login'" style="display:none;">
-            <h1>Vue.js简历编辑器</h1>
-            <p>欢迎使用</p>
-            <form @submit.prevent="login">
-                <div class="formRow">
-                    <input type="text" v-model="formData.username" placeholder="请输入您的用户名">
-                </div>
-                <div class="horizon"></div>
-                <div class="formRow">
-                    <input type="password" v-model="formData.password" placeholder="请输入您的密码">
-                </div>
-                <div class="horizon"></div>
-                <label for="formActions" class="formActions">
-                    <input type="submit" value="登陆">
-                </label>
-            </form>
-            <div class="protocol">
-                <a href="#">手机验证码登陆</a>
-                <a href="#">忘记密码？</a>
-            </div>
-            <div class="change">
-                <span>没有账号？</span>
-                <label for="singUp">
-                    <input type="radio" name="type" value="singUp" v-model="actionType">请注册
-                </label>
-            </div>
-        </div>
-    </div>
     </div>
     <script src="./js/component.js"></script>
     <script src="./js/app.js"></script>
