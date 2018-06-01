@@ -2,9 +2,12 @@
     var vm = new Vue({
         el: '#app',
         data: {
-            pageType: 'showLogin',
+            showIndex: true,
+            showLogin: false,
+            actionType: 'login',
             user: {
-                name: 'wjm',
+                name: '',
+                email: '',
                 pwd: '',
                 confirmPwd: '',
                 currentUser: null
@@ -22,9 +25,67 @@
             }
         },
         methods: {
+            save(e) {
+                console.log('保存')
+                if (this.user.currentUser) {
+                    //todo 已经登陆执行保存
+                } else {
+                    this.showIndex = false
+                    this.showLogin = true
+                    alert('您还未登录，请先登录!')
+                }
+            },
+            share(e) {
+                console.log('分享')
+            },
+            print(e) {},
+            changeBackground(e) {},
+            logout(e) {},
             onEdit(key, data) {
                 console.log(this.resume)
                 this.resume[key] = data
+            },
+            registered() {
+                if (this.user.pwd === this.user.confirmPwd) {
+                    let newUser = new AV.User()
+                    newUser.setUsername(this.user.name)
+                    newUser.setEmail(this.user.email)
+                    newUser.setPassword(this.user.pwd)
+                    newUser.signUp().then((loginedUser) => {
+                        this.showIndex = true
+                        this.showLogin = false
+                        alert('注册成功，即将跳转至编辑页面！')
+                    },(error) => {
+                        alert(JSON.stringify(error))
+                    })
+                } else {
+                    alert('两次密码输入不一致，请重新输入')
+                    return
+                }
+                Object.assign(this.user,{
+                    name: '',
+                    email: '',
+                    pwd: '',
+                    confirmPwd: ''
+                })
+            },
+            login() {
+                console.log('登录函数')
+                AV.User.logIn(this.user.name,this.user.pwd).then((loginedUser) => {
+                    this.showIndex = true
+                    this.showLogin = false
+                    alert('登录成功，即将跳转至编辑页面！')
+                },(error) => {
+                    if (error.code === 211) {
+                        alert('用户不存在，请先注册！')
+                    }
+                })
+                Object.assign(this.user,{
+                    name: '',
+                    email: '',
+                    pwd: '',
+                    confirmPwd: ''
+                })
             }
         }
     })

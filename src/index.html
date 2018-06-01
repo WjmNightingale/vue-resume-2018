@@ -15,23 +15,23 @@
 
 <body>
     <div id="app" class="app">
-        <div id="index" class="index" v-if="pageType === 'showIndex'">
+        <div id="index" class="index" v-show="showIndex">
             <aside>
                 <ul class="side-navigation">
                     <li>
-                        <button>保存</button>
+                        <button @click=save>保存</button>
                     </li>
                     <li>
-                        <button>分享</button>
+                        <button @click=share>分享</button>
                     </li>
                     <li>
-                        <button>打印</button>
+                        <button @click=print>打印</button>
                     </li>
                     <li>
-                        <button>换肤</button>
+                        <button @click=changeBackground>换肤</button>
                     </li>
                     <li>
-                        <button>退出</button>
+                        <button @click=logout>退出</button>
                     </li>
                 </ul>
             </aside>
@@ -159,14 +159,18 @@
                 </div>
             </div>
         </div>
-        <div class="login-or-registered" v-if="pageType === 'showLogin'">
-            <!-- <div class="registered container" v-if="actionType === 'registered'">
+        <div class="login-or-registered" v-show="showLogin">
+            <div class="registered container" v-if="actionType === 'registered'">
                 <h1>Vue.js简历编辑器</h1>
                 <p>欢迎注册</p>
-                <form @submit.prevent=singUp>
+                <form @submit.prevent=registered>
                     <div class="formRow">
-                        <span>用户名:</span>
+                        <span>昵称:</span>
                         <input type="text" v-model="user.name" placeholder="请输入您的用户名">
+                    </div>
+                    <div class="formRow">
+                        <span>邮箱:</span>
+                        <input type="email" v-model="user.email" placeholder="请输入您的用户名">
                     </div>
                     <div class="horizon"></div>
                     <div class="formRow">
@@ -176,11 +180,11 @@
                     <div class="horizon"></div>
                     <div class="formRow">
                         <span>确认密码:</span>
-                        <input type="password" v-model="user.pwd" placeholder="请输入您的密码">
+                        <input type="password" v-model="user.confirmPwd" placeholder="请输入您的密码">
                     </div>
                     <div class="horizon"></div>
-                    <label for="formActions" class="formActions">
-                        <input type="submit" value="注册">
+                    <label for="submit-registered" class="formActions">
+                        <input id="submit-registered" type="submit" value="注册">
                     </label>
                 </form>
                 <div class="protocol">
@@ -190,26 +194,24 @@
                 <div class="change">
                     <span>已有账号？</span>
                     <label for="login">
-                        <input id="login" type="radio" name="type" v-model="actionType">去登陆
+                        <input id="login" type="radio" value="login" v-model="actionType">去登陆
                     </label>
                 </div>
-            </div> -->
-            <div is="registered-template" v-bind:user="user"></div>
-            <div is="login-template" v-bind:user="user"></div>
-            <!-- <div class="login container" v-if="actionType === 'login'">
+            </div>
+            <div class="login container" v-if="actionType === 'login'">
                 <h1>Vue.js简历编辑器</h1>
                 <p>欢迎使用</p>
-                <form @submit.prevent="login">
+                <form @submit.prevent=login>
                     <div class="formRow">
-                        <input type="text" v-model="user.username" placeholder="请输入您的用户名">
+                        <input type="text" v-model="user.name" placeholder="请输入您的昵称">
                     </div>
                     <div class="horizon"></div>
                     <div class="formRow">
-                        <input type="password" v-model="user.password" placeholder="请输入您的密码">
+                        <input type="password" v-model="user.pwd" placeholder="请输入您的密码">
                     </div>
                     <div class="horizon"></div>
-                    <label for="formActions" class="formActions">
-                        <input type="submit" value="登陆">
+                    <label for="submit-login" class="formActions">
+                        <input id="submit-login" type="submit" value="登陆">
                     </label>
                 </form>
                 <div class="protocol">
@@ -218,13 +220,14 @@
                 </div>
                 <div class="change">
                     <span>没有账号？</span>
-                    <label for="singUp">
-                        <input type="radio" name="type" value="singUp" v-model="actionType">去注册
+                    <label for="registered">
+                        <input id="registered" type="radio" value="registered" v-model="actionType">去注册
                     </label>
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>
+    <script src="./js/av-init.js"></script>
     <script src="./js/component.js"></script>
     <script src="./js/app.js"></script>
 </body>
