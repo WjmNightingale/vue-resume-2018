@@ -47,19 +47,21 @@
                                 <editable-span v-bind:value="resume.address" v-on:edit="onEdit('address',$event)"></editable-span> |&nbsp;
                                 <editable-span v-bind:value="resume.phone" v-on:edit="onEdit('phone',$event)"></editable-span>
                             </div>
+                            <div class="job-title">
+                                <span>求职意向: &nbsp;</span>
+                                <editable-span v-bind:value="resume.jobTitle" v-on:edit="onEdit('jobTitle',$event)"></editable-span>
+                            </div>
                             <div class="links">
-                                <a href="#">
-                                    <span>博客: &nbsp;</span>
-                                    <editable-span v-bind:value="resume.blogLink" v-on:edit="onEdit('blogLink',$event)"></editable-span>
-                                </a>
                                 <a href="#">
                                     <span>Github: &nbsp;</span>
                                     <editable-span v-bind:value="resume.githubLink" v-on:edit="onEdit('githubLink',$event)"></editable-span>
                                 </a>
                             </div>
-                            <div class="job-title">
-                                <span>求职意向: &nbsp;</span>
-                                <editable-span v-bind:value="resume.jobTitle" v-on:edit="onEdit('jobTitle',$event)"></editable-span>
+                            <div class="links">
+                                <a href="#">
+                                    <span>个人博客: &nbsp;</span>
+                                    <editable-span v-bind:value="resume.blogLink" v-on:edit="onEdit('blogLink',$event)"></editable-span>
+                                </a>
                             </div>
                         </div>
                     </section>
@@ -70,34 +72,30 @@
                     <section class="skills">
                         <h1>技能描述</h1>
                         <ul>
-                            <div class="start">
-                                <li>
-                                    <span class="name"> 静态页面制作</span>
-                                    <div class="description">
-                                        完美实现设计稿
-                                    </div>
-                                </li>
-                                <li>
-                                    <span class="name"> 静态页面制作</span>
-                                    <div class="description">
-                                        完美实现设计稿
-                                    </div>
-                                </li>
-                            </div>
-                            <div class="end">
-                                <li>
-                                    <span class="name"> 静态页面制作</span>
-                                    <div class="description">
-                                        完美实现设计稿
-                                    </div>
-                                </li>
-                                <li>
-                                    <span class="name"> 静态页面制作</span>
-                                    <div class="description">
-                                        完美实现设计稿
-                                    </div>
-                                </li>
-                            </div>
+                            <li>
+                                <span class="name"> 静态页面制作</span>
+                                <div class="description">
+                                    完美实现设计稿
+                                </div>
+                            </li>
+                            <li>
+                                <span class="name"> 静态页面制作</span>
+                                <div class="description">
+                                    完美实现设计稿
+                                </div>
+                            </li>
+                            <li>
+                                <span class="name"> 静态页面制作</span>
+                                <div class="description">
+                                    完美实现设计稿
+                                </div>
+                            </li>
+                            <li>
+                                <span class="name"> 静态页面制作</span>
+                                <div class="description">
+                                    完美实现设计稿
+                                </div>
+                            </li>
                         </ul>
                     </section>
                     <section class="projects">

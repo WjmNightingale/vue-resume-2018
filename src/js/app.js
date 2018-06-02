@@ -13,10 +13,10 @@
                 currentUser: null
             },
             resume: {
-                name: '王峻名',
+                name: '王大状',
                 gender: '男',
-                age: '24岁',
-                address: '江西景德镇',
+                age: '23岁',
+                address: '江西南昌市',
                 phone: '13599307813',
                 email: 'example@example.com',
                 blogLink: 'https://wjmnightingale.github.io/wjmBlog.github.io',
@@ -29,6 +29,7 @@
                 console.log('保存')
                 if (this.user.currentUser) {
                     //todo 已经登陆执行保存
+                    this.saveResume()
                 } else {
                     this.showIndex = false
                     this.showLogin = true
@@ -41,6 +42,16 @@
             print(e) {},
             changeBackground(e) {},
             logout(e) {},
+            saveResume() {
+                let {id} = AV.User.current()
+                let user = AV.Object.createWithoutData('User',id)
+                user.set('resume',this.resume)
+                user.save().then((data) => {
+                    alert('保存成功！')
+                },(error) => {
+                    alert('保存失败')
+                })
+            },
             onEdit(key, data) {
                 console.log(this.resume)
                 this.resume[key] = data
@@ -55,6 +66,8 @@
                         this.showIndex = true
                         this.showLogin = false
                         alert('注册成功，即将跳转至编辑页面！')
+                        let currentUser = AV.User.current()
+                        this.user.currentUser = currentUser
                     },(error) => {
                         alert(JSON.stringify(error))
                     })
@@ -74,6 +87,8 @@
                 AV.User.logIn(this.user.name,this.user.pwd).then((loginedUser) => {
                     this.showIndex = true
                     this.showLogin = false
+                    let currentUser = AV.User.current()
+                    this.user.currentUser = currentUser
                     alert('登录成功，即将跳转至编辑页面！')
                 },(error) => {
                     if (error.code === 211) {
