@@ -21,52 +21,20 @@
                 blogLink: 'https://wjmnightingale.github.io/wjmBlog.github.io',
                 githubLink: 'https://github.com/WjmNightingale',
                 jobTitle: '前端工程师',
-                skills: [{
-                        name: '技能1',
-                        description: '技能1非常厉害的第一步，在 globals.ts 里给 console 添加 assert 方法,第一步，在 globals.ts 里给 console 添加 assert 方法,第一步，在 globals.ts 里给 console 添加 assert 方法'
-                    },
+                skills: [
                     {
-                        name: '技能2',
-                        description: '技能2非常厉害的'
-                    },
-                    {
-                        name: '技能3',
-                        description: '技能3非常厉害的'
-                    },
-                    {
-                        name: '技能4',
-                        description: '技能4非常厉害的'
+                        name: '请填写技能名称',
+                        description: '请填写技能描述'
                     }
                 ],
                 projects: [
                     {
-                        name: 'Canvas轻画板1',
-                        keywords: 'Canvas、jQuery、移动端',
-                        description: '一个轻量级画板一个轻量级画板一个轻量级画板一个轻量级画板一个轻量级画板一个轻量级画板一个轻量级画板一个轻量级画板一个轻量级画板一个轻量级画板一个轻量级画板',
-                        previewLink: '***这里是预览链接***',
-                        codeLink: '***这里是代码链接***'
-                    },
-                    {
-                        name: 'Canvas轻画板2',
-                        keywords: 'Canvas、jQuery、移动端',
-                        description: '一个轻量级画板',
-                        previewLink: '***这里是预览链接***',
-                        codeLink: '***这里是代码链接***'
-                    },
-                    {
-                        name: 'Canvas轻画板3',
-                        keywords: 'Canvas、jQuery、移动端',
-                        description: '一个轻量级画板',
-                        previewLink: '***这里是预览链接***',
-                        codeLink: '***这里是代码链接***'
-                    },
-                    {
-                        name: 'Canvas轻画板4',
-                        keywords: 'Canvas、jQuery、移动端',
-                        description: '一个轻量级画板',
-                        previewLink: '***这里是预览链接***',
-                        codeLink: '***这里是代码链接***'
-                    }
+                    name: '请填写项目名称',
+                    keywords: '请填写项目关键词',
+                    description: '请填写项目描述',
+                    previewLink: '请填写项目预览链接',
+                    codeLink: '请填写项目源码链接'
+                }
                 ]
             }
         },

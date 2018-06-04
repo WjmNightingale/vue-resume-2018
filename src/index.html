@@ -110,9 +110,10 @@
                                     <span>源码链接：</span>
                                     <editable-span v-bind:value="project.codeLink" v-on:edit="onEdit(`projects[${index}].codeLink`,$event)"></editable-span>
                                 </div>
+                                <div class="horizon"></div>
                             </li>
-                            <span class="add-project" @click=addProject title="添加你的项目经历">+</span>
                         </ol>
+                        <span class="add-project" @click=addProject title="添加你的项目经历">+</span>
                     </section>
                 </div>
             </div>

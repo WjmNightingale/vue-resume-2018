@@ -29,6 +29,14 @@
     .editable-textarea:hover svg:hover {
         cursor: pointer;
     }
+    .editable-span input,
+    .editable-textarea input {
+        min-width: 36vw;
+        color: green;
+        font-size: 16px;
+        line-height: 16px;
+        padding: 4px;
+    }
     /* 主页面css */
     .app {
         display: flex;
@@ -89,7 +97,7 @@
         align-items: center;
         margin: 60px 0;
         width: 48vw;
-        border: 1px solid red;
+        /* border: 1px solid red; */
     }
     .resume-edit-area>.main>.resume section h1 {
         padding: 4px 0;
@@ -137,7 +145,7 @@
     }
     .resume-edit-area>.main>.resume>.skills>ul>li {
         margin: 16px 0px;
-        border: 1px solid red;
+        /* border: 1px solid red; */
         position: relative;
         padding: 4px;
     }
@@ -160,24 +168,6 @@
         top: 0;
         right: 6px;
     }
-    /* .resume-edit-area>.main>.resume>section .editable-span svg,
-    .resume-edit-area>.main>.resume>section .editable-textarea svg {
-        display: none;
-        width: 18px;
-        height: 18px;
-        fill: #757575;
-        margin-left: 6px;
-    }
-
-    .resume-edit-area>.main>.resume>section .editable-span:hover svg,
-    .resume-edit-area>.main>.resume>section .editable-textarea:hover svg {
-        display: block;
-    }
-
-    .resume-edit-area>.main>.resume>section .editable-span:hover svg:hover,
-    .resume-edit-area>.main>.resume>section .editable-textarea:hover svg:hover {
-        cursor: pointer;
-    } */
     .resume-edit-area>.main>.resume>.skills>ul>li .skill-description {
         position: relative;
         padding: 0 8px 8px 8px;
@@ -222,13 +212,14 @@
         cursor: pointer;
     }
     .resume-edit-area>.main>.resume>.projects>ol li {
-        border: 1px solid red;
+        /* border: 1px solid red; */
         margin: 16px 0 12px 0;
     }
-    .resume-edit-area>.main>.resume>.projects>ol li>div {
+    .resume-edit-area>.main>.resume>.projects>ol li>div:not(:nth-child(3)) {
         display: flex;
         /* align-items: center; */
-        border: 1px solid black;
+        /* border: 1px solid black; */
+        align-items: center;
         margin: 4px;
         padding: 4px;
     }
@@ -264,12 +255,6 @@
 
     .resume-edit-area>.main>.resume>.projects>ol li>.project-preview-link>span,
     .resume-edit-area>.main>.resume>.projects>ol li>.project-code-link>span  {
-        color: red;
-    }
-
-    .resume-edit-area>.main>.resume>.projects>ol li>.project-preview-link input,
-    .resume-edit-area>.main>.resume>.projects>ol li>.project-code-link input  {
-        min-width: 400px;
         color: red;
     }
 
