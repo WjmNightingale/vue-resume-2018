@@ -78,55 +78,40 @@
                         <h1>技能描述</h1>
                         <ul>
                             <li v-for="(skill,index) in resume.skills">
-                                <editable-span class="name" v-bind:value="skill.name" v-on:edit="onEdit(`skills[${index}].name`,$event)"></editable-span>
-                                <div class="description">
-                                    <editable-span v-bind:value="skill.description" v-on:edit="onEdit(`skills[${index}].description`,$event)"></editable-span>
-                                </div>
-                                <div class="description">
-                                    <editable-textarea v-bind:value="skill.description" v-on:edit="onEdit(`skills[${index}].description`,$event)"></editable-textarea>
-                                </div>
-                                <span class="remove" @click=removeSkill>X</span>
+                                <editable-span class="skill-name" v-bind:value="skill.name" v-on:edit="onEdit(`skills[${index}].name`,$event)"></editable-span>
+                                <div class="horizon"></div>
+                                <editable-textarea class="skill-description" v-bind:value="skill.description" v-on:edit="onEdit(`skills[${index}].description`,$event)"></editable-textarea>
+                                <span class="remove" @click=removeSkill title="删除该技能描述">X</span>
                             </li>
                         </ul>
-                        <span @click=addSkill>+</span>
+                        <span class="add-skill" @click=addSkill title="添加你的技能描述">+</span>
                     </section>
                     <section class="projects">
                         <h1>项目经历</h1>
                         <ol>
                             <li v-for="(project,index) in resume.projects">
-                                <div class="title">
-                                    <editable-span class="name" v-bind:value="project.name" v-on:edit="onEdit(`projects[${index}].name`,$event)"></editable-span>
-                                    <editable-span class="keywords" v-bind:value="project.keywords" v-on:edit="onEdit(`projects[${index}].keywords`,$event)"></editable-span>
+                                <div class="project-name">
+                                    <span>项目名称：</span>
+                                    <editable-span v-bind:value="project.name" v-on:edit="onEdit(`projects[${index}].name`,$event)"></editable-span>
                                 </div>
-                                <editable-span class="description" v-bind:value="project.description" v-on:edit="onEdit(`projects[${index}].description`,$event)"></editable-span>
-                                <div class="links">
-                                    <span>阅览链接：
-                                        <editable-span v-bind:value="project.previewLink" v-on:edit="onEdit(`projects[${index}].previewLink`,$event)"></editable-span>
-                                    </span>
+                                <div class="project-keywords">
+                                    <span>关键词：</span>
+                                    <editable-span v-bind:value="project.keywords" v-on:edit="onEdit(`projects[${index}].keywords`,$event)"></editable-span>
                                 </div>
-                                <div class="cover">
-                                    <span>源码链接：
-                                        <editable-span v-bind:value="project.codeLink" v-on:edit="onEdit(`projects[${index}].codeLink`,$event)"></editable-span>
-                                    </span>
+                                <div class="project-description">
+                                    <span>项目描述</span>
+                                    <editable-textarea v-bind:value="project.description" v-on:edit="onEdit(`projects[${index}].description`,$event)"></editable-textarea>
                                 </div>
-                            </li>
-                            <li>
-                                <div class="title">
-                                    <span class="name">我的简历</span>
-                                    <span class="keywords">CSS3.jQuery.响应式</span>
+                                <div class="project-preview-link">
+                                    <span>阅览链接：</span>
+                                    <editable-span v-bind:value="project.previewLink" v-on:edit="onEdit(`projects[${index}].previewLink`,$event)"></editable-span>
                                 </div>
-                                <span class="description">我是怎么做这个项目的</span>
-                                <div class="links">
-                                    <span>阅览链接：
-                                        <span>https://aaa.bbb.com</span>
-                                    </span>
-                                </div>
-                                <div class="cover">
-                                    <span>源码链接：
-                                        <span class="cover">https://ccc.ddd.com</span>
-                                    </span>
+                                <div class="project-code-link">
+                                    <span>源码链接：</span>
+                                    <editable-span v-bind:value="project.codeLink" v-on:edit="onEdit(`projects[${index}].codeLink`,$event)"></editable-span>
                                 </div>
                             </li>
+                            <span class="add-project" @click=addProject title="添加你的项目经历">+</span>
                         </ol>
                     </section>
                 </div>

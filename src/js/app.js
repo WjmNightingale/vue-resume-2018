@@ -23,7 +23,7 @@
                 jobTitle: '前端工程师',
                 skills: [{
                         name: '技能1',
-                        description: '技能1非常厉害的'
+                        description: '技能1非常厉害的第一步，在 globals.ts 里给 console 添加 assert 方法,第一步，在 globals.ts 里给 console 添加 assert 方法,第一步，在 globals.ts 里给 console 添加 assert 方法'
                     },
                     {
                         name: '技能2',
@@ -42,7 +42,7 @@
                     {
                         name: 'Canvas轻画板1',
                         keywords: 'Canvas、jQuery、移动端',
-                        description: '一个轻量级画板',
+                        description: '一个轻量级画板一个轻量级画板一个轻量级画板一个轻量级画板一个轻量级画板一个轻量级画板一个轻量级画板一个轻量级画板一个轻量级画板一个轻量级画板一个轻量级画板',
                         previewLink: '***这里是预览链接***',
                         codeLink: '***这里是代码链接***'
                     },
@@ -95,6 +95,16 @@
                 this.resume.skills.push({
                     name: '请填写技能名称',
                     description: '请填写技能描述'
+                })
+            },
+            addProject() {
+                console.log('add a project')
+                this.resume.projects.push({
+                    name: '请填写项目名称',
+                    keywords: '请填写项目关键词',
+                    description: '请填写项目描述',
+                    previewLink: '请填写项目预览链接',
+                    codeLink: '请填写项目源码链接'
                 })
             },
             removeSkill(index) {

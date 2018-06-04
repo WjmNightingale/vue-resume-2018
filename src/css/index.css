@@ -1,4 +1,35 @@
 @media (min-width: 500px) {
+    div[v-cloak] {
+        display: none;
+    }
+    .horizon {
+        width: 100%;
+        height: 1px;
+        background-color: #999;
+        margin-top: 4px;
+    }
+    .editable-span,
+    .editable-textarea {
+        display: flex;
+        align-items: center;
+    }
+    .editable-span svg,
+    .editable-textarea svg {
+        display: none;
+        width: 18px;
+        height: 18px;
+        fill: #757575;
+        margin-left: 6px;
+    }
+    .editable-span:hover svg,
+    .editable-textarea:hover svg {
+        display: block;
+    }
+    .editable-span:hover svg:hover,
+    .editable-textarea:hover svg:hover {
+        cursor: pointer;
+    }
+    /* 主页面css */
     .app {
         display: flex;
         justify-content: center;
@@ -37,7 +68,6 @@
         transition: all 0.2s linear;
         transform: scale(1.1);
     }
-    
     .app>.resume-edit-area>.main {
         /* main宽度自动填充 */
         flex-grow: 1;
@@ -58,6 +88,7 @@
         justify-content: space-around;
         align-items: center;
         margin: 60px 0;
+        width: 48vw;
         border: 1px solid red;
     }
     .resume-edit-area>.main>.resume section h1 {
@@ -97,43 +128,151 @@
     .resume-edit-area>.main>.resume>.self-introduction svg:hover {
         cursor: pointer;
     }
-    .resume-edit-area>.main>.resume>.skills>ul {
+    /* 技能编辑区 */
+    .resume-edit-area>.main>.resume>.skills>ul,
+    .resume-edit-area>.main>.resume>.projects>ol {
+        width: 100%;
+        padding: 6px 8px;
         border: 1px solid orange;
     }
     .resume-edit-area>.main>.resume>.skills>ul>li {
-        margin: 6px 6px;
+        margin: 16px 0px;
         border: 1px solid red;
+        position: relative;
+        padding: 4px;
     }
-    .resume-edit-area>.main>.resume>.skills>ul li .name>span {
-        color: blue;
+    .resume-edit-area>.main>.resume>.skills>ul>li .skill-name {
+        display: flex;
+        align-items: center;
+        /* margin-bottom: 12px; */
     }
-    .resume-edit-area>.main>.resume>.skills>ul li .description span {
+    .resume-edit-area>.main>.resume>.skills>ul>li .skill-name>span {
+        font-size: 24px;
         color: red;
     }
-    .resume-edit-area>.main>.resume>.skills>ul>div>li:first-child {
-        margin-right: 24px;
+    .resume-edit-area>.main>.resume>.skills>ul>li .skill-name>input {
+        height: 32px;
+        line-height: 20px;
+        font-size: 20px;
     }
-    .resume-edit-area>.main>.resume>.projects>ol {
-        margin-left: 66px;
+    .resume-edit-area>.main>.resume>.skills>ul>li .skill-description>svg {
+        position: absolute;
+        top: 0;
+        right: 6px;
     }
-    .resume-edit-area>.main>.resume>.projects>ol>li {
+    /* .resume-edit-area>.main>.resume>section .editable-span svg,
+    .resume-edit-area>.main>.resume>section .editable-textarea svg {
+        display: none;
+        width: 18px;
+        height: 18px;
+        fill: #757575;
+        margin-left: 6px;
+    }
+
+    .resume-edit-area>.main>.resume>section .editable-span:hover svg,
+    .resume-edit-area>.main>.resume>section .editable-textarea:hover svg {
+        display: block;
+    }
+
+    .resume-edit-area>.main>.resume>section .editable-span:hover svg:hover,
+    .resume-edit-area>.main>.resume>section .editable-textarea:hover svg:hover {
+        cursor: pointer;
+    } */
+    .resume-edit-area>.main>.resume>.skills>ul>li .skill-description {
+        position: relative;
+        padding: 0 8px 8px 8px;
+    }
+    .resume-edit-area>.main>.resume>.skills>ul>li .skill-description>p,
+    .resume-edit-area>.main>.resume>.skills>ul>li .skill-description>textarea {
+        margin-top: 16px;
+        width: 100%;
+        font-size: 20px;
+        line-height: 20px;
+        border: 1px solid #999;
+        border-radius: 5px;
+        padding: 10px 8px;
+    }
+    .resume-edit-area>.main>.resume>.skills>ul>li .remove {
+        position: absolute;
+        top: 2px;
+        right: 6px;
+        color: gray;
+        font-size: 28px;
+    }
+    .resume-edit-area>.main>.resume>.skills>ul>li .remove:hover {
+        cursor: pointer;
+    }
+    .resume-edit-area>.main>.resume>.skills>ul>li .skill-description {
+        padding: 6px;
+        /* border: 1px solid blue; */
+    }
+    .resume-edit-area>.main>.resume>.skills .add-skill,
+    .resume-edit-area>.main>.resume>.projects .add-project {
+        width: 80px;
+        height: 40px;
+        border-radius: 5px;
+        line-height: 38px;
+        font-size: 38px;
+        background: #c62f2f;
+        text-align: center;
+        color: white;
+    }
+    .resume-edit-area>.main>.resume>.skills .add-skill:hover,
+    .resume-edit-area>.main>.resume>.projects .add-project:hover {
+        cursor: pointer;
+    }
+    .resume-edit-area>.main>.resume>.projects>ol li {
         border: 1px solid red;
-        margin: 24px 6px 12px 0;
+        margin: 16px 0 12px 0;
     }
-    .resume-edit-area>.main>.resume>.projects>ol>li>.title {
-        margin-bottom: 12px;
-        color: red;
+    .resume-edit-area>.main>.resume>.projects>ol li>div {
+        display: flex;
+        /* align-items: center; */
+        border: 1px solid black;
+        margin: 4px;
+        padding: 4px;
     }
-    .resume-edit-area>.main>.resume>.projects>ol>li>.title span:first-child {
-        margin-right: 46px;
+    .resume-edit-area>.main>.resume>.projects>ol li>.project-name>span {
+        border: 1px solid red;
     }
-    .resume-edit-area>.main>.resume>.projects>ol>li>.description {
-        color: blue;
+    .resume-edit-area>.main>.resume>.projects>ol li>.project-description {
+        display: flex;
+        flex-direction: column;
     }
-    .resume-edit-area>.main>.resume>.projects>ol>li>.links {
+    .resume-edit-area>.main>.resume>.projects>ol li>.project-description .editable-textarea {
+        position: relative;
+    }
+    .resume-edit-area>.main>.resume>.projects>ol li>.project-description svg {
+        position: absolute;
+        top: -8px;
+        right: 4px;
+    }
+    .resume-edit-area>.main>.resume>.projects>ol li>.project-description span {
+        border: 1px solid red;
+    }
+    .resume-edit-area>.main>.resume>.projects>ol li>.project-description p,
+    .resume-edit-area>.main>.resume>.projects>ol li>.project-description textarea {
+        width: 100%;
         margin-top: 12px;
-        margin-bottom: 12px;
+        padding: 4px;
+        border: 1px solid #999;
+        border-radius: 5px;
+        font-size: 20px;
+        line-height: 20px;
+        color: #333;
     }
+
+    .resume-edit-area>.main>.resume>.projects>ol li>.project-preview-link>span,
+    .resume-edit-area>.main>.resume>.projects>ol li>.project-code-link>span  {
+        color: red;
+    }
+
+    .resume-edit-area>.main>.resume>.projects>ol li>.project-preview-link input,
+    .resume-edit-area>.main>.resume>.projects>ol li>.project-code-link input  {
+        min-width: 400px;
+        color: red;
+    }
+
     .login-or-registered {
         display: flex;
         justify-content: center;

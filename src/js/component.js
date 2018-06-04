@@ -26,7 +26,7 @@
         template: `
         <div class="editable-textarea">
                 <p v-show="!editingName">{{value}}</p>
-                <textarea v-show="editingName" type="text" v-bind:value="value" @input="update"></textarea>
+                <textarea v-show="editingName" type="text" v-bind:value="value" @input="update" cols=8 rows=4></textarea>
                 <svg class="icon edit" aria-hidden="true"  @click="editingName = !editingName">
                     <use xlink:href="#icon-edit"></use>
                 </svg>
