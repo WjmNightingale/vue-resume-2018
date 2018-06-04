@@ -4,23 +4,24 @@
         justify-content: center;
         align-items: center;
     }
-    .index {
+    .app>.resume-edit-area {
         display: flex;
         height: 100vh;
         width: 100vw;
     }
-    .index>aside>.side-navigation {
-        width: 140px;
+    /* 侧边功能栏 */
+    .app>.resume-edit-area .side-navigation {
+        width: 160px;
         height: 100vh;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
         align-items: center;
     }
-    .index>aside>.side-navigation>li {
+    .app>.resume-edit-area .side-navigation>li {
         margin: 4px 0;
     }
-    .index>aside>.side-navigation>li>button {
+    .app>.resume-edit-area .side-navigation>li>button {
         width: 60px;
         height: 40px;
         border-radius: 5px;
@@ -31,27 +32,27 @@
         font-size: 18px;
         font-family: Arial, Helvetica, sans-serif;
     }
-    .index>aside>.side-navigation>li>button:hover {
+    .app>.resume-edit-area .side-navigation>li>button:hover {
         cursor: pointer;
         transition: all 0.2s linear;
         transform: scale(1.1);
     }
-    .index>.main {
+    
+    .app>.resume-edit-area>.main {
         /* main宽度自动填充 */
         flex-grow: 1;
         padding: 0 40px;
-        /* margin-left: 140px; */
         background-color: #0070c0;
         overflow: auto;
     }
-    .index>.main>.resume {
+    .resume-edit-area>.main>.resume {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
         align-items: center;
         background-color: white;
     }
-    .index>.main>.resume section {
+    .resume-edit-area>.main>.resume section {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
@@ -59,7 +60,7 @@
         margin: 60px 0;
         border: 1px solid red;
     }
-    .index>.main>.resume section h1 {
+    .resume-edit-area>.main>.resume section h1 {
         padding: 4px 0;
         width: 180px;
         margin-bottom: 12px;
@@ -68,65 +69,68 @@
         color: #0070c0;
         border: 1px solid #0070c0;
     }
-    .index>.main>.resume>.self-introduction>div {
+    .resume-edit-area>.main>.resume>.self-introduction>div {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        /* border: 1px solid red; */
     }
-    .index>.main>.resume>.self-introduction>div>div {
-        /* border: 1px solid red; */
+    .resume-edit-area>.main>.resume>.self-introduction>div>div {
         margin-top: 6px;
     }
-    .index>.main>.resume>.self-introduction>div>div.links input {
+    .resume-edit-area>.main>.resume>.self-introduction>div>div.links input {
         min-width: 400px;
     }
-    .index>.main>.resume>.self-introduction>div>div.template>span {
+    .resume-edit-area>.main>.resume>.self-introduction>div>div.template>span {
         font-size: 26px;
         color: black;
     }
-    .index>.main>.resume>.self-introduction>div>div.details,
-    .index>.main>.resume>.self-introduction>div>div.links a,
-    .index>.main>.resume>.self-introduction>div>div.job-title,
-    .index>.main>.resume>.skills .start,
-    .index>.main>.resume>.skills .end {
+    .resume-edit-area>.main>.resume>.self-introduction>div>div.details,
+    .resume-edit-area>.main>.resume>.self-introduction>div>div.links a,
+    .resume-edit-area>.main>.resume>.self-introduction>div>div.job-title,
+    .resume-edit-area>.main>.resume>.skills .start,
+    .resume-edit-area>.main>.resume>.skills .end {
         display: flex;
         flex-direction: row;
         color: gray;
     }
-    .index>.main>.resume>.self-introduction svg:hover {
+    .resume-edit-area>.main>.resume>.self-introduction svg:hover {
         cursor: pointer;
     }
-    .index>.main>.resume>.skills>ul {
+    .resume-edit-area>.main>.resume>.skills>ul {
         border: 1px solid orange;
     }
-    .index>.main>.resume>.skills>ul> li {
+    .resume-edit-area>.main>.resume>.skills>ul>li {
         margin: 6px 6px;
         border: 1px solid red;
     }
-    .index>.main>.resume>.skills>ul>div>li:first-child {
+    .resume-edit-area>.main>.resume>.skills>ul li .name>span {
+        color: blue;
+    }
+    .resume-edit-area>.main>.resume>.skills>ul li .description span {
+        color: red;
+    }
+    .resume-edit-area>.main>.resume>.skills>ul>div>li:first-child {
         margin-right: 24px;
     }
-    .index>.main>.resume>.projects>ol {
+    .resume-edit-area>.main>.resume>.projects>ol {
         margin-left: 66px;
-        /* border: 1px solid orange; */
     }
-    .index>.main>.resume>.projects>ol>li {
+    .resume-edit-area>.main>.resume>.projects>ol>li {
         border: 1px solid red;
         margin: 24px 6px 12px 0;
     }
-    .index>.main>.resume>.projects>ol>li>.title {
+    .resume-edit-area>.main>.resume>.projects>ol>li>.title {
         margin-bottom: 12px;
         color: red;
     }
-    .index>.main>.resume>.projects>ol>li>.title span:first-child {
+    .resume-edit-area>.main>.resume>.projects>ol>li>.title span:first-child {
         margin-right: 46px;
     }
-    .index>.main>.resume>.projects>ol>li>.description {
+    .resume-edit-area>.main>.resume>.projects>ol>li>.description {
         color: blue;
     }
-    .index>.main>.resume>.projects>ol>li>.links {
+    .resume-edit-area>.main>.resume>.projects>ol>li>.links {
         margin-top: 12px;
         margin-bottom: 12px;
     }

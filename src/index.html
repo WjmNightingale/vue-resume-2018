@@ -8,16 +8,19 @@
     <title>vue-resume-2018</title>
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/index.css">
-    <script src="//at.alicdn.com/t/font_631516_g58cn91ktwo5stt9.js"></script>
+    <script src="//at.alicdn.com/t/font_691556_pzp2ul2br9mp9zfr.js"></script>
     <script src="../vendors/leancloud-storage/av-min.js"></script>
     <script src="../vendors/vue/vue.min.js"></script>
 </head>
 
 <body>
     <div id="app" class="app">
-        <div id="index" class="index" v-show="showIndex">
+        <div id="resume-edit-area" class="resume-edit-area" v-show="showEditArea">
             <aside>
                 <ul class="side-navigation">
+                    <li>
+                        <button @click=preview>预览</button>
+                    </li>
                     <li>
                         <button @click=save>保存</button>
                     </li>
@@ -37,6 +40,8 @@
             </aside>
             <div class="main">
                 <div class="resume">
+                    <!-- <div>展示登陆后用户信息：{{user.currentUser}}</div>
+                    <div>展示简历信息：{{resume}}</div> -->
                     <section class="self-introduction">
                         <h1>个人简介</h1>
                         <div>
@@ -59,7 +64,7 @@
                             </div>
                             <div class="links">
                                 <a href="#">
-                                    <span>个人博客: &nbsp;</span>
+                                    <span>博客: &nbsp;</span>
                                     <editable-span v-bind:value="resume.blogLink" v-on:edit="onEdit('blogLink',$event)"></editable-span>
                                 </a>
                             </div>
@@ -72,72 +77,42 @@
                     <section class="skills">
                         <h1>技能描述</h1>
                         <ul>
-                            <li>
-                                <span class="name"> 静态页面制作</span>
+                            <li v-for="(skill,index) in resume.skills">
+                                <editable-span class="name" v-bind:value="skill.name" v-on:edit="onEdit(`skills[${index}].name`,$event)"></editable-span>
                                 <div class="description">
-                                    完美实现设计稿
+                                    <editable-span v-bind:value="skill.description" v-on:edit="onEdit(`skills[${index}].description`,$event)"></editable-span>
                                 </div>
-                            </li>
-                            <li>
-                                <span class="name"> 静态页面制作</span>
                                 <div class="description">
-                                    完美实现设计稿
+                                    <editable-textarea v-bind:value="skill.description" v-on:edit="onEdit(`skills[${index}].description`,$event)"></editable-textarea>
                                 </div>
-                            </li>
-                            <li>
-                                <span class="name"> 静态页面制作</span>
-                                <div class="description">
-                                    完美实现设计稿
-                                </div>
-                            </li>
-                            <li>
-                                <span class="name"> 静态页面制作</span>
-                                <div class="description">
-                                    完美实现设计稿
-                                </div>
+                                <span class="remove" @click=removeSkill>X</span>
                             </li>
                         </ul>
+                        <span @click=addSkill>+</span>
                     </section>
                     <section class="projects">
                         <h1>项目经历</h1>
                         <ol>
-                            <li>
+                            <li v-for="(project,index) in resume.projects">
                                 <div class="title">
-                                    <span class="nam">我的简历</span>
-                                    <span class="keywords">CSS3.jQuery.响应式</span>
+                                    <editable-span class="name" v-bind:value="project.name" v-on:edit="onEdit(`projects[${index}].name`,$event)"></editable-span>
+                                    <editable-span class="keywords" v-bind:value="project.keywords" v-on:edit="onEdit(`projects[${index}].keywords`,$event)"></editable-span>
                                 </div>
-                                <span class="description">我是怎么做这个项目的</span>
+                                <editable-span class="description" v-bind:value="project.description" v-on:edit="onEdit(`projects[${index}].description`,$event)"></editable-span>
                                 <div class="links">
                                     <span>阅览链接：
-                                        <span>https://aaa.bbb.com</span>
+                                        <editable-span v-bind:value="project.previewLink" v-on:edit="onEdit(`projects[${index}].previewLink`,$event)"></editable-span>
                                     </span>
                                 </div>
                                 <div class="cover">
                                     <span>源码链接：
-                                        <span class="cover">https://ccc.ddd.com</span>
+                                        <editable-span v-bind:value="project.codeLink" v-on:edit="onEdit(`projects[${index}].codeLink`,$event)"></editable-span>
                                     </span>
                                 </div>
                             </li>
                             <li>
                                 <div class="title">
-                                    <span class="nam">作品1</span>
-                                    <span class="keywords">CSS3.jQuery.响应式</span>
-                                </div>
-                                <span class="description">我是怎么做这个项目的</span>
-                                <div class="links">
-                                    <span>阅览链接：
-                                        <span>https://aaa.bbb.com</span>
-                                    </span>
-                                </div>
-                                <div class="cover">
-                                    <span>源码链接：
-                                        <span class="cover">https://ccc.ddd.com</span>
-                                    </span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="title">
-                                    <span class="nam">作品2</span>
+                                    <span class="name">我的简历</span>
                                     <span class="keywords">CSS3.jQuery.响应式</span>
                                 </div>
                                 <span class="description">我是怎么做这个项目的</span>
@@ -157,7 +132,7 @@
                 </div>
             </div>
         </div>
-        <div class="login-or-registered" v-show="showLogin">
+        <div class="login-or-registered" v-show="!showEditArea" v-cloak>
             <div class="registered container" v-if="actionType === 'registered'">
                 <h1>Vue.js简历编辑器</h1>
                 <p>欢迎注册</p>
