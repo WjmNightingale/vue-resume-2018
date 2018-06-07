@@ -16,7 +16,7 @@
         },
         methods: {
             update(e) {
-                console.log(e.target.value)
+                // console.log(e.target.value)
                 this.$emit('edit', e.target.value)
             }
         }

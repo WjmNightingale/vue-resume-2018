@@ -32,7 +32,7 @@
     .editable-span input,
     .editable-textarea input {
         min-width: 36vw;
-        color: green;
+        color: #757575;
         font-size: 16px;
         line-height: 16px;
         padding: 4px;
@@ -108,33 +108,30 @@
         color: #0070c0;
         border: 1px solid #0070c0;
     }
-    .resume-edit-area>.main>.resume>.self-introduction>div {
+    /* 个人简介信息 */
+    .resume-edit-area>.main>.resume>.self-introduction>.details {
+        border: 1px solid red;
+        min-width: 50vw;
+    }
+    .resume-edit-area>.main>.resume>.self-introduction>.details>div {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
+        margin: 6px;
+        padding: 6px;
+        /* border: 1px solid red; */
     }
-    .resume-edit-area>.main>.resume>.self-introduction>div>div {
-        margin-top: 6px;
+    .resume-edit-area>.main>.resume>.self-introduction>.details>div>span {
+        font-size: 22px;
+        color: #333;
+        margin-right: 2px;
+        border: 1px solid red;
     }
-    .resume-edit-area>.main>.resume>.self-introduction>div>div.links input {
-        min-width: 400px;
-    }
-    .resume-edit-area>.main>.resume>.self-introduction>div>div.template>span {
-        font-size: 26px;
+    .resume-edit-area>.main>.resume>.self-introduction>.details>div .editable-span>span {
+        font-size: 22px;
         color: black;
-    }
-    .resume-edit-area>.main>.resume>.self-introduction>div>div.details,
-    .resume-edit-area>.main>.resume>.self-introduction>div>div.links a,
-    .resume-edit-area>.main>.resume>.self-introduction>div>div.job-title,
-    .resume-edit-area>.main>.resume>.skills .start,
-    .resume-edit-area>.main>.resume>.skills .end {
-        display: flex;
-        flex-direction: row;
-        color: gray;
-    }
-    .resume-edit-area>.main>.resume>.self-introduction svg:hover {
-        cursor: pointer;
+        margin-right: 2px;
+        /* border: 1px solid red; */
     }
     /* 技能编辑区 */
     .resume-edit-area>.main>.resume>.skills>ul,
@@ -215,13 +212,21 @@
         /* border: 1px solid red; */
         margin: 16px 0 12px 0;
     }
-    .resume-edit-area>.main>.resume>.projects>ol li>div:not(:nth-child(3)) {
-        display: flex;
-        /* align-items: center; */
-        /* border: 1px solid black; */
-        align-items: center;
+    .resume-edit-area>.main>.resume>.projects>ol li>div {
+        border: 1px solid red;
         margin: 4px;
         padding: 4px;
+    }
+    .resume-edit-area>.main>.resume>.projects>ol li>div:not(:nth-child(3)) {
+        display: flex;
+        align-items: center;
+    }
+    .resume-edit-area>.main>.resume>.projects>ol li>div.horizon {
+        width: 100%;
+        height: 1px;
+        background-color: #999;
+        margin-top: 4px;
+        padding: 0;
     }
     .resume-edit-area>.main>.resume>.projects>ol li>.project-name>span {
         border: 1px solid red;
@@ -252,12 +257,10 @@
         line-height: 20px;
         color: #333;
     }
-
     .resume-edit-area>.main>.resume>.projects>ol li>.project-preview-link>span,
-    .resume-edit-area>.main>.resume>.projects>ol li>.project-code-link>span  {
+    .resume-edit-area>.main>.resume>.projects>ol li>.project-code-link>span {
         color: red;
     }
-
     .login-or-registered {
         display: flex;
         justify-content: center;

@@ -44,12 +44,38 @@
                     <div>展示简历信息：{{resume}}</div> -->
                     <section class="self-introduction">
                         <h1>个人简介</h1>
-                        <div>
-                            <editable-span v-bind:value="resume.name" v-on:edit="onEdit('name',$event)"></editable-span>
-                            <div class="details">
-                                <editable-span v-bind:value="resume.gender" v-on:edit="onEdit('gender',$event)"></editable-span> |&nbsp;
-                                <editable-span v-bind:value="resume.age" v-on:edit="onEdit('age',$event)"></editable-span> |&nbsp;
-                                <editable-span v-bind:value="resume.address" v-on:edit="onEdit('address',$event)"></editable-span> |&nbsp;
+                        <div class="details">
+                            <div class="applicant-name">
+                                <span>姓名：</span>
+                                <editable-span v-bind:value="resume.name" v-on:edit="onEdit('name',$event)"></editable-span>
+                            </div>
+                            <div class="applicant-gender">
+                                <span>性别：</span>
+                                <select name="gender" id="gender" v-model="resume.gender">
+                                    <option disabled value="">请选择</option>
+                                    <option>男</option>
+                                    <option>女</option>
+                                </select>
+                            </div>
+                            <div class="applicant-age">
+                                <span>年龄：</span>
+                                <editable-span v-bind:value="resume.age" v-on:edit="onEdit('age',$event)"></editable-span>
+                            </div>
+                            <div class="address">
+                                <span>居住地：</span>
+                                <!-- <editable-span v-bind:value="resume.address" v-on:edit="onEdit('address',$event)"></editable-span> -->
+                                <select name="address" id="address" v-model="resume.address.prov">
+                                        <option v-for="option in arr" v-bind:value="option.name">{{option.name}}</option>
+                                    </select>
+                                    <select name="city" id="city" v-model="resume.address.city">
+                                        <option v-for="option in cityArr" v-bind:value="option.name">{{option.name}}</option>
+                                    </select>
+                                    <select name="district" id="district" v-model="resume.address.district" v-if="resume.address.district">
+                                        <option v-for="option in districtArr" v-bind:value="option.name">{{option.name}}</option>
+                                    </select>
+                            </div>
+                            <div class="contact">
+                                <span>手机号码：</span>
                                 <editable-span v-bind:value="resume.phone" v-on:edit="onEdit('phone',$event)"></editable-span>
                             </div>
                             <div class="job-title">
@@ -57,16 +83,12 @@
                                 <editable-span v-bind:value="resume.jobTitle" v-on:edit="onEdit('jobTitle',$event)"></editable-span>
                             </div>
                             <div class="links">
-                                <a href="#">
-                                    <span>Github: &nbsp;</span>
-                                    <editable-span v-bind:value="resume.githubLink" v-on:edit="onEdit('githubLink',$event)"></editable-span>
-                                </a>
+                                <span>博客链接：</span>
+                                <editable-span v-bind:value="resume.blogLink" v-on:edit="onEdit('blogLink',$event)"></editable-span>
                             </div>
                             <div class="links">
-                                <a href="#">
-                                    <span>博客: &nbsp;</span>
-                                    <editable-span v-bind:value="resume.blogLink" v-on:edit="onEdit('blogLink',$event)"></editable-span>
-                                </a>
+                                <span>Github链接：</span>
+                                <editable-span v-bind:value="resume.githubLink" v-on:edit="onEdit('githubLink',$event)"></editable-span>
                             </div>
                         </div>
                     </section>
