@@ -9299,11 +9299,15 @@ console.dir(arrAll)
 var vm = new Vue({
         el: '#app',
         data: {
+            isEditAreaActive: true,
+            showLogin: true,
+            showCover: true,
+            actionType: 'login',
+            loginWarnText: '',
+            registeredWarnText: '',
             arr: arrAll,
             cityArr: [],
             districtArr: [],
-            showEditArea: true,
-            actionType: 'login',
             user: {
                 name: '',
                 email: '',
@@ -9343,20 +9347,23 @@ var vm = new Vue({
                 console.log('这是预览')
             },
             save(e) {
-                console.log('保存')
-                if (this.user.currentUser) {
-                    //todo 已经登陆执行保存
-                    this.saveResume()
-                } else {
-                    this.showEditArea = false
-                    alert('您还未登录，请先登录!')
-                }
+                // console.log('保存')
+                // if (this.user.currentUser) {
+                //     //todo 已经登陆执行保存
+                //     this.saveResume()
+                // } else {
+                //     this.showLogin = true
+                //     this.showCover = true
+                //     this.isEditAreaActive = true
+                //     alert('您还未登录，请先登录!')
+                // }
             },
             share(e) {
+                alert('分享按钮')
                 console.log('分享')
             },
             print(e) {},
-            changeBackground(e) {},
+            edit(e) {},
             logout(e) {},
             updateCity() {
                 console.log('城市更新')
@@ -9464,6 +9471,7 @@ var vm = new Vue({
             login() {
                 console.log('登录函数')
                 AV.User.logIn(this.user.name, this.user.pwd).then((loginedUser) => {
+                    console.log()
                     this.showEditArea = true
                     let currentUser = AV.User.current()
                     this.user.currentUser = currentUser
@@ -9503,7 +9511,24 @@ var vm = new Vue({
                console.log('城市变化了')
                this.updateCity()
                this.updateDistrict()
-           }
+           },
+           user: {
+               handler: function(newVal,oldVal) {
+                   // 回调函数
+               },
+               deep: true,
+               immediate: true // 立即使用当前值执行回调函数
+           },
+           'user.pwd': function() {},
+           'user.confirmPwd': function () {}
+        },
+        computed: {
+            classObject: function() {
+                return {
+                    active: this.isEditAreaActive,
+                    'unable-click': !(this.user.name && this.user.pwd)
+                }
+            }
         }
     })
 }

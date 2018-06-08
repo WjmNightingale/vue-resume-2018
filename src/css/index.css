@@ -37,16 +37,24 @@
         line-height: 16px;
         padding: 4px;
     }
+    body {
+        position: relative;
+    }
     /* 主页面css */
     .app {
         display: flex;
         justify-content: center;
         align-items: center;
+        position: relative;
     }
     .app>.resume-edit-area {
         display: flex;
         height: 100vh;
         width: 100vw;
+        /* position: absolute; */
+    }
+    .app>.resume-edit-area.active {
+        pointer-events: none;
     }
     /* 侧边功能栏 */
     .app>.resume-edit-area .side-navigation {
@@ -123,7 +131,7 @@
     }
     .resume-edit-area>.main>.resume>.self-introduction>.details>div>span {
         font-size: 22px;
-        color: #333;
+        color: #666;
         margin-right: 2px;
         border: 1px solid red;
     }
@@ -267,7 +275,10 @@
         align-items: center;
         padding: 20px 20px;
         background-image: url(../../img/background.png);
-        height: 100vh;
+        height: 90vh;
+        position: absolute;
+        z-index: 1;
+        border-radius: 6px;
     }
     .container {
         display: flex;
@@ -287,14 +298,27 @@
         color: #0084FF;
         font-size: 24px;
     }
+    .login-or-registered .container form {
+        /* border: 1px solid red; */
+        /* width: 18vw; */
+        height: 48vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
     .container .formRow {
         /* border: 1px solid red; */
         display: flex;
         flex-direction: row;
         justify-content: center;
-        margin-top: 32px;
+        margin-top: 16px;
         margin-bottom: 2px;
         padding: 6px;
+        /* border: 1px solid white; */
+    }
+    .container .formRow:first-child {
+        margin-top: 18px;
+        /* margin-bottom: 2px; */
     }
     .container .formRow span {
         font-size: 16px;
@@ -303,11 +327,15 @@
         width: 5em;
         text-align: right;
     }
+    .container .formRow span.text-danger {
+        color: red;
+    }
     .container .formRow input {
         border: none;
         outline: none;
         background: transparent;
         font-size: 18px;
+        /* padding: 6px; */
         /* border: 1px solid red; */
         display: flex;
         justify-content: center;
@@ -328,16 +356,25 @@
     }
     .container .formActions {
         padding: 5px 0px;
-        margin-top: 48px;
+        margin-top: 8px;
         display: flex;
         justify-content: center;
+        border-radius: 6px;
         background-color: #0084FF;
+        cursor: pointer;
+    }
+    .container .formActions.unable-click {
+        cursor: not-allowed;
     }
     .container .formActions input {
         border-style: none;
         background-color: #0084FF;
         font-size: 20px;
         color: white;
+        cursor: pointer;
+    }
+    .container .formActions.unable-click input {
+        pointer-events: none;
     }
     .container .protocol {
         display: flex;
@@ -375,5 +412,16 @@
     }
     .container .change input[type="radio"] {
         display: none;
+    }
+    /* 遮罩层 */
+    .cover {
+        top: 0;
+        left: 0;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: gray;
+        opacity: 0.8;
+        pointer-events: none;
     }
 }

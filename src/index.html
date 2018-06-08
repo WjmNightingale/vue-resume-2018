@@ -15,11 +15,11 @@
 
 <body>
     <div id="app" class="app">
-        <div id="resume-edit-area" class="resume-edit-area" v-show="showEditArea">
+        <div id="resume-edit-area" class="resume-edit-area" :class="classObject">
             <aside>
                 <ul class="side-navigation">
                     <li>
-                        <button @click=changeBackground>新建</button>
+                        <button @click=edit>编辑</button>
                     </li>
                     <li>
                         <button @click=preview>预览</button>
@@ -65,14 +65,14 @@
                                 <span>居住地：</span>
                                 <!-- <editable-span v-bind:value="resume.address" v-on:edit="onEdit('address',$event)"></editable-span> -->
                                 <select name="address" id="address" v-model="resume.address.prov">
-                                        <option v-for="option in arr" v-bind:value="option.name">{{option.name}}</option>
-                                    </select>
-                                    <select name="city" id="city" v-model="resume.address.city">
-                                        <option v-for="option in cityArr" v-bind:value="option.name">{{option.name}}</option>
-                                    </select>
-                                    <select name="district" id="district" v-model="resume.address.district" v-if="resume.address.district">
-                                        <option v-for="option in districtArr" v-bind:value="option.name">{{option.name}}</option>
-                                    </select>
+                                    <option v-for="option in arr" v-bind:value="option.name">{{option.name}}</option>
+                                </select>
+                                <select name="city" id="city" v-model="resume.address.city">
+                                    <option v-for="option in cityArr" v-bind:value="option.name">{{option.name}}</option>
+                                </select>
+                                <select name="district" id="district" v-model="resume.address.district" v-if="resume.address.district">
+                                    <option v-for="option in districtArr" v-bind:value="option.name">{{option.name}}</option>
+                                </select>
                             </div>
                             <div class="contact">
                                 <span>手机号码：</span>
@@ -140,20 +140,53 @@
                 </div>
             </div>
         </div>
-        <div class="login-or-registered" v-show="!showEditArea" v-cloak>
+        <div class="login-or-registered" v-show="showLogin" v-cloak>
+            <div class="login container" v-if="actionType === 'login'">
+                <h1>Vue.js简历编辑器</h1>
+                <p>欢迎使用</p>
+                <form @submit.prevent=login>
+                    <div class="formRow">
+                        <span>昵称:</span>
+                        <input type="text" v-model="user.name" placeholder="请输入您的昵称">
+                    </div>
+                    <div class="horizon"></div>
+                    <div class="formRow">
+                        <span>密码:</span>
+                        <input type="password" v-model="user.pwd" placeholder="请输入您的密码">
+                    </div>
+                    <div class="horizon"></div>
+                    <div class="formRow">
+                        <span class="text-danger" v-model="loginWarnText">用户不存在</span>
+                    </div>
+                    <label for="submit-login" class="formActions" :class="classObject">
+                        <input id="submit-login" type="submit" value="登陆">
+                    </label>
+                </form>
+                <div class="protocol">
+                    <a href="#">手机验证码登陆</a>
+                    <a href="#">忘记密码？</a>
+                </div>
+                <div class="change">
+                    <span>没有账号？</span>
+                    <label for="registered">
+                        <input id="registered" type="radio" value="registered" v-model="actionType">去注册
+                    </label>
+                </div>
+            </div>
             <div class="registered container" v-if="actionType === 'registered'">
                 <h1>Vue.js简历编辑器</h1>
                 <p>欢迎注册</p>
                 <form @submit.prevent=registered>
                     <div class="formRow">
                         <span>昵称:</span>
-                        <input type="text" v-model="user.name" placeholder="请输入您的用户名">
+                        <input type="text" v-model="user.name" placeholder="请输入您的昵称">
                     </div>
-                    <div class="formRow">
+                    <div class="horizon"></div>
+                    <!-- <div class="formRow">
                         <span>邮箱:</span>
                         <input type="email" v-model="user.email" placeholder="请输入您的用户名">
                     </div>
-                    <div class="horizon"></div>
+                    <div class="horizon"></div> -->
                     <div class="formRow">
                         <span>密码:</span>
                         <input type="password" v-model="user.pwd" placeholder="请输入您的密码">
@@ -164,6 +197,9 @@
                         <input type="password" v-model="user.confirmPwd" placeholder="请输入您的密码">
                     </div>
                     <div class="horizon"></div>
+                    <div class="formRow">
+                            <span class="text-danger" v-model="registeredWarnText">用户不存在</span>
+                        </div>
                     <label for="submit-registered" class="formActions">
                         <input id="submit-registered" type="submit" value="注册">
                     </label>
@@ -179,34 +215,8 @@
                     </label>
                 </div>
             </div>
-            <div class="login container" v-if="actionType === 'login'">
-                <h1>Vue.js简历编辑器</h1>
-                <p>欢迎使用</p>
-                <form @submit.prevent=login>
-                    <div class="formRow">
-                        <input type="text" v-model="user.name" placeholder="请输入您的昵称">
-                    </div>
-                    <div class="horizon"></div>
-                    <div class="formRow">
-                        <input type="password" v-model="user.pwd" placeholder="请输入您的密码">
-                    </div>
-                    <div class="horizon"></div>
-                    <label for="submit-login" class="formActions">
-                        <input id="submit-login" type="submit" value="登陆">
-                    </label>
-                </form>
-                <div class="protocol">
-                    <a href="#">手机验证码登陆</a>
-                    <a href="#">忘记密码？</a>
-                </div>
-                <div class="change">
-                    <span>没有账号？</span>
-                    <label for="registered">
-                        <input id="registered" type="radio" value="registered" v-model="actionType">去注册
-                    </label>
-                </div>
-            </div>
         </div>
+        <div class="cover" v-show="showCover" v-cloak></div>
     </div>
     <script src="./js/av-init.js"></script>
     <script src="./js/component.js"></script>
