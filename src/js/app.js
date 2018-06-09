@@ -9299,6 +9299,7 @@
     var vm = new Vue({
         el: '#app',
         data: {
+            username:'',
             isEditAreaActive: true,
             showLogin: false,
             showCover: false,
@@ -9344,7 +9345,88 @@
                 }]
             }
         },
+        beforeCreate() {
+            // 在实例初始化之后
+            // 在数据观测 (data observer) 和 event/watcher 事件配置之前被调用。
+            console.log('这里是beforeCreate生命周期')
+            try {
+                //尝试调用实例的 data 和 event
+                let string = this.isEditAreaActive
+                this.test()
+                console.log(string)
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        created() {
+            // 在实例创建完成后被立即调用
+            // 在这一步，实例已完成数据观测 (data observer)，属性和方法的运算，watch/event 事件回调
+            // 挂载阶段还没开始，$el 属性目前不可见
+            try {
+                //尝试调用实例的 data 和 event
+                let string = this.isEditAreaActive
+                this.test()
+                console.log(string)
+                // 尝试读取实例的 $el 属性
+                console.log(this.$el)
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        beforeMount() {
+            // 在挂载开始之前被调用：相关的 render 函数首次被调用。
+            // 该钩子在服务器端渲染期间不被调用。
+            console.log('VM实例加载前')
+            try {
+                //尝试调用实例的 data 和 event
+                let string = this.isEditAreaActive
+                this.test()
+                console.log(string)
+                // 尝试读取实例的 $el 属性
+                console.log(this.$el)
+            } catch (error) {
+                console.log(error)
+            }
+            this.updateCity()
+            this.updateDistrict()
+        },
+        mounted() {
+            // el 被新创建的的 vm.$el替换，并且挂载到实例上去后调用这个钩子
+            // 如果root实例挂载了一个文档内元素，当 mounted 被调用时，vm.$el也在文档内
+            // mounted 不会保证所有的子组件也都一起被挂载
+            // 如果你希望等到整个视图都渲染完毕，可以用 vm.$nextTick 替换掉 mounted
+            this.$nextTick(function() {
+                // code that will run only after the entire view has been rendered
+                // this.username =  !(this.user.currentUser)?'未登录':this.user.currentUser.attributes.username
+            })
+        },
+        beforeUpdate() {
+            // 数据更新时调用，发生在虚拟 DOM 打补丁之前
+            // 这里适合在更新之前访问现有的 DOM，比如手动移除已添加的事件监听器
+            // 该钩子在服务器端渲染期间不被调用，因为只有初次渲染会在服务端进行
+        },
+        updated() {
+            // 由于数据更改导致的虚拟 DOM 重新渲染和打补丁，在这之后会调用该钩子
+            // 当这个钩子被调用时，组件 DOM 已经更新，所以你现在可以执行依赖于 DOM 的操作
+            // 然而在大多数情况下，你应该避免在此期间更改状态
+            // 如果要相应状态改变，通常最好使用计算属性或 watcher 取而代之
+            // 注意 updated 不会承诺所有的子组件也都一起被重绘
+            // 如果你希望等到整个视图都重绘完毕，可以用 vm.$nextTick 替换掉 updated
+            this.$nextTick(function() {
+                // code that will run only after the entire view has been re-rendered
+            })
+        },
+        activated() {
+            
+        },
+        deactivated() {},
+        beforeDestroy() {},
+        destroyed() {},
+        errorCaptured() {},
         methods: {
+            test() {
+                console.log('这是个测试方法')
+            },
             preview(e) {
                 console.log('这是预览')
             },
@@ -9505,10 +9587,15 @@
             login() {
                 console.log('登录函数')
                 AV.User.logIn(this.user.name, this.user.pwd).then((loginedUser) => {
-                    console.log('登录成功')
+                    console.log('登录成功,登录信息--')
+                    console.dir(loginedUser)
                     this.showEditArea = true
                     let currentUser = AV.User.current()
+                    console.log('当前用户信息--')
+                    console.dir(currentUser)
                     this.user.currentUser = currentUser
+                    console.log('赋值后')
+                    console.log(this.user.currentUser)
                     this.showLogin = false
                     this.showCover = false
                     this.isEditAreaActive = true
@@ -9543,11 +9630,6 @@
                     }
                 })
             }
-        },
-        beforeMount() {
-            console.log('VM实例加载前')
-            this.updateCity()
-            this.updateDistrict()
         },
         watch: {
             resume: {
@@ -9585,15 +9667,9 @@
                     // 'registered-unable-click': !(this.user.name && this.user.pwd && this.user.confirmPwd)
                 }
             },
-            username: function() {
-                console.log('计算属性')
-                console.log(this.user.currentUser)
-                if (!!(this.user.currentUser)) {
-                    console.log(this.user.currentUser)
-                }
-                console.log(!(this.user.currentUser)?'还未登录':this.user.currentUser.username)
-                return !(this.user.currentUser)?'还未登录':this.user.currentUser.username
-            }
+            // username: function() {
+            //     return !(this.user.currentUser)?'未登录':this.user.currentUser.attributes.username
+            // }
         }
     })
 }
