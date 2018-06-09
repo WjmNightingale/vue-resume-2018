@@ -40,6 +40,11 @@
             </aside>
             <div class="main">
                 <div class="resume">
+                    <div class="welcome" style="position: absolute;top:10px;right:120px;">{{'欢迎你，' + username}}
+                        <span>{{user.currentUser}}</span>
+                        <span>展示登录用户名</span>
+                        <span>{{username}}</span>
+                    </div>
                     <!-- <div>展示登陆后用户信息：{{user.currentUser}}</div>
                     <div>展示简历信息：{{resume}}</div> -->
                     <section class="self-introduction">
@@ -87,7 +92,7 @@
                                 <editable-span v-bind:value="resume.blogLink" v-on:edit="onEdit('blogLink',$event)"></editable-span>
                             </div>
                             <div class="links">
-                                <span>Github链接：</span>
+                                <span>Github：</span>
                                 <editable-span v-bind:value="resume.githubLink" v-on:edit="onEdit('githubLink',$event)"></editable-span>
                             </div>
                         </div>
@@ -142,23 +147,26 @@
         </div>
         <div class="login-or-registered" v-show="showLogin" v-cloak>
             <div class="login container" v-if="actionType === 'login'">
+                <svg class="icon close" aria-hidden="true" @click="close">
+                    <use xlink:href="#icon-close"></use>
+                </svg>
                 <h1>Vue.js简历编辑器</h1>
                 <p>欢迎使用</p>
                 <form @submit.prevent=login>
                     <div class="formRow">
                         <span>昵称:</span>
-                        <input type="text" v-model="user.name" placeholder="请输入您的昵称">
+                        <input type="text" v-model="user.name" placeholder="请输入您的昵称" required>
                     </div>
                     <div class="horizon"></div>
                     <div class="formRow">
                         <span>密码:</span>
-                        <input type="password" v-model="user.pwd" placeholder="请输入您的密码">
+                        <input type="password" v-model="user.pwd" placeholder="请输入您的密码" required>
                     </div>
                     <div class="horizon"></div>
                     <div class="formRow">
-                        <span class="text-danger" v-model="loginWarnText">用户不存在</span>
+                        <span v-show="showLoginWarn" class="text-danger">{{loginWarnText}}</span>
                     </div>
-                    <label for="submit-login" class="formActions" :class="classObject">
+                    <label for="submit-login" class="formActions">
                         <input id="submit-login" type="submit" value="登陆">
                     </label>
                 </form>
@@ -174,32 +182,35 @@
                 </div>
             </div>
             <div class="registered container" v-if="actionType === 'registered'">
+                <svg class="icon close" aria-hidden="true" @click="close">
+                    <use xlink:href="#icon-close"></use>
+                </svg>
                 <h1>Vue.js简历编辑器</h1>
                 <p>欢迎注册</p>
                 <form @submit.prevent=registered>
                     <div class="formRow">
                         <span>昵称:</span>
-                        <input type="text" v-model="user.name" placeholder="请输入您的昵称">
+                        <input type="text" v-model="user.name" placeholder="请输入您的昵称" required>
                     </div>
                     <div class="horizon"></div>
-                    <!-- <div class="formRow">
+                    <div class="formRow">
                         <span>邮箱:</span>
-                        <input type="email" v-model="user.email" placeholder="请输入您的用户名">
+                        <input type="email" v-model="user.email" placeholder="请输入您的邮箱地址" required>
                     </div>
-                    <div class="horizon"></div> -->
+                    <div class="horizon"></div>
                     <div class="formRow">
                         <span>密码:</span>
-                        <input type="password" v-model="user.pwd" placeholder="请输入您的密码">
+                        <input type="password" v-model="user.pwd" placeholder="请输入您的密码" required>
                     </div>
                     <div class="horizon"></div>
                     <div class="formRow">
                         <span>确认密码:</span>
-                        <input type="password" v-model="user.confirmPwd" placeholder="请输入您的密码">
+                        <input type="password" v-model="user.confirmPwd" placeholder="请再次输入您的密码" required>
                     </div>
                     <div class="horizon"></div>
                     <div class="formRow">
-                            <span class="text-danger" v-model="registeredWarnText">用户不存在</span>
-                        </div>
+                        <span v-show="showRegisteredWarn" class="text-danger">{{registeredWarnText}}</span>
+                    </div>
                     <label for="submit-registered" class="formActions">
                         <input id="submit-registered" type="submit" value="注册">
                     </label>

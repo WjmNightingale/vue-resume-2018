@@ -53,7 +53,7 @@
         width: 100vw;
         /* position: absolute; */
     }
-    .app>.resume-edit-area.active {
+    .app>.resume-edit-area.edit-area-active {
         pointer-events: none;
     }
     /* 侧边功能栏 */
@@ -286,11 +286,25 @@
         justify-content: center;
         align-content: center;
         height: 88vh;
+        position: relative;
+    }
+    .container > .close {
+        position: absolute;
+        top: 0;
+        right: -6px;
+        width: 28px;
+        height: 28px;
+        fill: #565656;
+    }
+    .container > .close:hover {
+        cursor: pointer;
     }
     .container h1 {
         color: #0084FF;
         font-size: 36px;
         text-align: center;
+        /* border: 1px solid red; */
+        margin-top: 36px;
     }
     .container>p {
         margin-top: 34px;
@@ -307,13 +321,13 @@
         justify-content: center;
     }
     .container .formRow {
-        /* border: 1px solid red; */
+        /* border: 1px solid black; */
         display: flex;
         flex-direction: row;
         justify-content: center;
-        margin-top: 16px;
+        margin-top: 8px;
         margin-bottom: 2px;
-        padding: 6px;
+        padding: 2px;
         /* border: 1px solid white; */
     }
     .container .formRow:first-child {
@@ -326,15 +340,19 @@
         color: #757575;
         width: 5em;
         text-align: right;
+        /* border: 1px solid red; */
     }
     .container .formRow span.text-danger {
+        /* word-break: keep-all; */
         color: red;
+        width: 100%;
+        text-align: center;
     }
     .container .formRow input {
         border: none;
         outline: none;
         background: transparent;
-        font-size: 18px;
+        font-size: 16px;
         /* padding: 6px; */
         /* border: 1px solid red; */
         display: flex;
@@ -363,7 +381,8 @@
         background-color: #0084FF;
         cursor: pointer;
     }
-    .container .formActions.unable-click {
+    .container .formActions.login-unable-click,
+    .container .formActions.registered-unable-click{
         cursor: not-allowed;
     }
     .container .formActions input {
@@ -373,7 +392,8 @@
         color: white;
         cursor: pointer;
     }
-    .container .formActions.unable-click input {
+    .container .formActions.login-unable-click input,
+    .container .formActions.registered-unable-click input {
         pointer-events: none;
     }
     .container .protocol {
@@ -396,7 +416,7 @@
         display: flex;
         flex-direction: row;
         justify-content: center;
-        background-color: #F6F6F6;
+        /* background-color: #F6F6F6; */
         margin: 36px 0 0 0;
         padding: 28px 0px;
         /* align-items: center; */

@@ -9295,16 +9295,18 @@
             name: "其他"
         }
     ]
-console.dir(arrAll)
-var vm = new Vue({
+    console.dir(arrAll)
+    var vm = new Vue({
         el: '#app',
         data: {
             isEditAreaActive: true,
-            showLogin: true,
-            showCover: true,
+            showLogin: false,
+            showCover: false,
             actionType: 'login',
             loginWarnText: '',
+            showLoginWarn: false,
             registeredWarnText: '',
+            showRegisteredWarn: false,
             arr: arrAll,
             cityArr: [],
             districtArr: [],
@@ -9313,7 +9315,7 @@ var vm = new Vue({
                 email: '',
                 pwd: '',
                 confirmPwd: '',
-                currentUser: null
+                currentUser: null,
             },
             resume: {
                 name: '请输入您的姓名',
@@ -9347,16 +9349,21 @@ var vm = new Vue({
                 console.log('这是预览')
             },
             save(e) {
-                // console.log('保存')
-                // if (this.user.currentUser) {
-                //     //todo 已经登陆执行保存
-                //     this.saveResume()
-                // } else {
-                //     this.showLogin = true
-                //     this.showCover = true
-                //     this.isEditAreaActive = true
-                //     alert('您还未登录，请先登录!')
-                // }
+                console.log('保存')
+                if (this.user.currentUser) {
+                    //todo 已经登陆执行保存
+                    this.saveResume()
+                } else {
+                    this.showLogin = true
+                    this.showCover = true
+                    this.isEditAreaActive = false
+                    alert('您还未登录，请先登录!')
+                }
+            },
+            close(e) {
+                this.showLogin = false
+                this.showCover = false
+                this.isEditAreaActive = true
             },
             share(e) {
                 alert('分享按钮')
@@ -9444,48 +9451,96 @@ var vm = new Vue({
                 //this.resume[key] = data
             },
             registered() {
-                if (this.user.pwd === this.user.confirmPwd) {
-                    let newUser = new AV.User()
-                    newUser.setUsername(this.user.name)
-                    newUser.setEmail(this.user.email)
-                    newUser.setPassword(this.user.pwd)
-                    newUser.signUp().then((loginedUser) => {
-                        this.showEditArea = true
-                        alert('注册成功，即将跳转至编辑页面！')
-                        let currentUser = AV.User.current()
-                        this.user.currentUser = currentUser
-                    }, (error) => {
-                        alert(JSON.stringify(error))
-                    })
+                console.log('这里是注册函数')
+                let regExp = /^[\w]{6,12}$/
+                if (!(this.user.pwd === this.user.confirmPwd)) {
+                    console.log('前后密码输入不一致')
+                    this.showRegisteredWarn = true
+                    this.registeredWarnText = '两次密码输入不一致!'
                 } else {
-                    alert('两次密码输入不一致，请重新输入')
-                    return
+                    console.log('前后密码一致')
+                    if (!regExp.test(this.user.pwd)) {
+                        console.log('密码格式bu规范')
+                        this.showRegisteredWarn = true
+                        this.registeredWarnText = '密码必须为6-12位的字母、数字或下划线!'
+                    } else {
+                        console.log('密码格式规范')
+                        let newUser = new AV.User()
+                        newUser.setUsername(this.user.name)
+                        newUser.setEmail(this.user.email)
+                        newUser.setPassword(this.user.pwd)
+                        console.log('开始登录')
+                        newUser.signUp().then((loginedUser) => {
+                            console.log('登录成功，登录信息为---')
+                            console.log(loginedUser)
+                            alert('登录成功！')
+                            this.showLogin = false
+                            this.showCover = false
+                            this.isEditAreaActive = true
+                            this.user.currentUser = AV.User.current()
+                            Object.assign(this.user, {
+                                name: '',
+                                email: '',
+                                pwd: '',
+                                confirmPwd: ''
+                            })
+                        }, (error) => {
+                            this.showLoginWarn = true
+                            console.log(JSON.stringify(error))
+                            let code = error.code
+                            switch (code) {
+                                case 202:
+                                    this.registeredWarnText = '该用户名已被注册使用！'
+                                    break;
+                                case 203:
+                                    this.registeredWarnText = '该邮箱已被注册使用！'
+                                    break;
+                                default:
+                                    break;
+                            }
+                        })
+                    }
                 }
-                Object.assign(this.user, {
-                    name: '',
-                    email: '',
-                    pwd: '',
-                    confirmPwd: ''
-                })
             },
             login() {
                 console.log('登录函数')
                 AV.User.logIn(this.user.name, this.user.pwd).then((loginedUser) => {
-                    console.log()
+                    console.log('登录成功')
                     this.showEditArea = true
                     let currentUser = AV.User.current()
                     this.user.currentUser = currentUser
+                    this.showLogin = false
+                    this.showCover = false
+                    this.isEditAreaActive = true
                     alert('登录成功，即将跳转至编辑页面！')
+                    Object.assign(this.user, {
+                        name: '',
+                        email: '',
+                        pwd: '',
+                        confirmPwd: ''
+                    })
                 }, (error) => {
-                    if (error.code === 211) {
-                        alert('用户不存在，请先注册！')
+                    this.showLoginWarn = true
+                    let code = error.code
+                    console.log(JSON.stringify(error))
+                    console.log('cod是---' + code)
+                    switch (code) {
+                        case 211:
+                            // alert('用户不存在')
+                            this.loginWarnText = '用户不存在！'
+                            break;
+                        case 210:
+                            // alert('不匹配')
+                            this.loginWarnText = '账号密码不匹配！'
+                            break;
+                        case 219:
+                            // 登录失败次数过多
+                            this.loginWarnText = '登录异常，请稍后再试'
+                            break;
+                        default:
+                            // 默认什么也不做
+                            break;
                     }
-                })
-                Object.assign(this.user, {
-                    name: '',
-                    email: '',
-                    pwd: '',
-                    confirmPwd: ''
                 })
             }
         },
@@ -9496,38 +9551,48 @@ var vm = new Vue({
         },
         watch: {
             resume: {
-                handler: function(newVal,oldVal) {
+                handler: function (newVal, oldVal) {
                     // console.log(newVal.prov)
                 },
                 deep: true // 对象内部的属性监听，也叫深度监听
             },
             // 键路径必须加上引号
-           'resume.address.prov': function() {
-               console.log('省份变化了')
-               this.updateCity()
-               this.updateDistrict()
-           },
-           'resume.address.city': function() {
-               console.log('城市变化了')
-               this.updateCity()
-               this.updateDistrict()
-           },
-           user: {
-               handler: function(newVal,oldVal) {
-                   // 回调函数
-               },
-               deep: true,
-               immediate: true // 立即使用当前值执行回调函数
-           },
-           'user.pwd': function() {},
-           'user.confirmPwd': function () {}
+            'resume.address.prov': function () {
+                console.log('省份变化了')
+                this.updateCity()
+                this.updateDistrict()
+            },
+            'resume.address.city': function () {
+                console.log('城市变化了')
+                this.updateCity()
+                this.updateDistrict()
+            },
+            user: {
+                handler: function (newVal, oldVal) {
+                    // 回调函数
+                },
+                deep: true,
+                immediate: true // 立即使用当前值执行回调函数
+            },
+            'user.pwd': function () {},
+            'user.confirmPwd': function () {}
         },
         computed: {
-            classObject: function() {
+            classObject: function () {
                 return {
-                    active: this.isEditAreaActive,
-                    'unable-click': !(this.user.name && this.user.pwd)
+                    'edit-area-active': !this.isEditAreaActive,
+                    // 'login-unable-click': !(this.user.name && this.user.pwd),
+                    // 'registered-unable-click': !(this.user.name && this.user.pwd && this.user.confirmPwd)
                 }
+            },
+            username: function() {
+                console.log('计算属性')
+                console.log(this.user.currentUser)
+                if (!!(this.user.currentUser)) {
+                    console.log(this.user.currentUser)
+                }
+                console.log(!(this.user.currentUser)?'还未登录':this.user.currentUser.username)
+                return !(this.user.currentUser)?'还未登录':this.user.currentUser.username
             }
         }
     })
