@@ -9301,6 +9301,8 @@
         data: {
             username:'',
             isEditAreaActive: true,
+            showEditArea: false,
+            showPreviewArea: true,
             showLogin: false,
             showCover: false,
             actionType: 'login',
@@ -9343,7 +9345,8 @@
                     previewLink: '请填写项目预览链接',
                     codeLink: '请填写项目源码链接'
                 }]
-            }
+            },
+            previewResume: {}
         },
         beforeCreate() {
             // 在实例初始化之后
@@ -9429,6 +9432,8 @@
             },
             preview(e) {
                 console.log('这是预览')
+                this.showEditArea = false
+                this.showPreviewArea = true
             },
             save(e) {
                 console.log('保存')
@@ -9451,8 +9456,14 @@
                 alert('分享按钮')
                 console.log('分享')
             },
-            print(e) {},
-            edit(e) {},
+            print(e) {
+                window.print()
+            },
+            edit(e) {
+                console.log('这是编辑')
+                this.showEditArea = true
+                this.showPreviewArea = false
+            },
             logout(e) {},
             updateCity() {
                 console.log('城市更新')
@@ -9498,7 +9509,11 @@
                 })
             },
             removeSkill(index) {
+                console.log(index)
                 this.resume.skills.splice(index, 1)
+            },
+            removeProject(index) {
+                this.resume.projects.splice(index,1)
             },
             saveResume() {
                 let {
@@ -9513,7 +9528,7 @@
                 })
             },
             onEdit(key, data) {
-                // console.log(typeof key)
+                console.log(typeof key)
                 // console.log(key)
                 // key = 'skills[0].name'
                 let regex = /\[(\d+)\]/g

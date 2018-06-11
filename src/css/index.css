@@ -1,5 +1,6 @@
 @media (min-width: 500px) {
-    div[v-cloak] {
+    div[v-cloak],
+    select[v-cloak] {
         display: none;
     }
     .horizon {
@@ -31,7 +32,7 @@
     }
     .editable-span input,
     .editable-textarea input {
-        min-width: 36vw;
+        min-width: 26vw;
         color: #757575;
         font-size: 16px;
         line-height: 16px;
@@ -58,7 +59,7 @@
     }
     /* 侧边功能栏 */
     .app>.resume-edit-area .side-navigation {
-        width: 160px;
+        width: 120px;
         height: 100vh;
         display: flex;
         flex-direction: column;
@@ -105,7 +106,6 @@
         align-items: center;
         margin: 60px 0;
         width: 48vw;
-        /* border: 1px solid red; */
     }
     .resume-edit-area>.main>.resume section h1 {
         padding: 4px 0;
@@ -130,16 +130,28 @@
         /* border: 1px solid red; */
     }
     .resume-edit-area>.main>.resume>.self-introduction>.details>div>span {
-        font-size: 22px;
+        font-size: 18px;
         color: #666;
-        margin-right: 2px;
-        border: 1px solid red;
+        /* margin-right: 2px; */
+        /* border: 1px solid red; */
     }
     .resume-edit-area>.main>.resume>.self-introduction>.details>div .editable-span>span {
-        font-size: 22px;
-        color: black;
+        font-size: 20px;
+        color: #333;
         margin-right: 2px;
         /* border: 1px solid red; */
+    }
+    .resume-edit-area>.main>.resume>.self-introduction>.details  select {
+        border: 1px solid #999;
+        height: 28px;
+        line-height: 28px;
+        font-size: 16px;
+        margin-right: 2px;
+        border-radius: 4px;
+        /* outline: none; */
+    }
+    .resume-edit-area>.main>.resume>.self-introduction>.details  select:focus {
+        outline: none;
     }
     /* 技能编辑区 */
     .resume-edit-area>.main>.resume>.skills>ul,
@@ -147,12 +159,15 @@
         width: 100%;
         padding: 6px 8px;
         border: 1px solid orange;
+        /* display: flex;
+        flex-wrap: wrap; */
     }
     .resume-edit-area>.main>.resume>.skills>ul>li {
         margin: 16px 0px;
         /* border: 1px solid red; */
         position: relative;
         padding: 4px;
+        width: 98%;
     }
     .resume-edit-area>.main>.resume>.skills>ul>li .skill-name {
         display: flex;
@@ -187,14 +202,14 @@
         border-radius: 5px;
         padding: 10px 8px;
     }
-    .resume-edit-area>.main>.resume>.skills>ul>li .remove {
+    .resume-edit-area>.main>.resume .remove {
         position: absolute;
         top: 2px;
         right: 6px;
         color: gray;
         font-size: 28px;
     }
-    .resume-edit-area>.main>.resume>.skills>ul>li .remove:hover {
+    .resume-edit-area>.main>.resume .remove:hover {
         cursor: pointer;
     }
     .resume-edit-area>.main>.resume>.skills>ul>li .skill-description {
@@ -203,11 +218,11 @@
     }
     .resume-edit-area>.main>.resume>.skills .add-skill,
     .resume-edit-area>.main>.resume>.projects .add-project {
-        width: 80px;
+        width: 100px;
         height: 40px;
         border-radius: 5px;
-        line-height: 38px;
-        font-size: 38px;
+        line-height: 40px;
+        font-size: 18px;
         background: #c62f2f;
         text-align: center;
         color: white;
@@ -217,8 +232,9 @@
         cursor: pointer;
     }
     .resume-edit-area>.main>.resume>.projects>ol li {
-        /* border: 1px solid red; */
+        border: 1px solid red;
         margin: 16px 0 12px 0;
+        position: relative;
     }
     .resume-edit-area>.main>.resume>.projects>ol li>div {
         border: 1px solid red;
@@ -242,6 +258,7 @@
     .resume-edit-area>.main>.resume>.projects>ol li>.project-description {
         display: flex;
         flex-direction: column;
+        /* background-color: red; */
     }
     .resume-edit-area>.main>.resume>.projects>ol li>.project-description .editable-textarea {
         position: relative;
@@ -256,7 +273,7 @@
     }
     .resume-edit-area>.main>.resume>.projects>ol li>.project-description p,
     .resume-edit-area>.main>.resume>.projects>ol li>.project-description textarea {
-        width: 100%;
+        width: 36vw;
         margin-top: 12px;
         padding: 4px;
         border: 1px solid #999;
@@ -264,10 +281,16 @@
         font-size: 20px;
         line-height: 20px;
         color: #333;
+        flex-grow: 1;
     }
     .resume-edit-area>.main>.resume>.projects>ol li>.project-preview-link>span,
     .resume-edit-area>.main>.resume>.projects>ol li>.project-code-link>span {
         color: red;
+    }
+    /* 预览区域 */
+    .resume-preview {
+        border: 1px solid red;
+        background-color: white;
     }
     .login-or-registered {
         display: flex;
