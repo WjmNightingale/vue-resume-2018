@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>简历编辑器</title>
     <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/index.css" media="screen">
     <link rel="stylesheet" href="css/print.css" media="print">
     <script src="//at.alicdn.com/t/font_691556_pzp2ul2br9mp9zfr.js"></script>
     <script src="../vendors/leancloud-storage/av-min.js"></script>
@@ -17,7 +17,7 @@
 <body>
     <div id="app" class="app">
         <div id="resume" class="resume" :class="classObject">
-            <aside>
+            <aside v-show="showEditArea">
                 <ul class="side-navigation">
                     <li>
                         <button @click=edit>编辑</button>
@@ -30,9 +30,6 @@
                     </li>
                     <li>
                         <button @click=share>分享</button>
-                    </li>
-                    <li>
-                        <button @click=print>打印</button>
                     </li>
                     <li>
                         <button @click=logout>退出</button>
@@ -68,13 +65,13 @@
                             <div class="address" v-cloak>
                                 <span>居住地：</span>
                                 <!-- <editable-span v-bind:value="resume.address" v-on:edit="onEdit('address',$event)"></editable-span> -->
-                                <select name="address" id="address" v-model="resume.address.prov"  v-cloak>
+                                <select name="address" id="address" v-model="resume.address.prov" v-cloak>
                                     <option v-for="option in arr" v-bind:value="option.name">{{option.name}}</option>
                                 </select>
-                                <select name="city" id="city" v-model="resume.address.city"  v-cloak>
+                                <select name="city" id="city" v-model="resume.address.city" v-cloak>
                                     <option v-for="option in cityArr" v-bind:value="option.name">{{option.name}}</option>
                                 </select>
-                                <select name="district" id="district" v-model="resume.address.district" v-if="resume.address.district"  v-cloak>
+                                <select name="district" id="district" v-model="resume.address.district" v-if="resume.address.district" v-cloak>
                                     <option v-for="option in districtArr" v-bind:value="option.name">{{option.name}}</option>
                                 </select>
                             </div>
@@ -87,27 +84,27 @@
                                 <editable-span v-bind:value="resume.jobTitle" v-on:edit="onEdit('jobTitle',$event)"></editable-span>
                             </div>
                             <div class="links">
-                                <span>博客链接：</span>
-                                <editable-span v-bind:value="resume.blogLink" v-on:edit="onEdit('blogLink',$event)"></editable-span>
-                            </div>
-                            <div class="links">
                                 <span>Github：</span>
                                 <editable-span v-bind:value="resume.githubLink" v-on:edit="onEdit('githubLink',$event)"></editable-span>
                             </div>
+                            <div class="links">
+                                <span>博客链接：</span>
+                                <editable-span v-bind:value="resume.blogLink" v-on:edit="onEdit('blogLink',$event)"></editable-span>
+                            </div>
                         </div>
                     </section>
-                    <section class="education">
+                    <!-- <section class="education">
                         <h1>教育经历</h1>
                         <p>XXX</p>
-                    </section>
+                    </section> -->
                     <section class="skills">
                         <h1>技能描述</h1>
                         <ul>
                             <li v-for="(skill,index) in resume.skills">
                                 <editable-span class="skill-name" v-bind:value="skill.name" v-on:edit="onEdit(`skills[${index}].name`,$event)"></editable-span>
-                                <div class="horizon"></div>
                                 <editable-textarea class="skill-description" v-bind:value="skill.description" v-on:edit="onEdit(`skills[${index}].description`,$event)"></editable-textarea>
-                                <span v-show="index > 0"  class="remove" @click=removeSkill(index) title="删除该技能描述">X</span>
+                                <span v-show="index > 0" class="remove" @click=removeSkill(index) title="删除该技能描述">X</span>
+                                <div class="horizon"></div>
                             </li>
                         </ul>
                         <span class="add-skill" @click=addSkill title="添加你的技能描述">添加技能</span>
@@ -118,23 +115,23 @@
                             <li v-for="(project,index) in resume.projects">
                                 <span v-show="index > 0" class="remove" @click=removeProject(index) title="删除该项目描述">X</span>
                                 <div class="project-name">
-                                    <span>项目名称：</span>
+                                    <span>项目名：</span>
                                     <editable-span v-bind:value="project.name" v-on:edit="onEdit(`projects[${index}].name`,$event)"></editable-span>
                                 </div>
                                 <div class="project-keywords">
-                                    <span>关键词：</span>
+                                    <span>技术栈：</span>
                                     <editable-span v-bind:value="project.keywords" v-on:edit="onEdit(`projects[${index}].keywords`,$event)"></editable-span>
                                 </div>
                                 <div class="project-description">
-                                    <span>项目描述</span>
+                                    <!-- <span>项目描述</span> -->
                                     <editable-textarea v-bind:value="project.description" v-on:edit="onEdit(`projects[${index}].description`,$event)"></editable-textarea>
                                 </div>
                                 <div class="project-preview-link">
-                                    <span>阅览链接：</span>
+                                    <span>预览链接</span>
                                     <editable-span v-bind:value="project.previewLink" v-on:edit="onEdit(`projects[${index}].previewLink`,$event)"></editable-span>
                                 </div>
                                 <div class="project-code-link">
-                                    <span>源码链接：</span>
+                                    <span>源码链接</span>
                                     <editable-span v-bind:value="project.codeLink" v-on:edit="onEdit(`projects[${index}].codeLink`,$event)"></editable-span>
                                 </div>
                                 <div class="horizon"></div>
@@ -143,185 +140,179 @@
                         <span class="add-project" @click=addProject title="添加你的项目经历">添加项目</span>
                     </section>
                 </div>
-                <div class="resume-preview" v-show="showPreviewArea" v-cloak>
-                        <section class="self-introduction">
-                                <h1>个人简介</h1>
-                                <div class="details">
-                                    <div class="applicant-name">
-                                        <span>姓名：</span>
-                                        <editable-span v-bind:value="resume.name" v-on:edit="onEdit('name',$event)"></editable-span>
-                                    </div>
-                                    <div class="applicant-gender" v-cloak>
-                                        <span>性别：</span>
-                                        <select name="gender" id="gender" v-model="resume.gender" v-cloak>
-                                            <option disabled value="">请选择</option>
-                                            <option>男</option>
-                                            <option>女</option>
-                                        </select>
-                                    </div>
-                                    <div class="applicant-age">
-                                        <span>年龄：</span>
-                                        <editable-span v-bind:value="resume.age" v-on:edit="onEdit('age',$event)"></editable-span>
-                                    </div>
-                                    <div class="address" v-cloak>
-                                        <span>居住地：</span>
-                                        <!-- <editable-span v-bind:value="resume.address" v-on:edit="onEdit('address',$event)"></editable-span> -->
-                                        <select name="address" id="address" v-model="resume.address.prov">
-                                            <option v-for="option in arr" v-bind:value="option.name">{{option.name}}</option>
-                                        </select>
-                                        <select name="city" id="city" v-model="resume.address.city">
-                                            <option v-for="option in cityArr" v-bind:value="option.name">{{option.name}}</option>
-                                        </select>
-                                        <select name="district" id="district" v-model="resume.address.district" v-if="resume.address.district">
-                                            <option v-for="option in districtArr" v-bind:value="option.name">{{option.name}}</option>
-                                        </select>
-                                    </div>
-                                    <div class="contact">
-                                        <span>手机号码：</span>
-                                        <editable-span v-bind:value="resume.phone" v-on:edit="onEdit('phone',$event)"></editable-span>
-                                    </div>
-                                    <div class="job-title">
-                                        <span>求职意向: &nbsp;</span>
-                                        <editable-span v-bind:value="resume.jobTitle" v-on:edit="onEdit('jobTitle',$event)"></editable-span>
-                                    </div>
-                                    <div class="links">
-                                        <span>博客链接：</span>
-                                        <editable-span v-bind:value="resume.blogLink" v-on:edit="onEdit('blogLink',$event)"></editable-span>
-                                    </div>
-                                    <div class="links">
-                                        <span>Github：</span>
-                                        <editable-span v-bind:value="resume.githubLink" v-on:edit="onEdit('githubLink',$event)"></editable-span>
-                                    </div>
+                <div id="resume-preview" class="resume-preview" v-show="showPreviewArea" v-cloak>
+                    <div v-cloak>
+                        <button class="exit-preview" @click="exitPreview">退出预览</button>
+                        <button class="print" @click=print>打印</button>
+                    </div>
+                    <section class="self-introduction">
+                        <h1>个人简介</h1>
+                        <div class="details">
+                            <h2>{{resume.name}}</h2>
+                            <div class="person">
+                                <span>{{resume.gender}}&nbsp; |</span>
+                                <span>&nbsp;{{resume.age}}&nbsp;|</span>
+                                <span>&nbsp;{{location}}&nbsp;|</span>
+                                <span>&nbsp;{{resume.phone}}</span>
+                            </div>
+                            <div class="job-title">
+                                <span>{{'求职意向：'+resume.jobTitle}}</span>
+                            </div>
+                            <div class="links">
+                                <span>{{'Github：'+resume.githubLink}}</span>
+                            </div>
+                            <div class="links">
+                                <span>{{'博客：'+resume.blogLink}}</span>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- <section class="education">
+                        <h1>教育经历</h1>
+                        <p>XXX</p>
+                    </section> -->
+                    <section class="skills">
+                        <h1>技能描述</h1>
+                        <ul>
+                            <li v-for="(skill,index) in resume.skills">
+                                <div class="skill-name">
+                                    <svg class="icon preview" aria-hidden="true" @click="editingName = !editingName">
+                                        <use xlink:href="#icon-discount"></use>
+                                    </svg>
+                                    <span>{{skill.name}}</span>
                                 </div>
-                            </section>
-                            <section class="education">
-                                <h1>教育经历</h1>
-                                <p>XXX</p>
-                            </section>
-                            <section class="skills">
-                                <h1>技能描述</h1>
-                                <ul>
-                                    <li v-for="(skill,index) in resume.skills">
-                                        <editable-span class="skill-name" v-bind:value="skill.name" v-on:edit="onEdit(`skills[${index}].name`,$event)"></editable-span>
-                                        <div class="horizon"></div>
-                                        <editable-textarea class="skill-description" v-bind:value="skill.description" v-on:edit="onEdit(`skills[${index}].description`,$event)"></editable-textarea>
-                                        <span v-show="index > 0"  class="remove" @click=removeSkill(index) title="删除该技能描述">X</span>
-                                    </li>
-                                </ul>
-                                <span class="add-skill" @click=addSkill title="添加你的技能描述">添加技能</span>
-                            </section>
-                            <section class="projects">
-                                <h1>项目经历</h1>
-                                <ol>
-                                    <li v-for="(project,index) in resume.projects">
-                                        <span v-show="index > 0" class="remove" @click=removeProject(index) title="删除该项目描述">X</span>
-                                        <div class="project-name">
-                                            <span>项目名称：</span>
-                                            <editable-span v-bind:value="project.name" v-on:edit="onEdit(`projects[${index}].name`,$event)"></editable-span>
-                                        </div>
-                                        <div class="project-keywords">
-                                            <span>关键词：</span>
-                                            <editable-span v-bind:value="project.keywords" v-on:edit="onEdit(`projects[${index}].keywords`,$event)"></editable-span>
-                                        </div>
-                                        <div class="project-description">
-                                            <span>项目描述</span>
-                                            <editable-textarea v-bind:value="project.description" v-on:edit="onEdit(`projects[${index}].description`,$event)"></editable-textarea>
-                                        </div>
-                                        <div class="project-preview-link">
-                                            <span>阅览链接：</span>
-                                            <editable-span v-bind:value="project.previewLink" v-on:edit="onEdit(`projects[${index}].previewLink`,$event)"></editable-span>
-                                        </div>
-                                        <div class="project-code-link">
-                                            <span>源码链接：</span>
-                                            <editable-span v-bind:value="project.codeLink" v-on:edit="onEdit(`projects[${index}].codeLink`,$event)"></editable-span>
-                                        </div>
-                                        <div class="horizon"></div>
-                                    </li>
-                                </ol>
-                                <span class="add-project" @click=addProject title="添加你的项目经历">添加项目</span>
-                            </section>
+                                <p class="skill-description">
+                                    {{skill.description}}
+                                </p>
+                                <div class="horizon"></div>
+                            </li>
+                        </ul>
+                    </section>
+                    <section class="projects">
+                        <h1>项目经历</h1>
+                        <ol>
+                            <li v-for="(project,index) in resume.projects">
+                                <div class="project-name">
+                                    <svg class="icon preview" aria-hidden="true">
+                                        <use xlink:href="#icon-box"></use>
+                                    </svg>
+                                    <span>{{project.name}}</span>
+                                </div>
+                                <div class="project-links">
+                                    <a v-bind:href="project.previewLink">
+                                        <span>预览链接--</span>
+                                        <svg class="icon preview" aria-hidden="true">
+                                            <use xlink:href="#icon-attachment"></use>
+                                        </svg>
+                                    </a>
+                                    <a :href="project.codeLink">
+                                        <span>源码链接--</span>
+                                        <svg class="icon preview" aria-hidden="true">
+                                            <use xlink:href="#icon-attachment"></use>
+                                        </svg>
+                                    </a>
+                                </div>
+                                <div class="project-description-title">
+                                    <svg class="icon preview" aria-hidden="true">
+                                        <use xlink:href="#icon-form"></use>
+                                    </svg>
+                                    <span>项目简介</span>
+                                </div>
+                                <p class="project-description">{{project.description}}</p>
+                                <div class="project-keywords-title">
+                                    <svg class="icon preview" aria-hidden="true">
+                                        <use xlink:href="#icon-set"></use>
+                                    </svg>
+                                    <span>技术栈</span>
+                                </div>
+                                <p class="project-keywords">{{project.keywords}}</p>
+                                <div class="horizon"></div>
+                            </li>
+                        </ol>
+                    </section>
                 </div>
             </div>
         </div>
-        <div class="login-or-registered" v-show="showLogin" v-cloak>
-            <div class="login container" v-if="actionType === 'login'">
-                <svg class="icon close" aria-hidden="true" @click="close">
-                    <use xlink:href="#icon-close"></use>
-                </svg>
-                <h1>Vue.js简历编辑器</h1>
-                <p>欢迎使用</p>
-                <form @submit.prevent=login>
-                    <div class="formRow">
-                        <span>昵称:</span>
-                        <input type="text" v-model="user.name" placeholder="请输入您的昵称" required>
+        <div class="test" v-show="showLogin" v-cloak>
+            <div class="login-or-registered">
+                <div class="login container" v-if="actionType === 'login'">
+                    <svg class="icon close" aria-hidden="true" @click="close">
+                        <use xlink:href="#icon-close"></use>
+                    </svg>
+                    <h1>Vue.js简历编辑器</h1>
+                    <p>欢迎使用</p>
+                    <form @submit.prevent=login>
+                        <div class="formRow">
+                            <span>昵称:</span>
+                            <input type="text" v-model="user.name" placeholder="请输入您的昵称" required>
+                        </div>
+                        <div class="horizon"></div>
+                        <div class="formRow">
+                            <span>密码:</span>
+                            <input type="password" v-model="user.pwd" placeholder="请输入您的密码" required>
+                        </div>
+                        <div class="horizon"></div>
+                        <div class="formRow">
+                            <span v-show="showLoginWarn" class="text-danger">{{loginWarnText}}</span>
+                        </div>
+                        <label for="submit-login" class="formActions">
+                            <input id="submit-login" type="submit" value="登陆">
+                        </label>
+                    </form>
+                    <div class="protocol">
+                        <a href="#">手机验证码登陆</a>
+                        <a href="#">忘记密码？</a>
                     </div>
-                    <div class="horizon"></div>
-                    <div class="formRow">
-                        <span>密码:</span>
-                        <input type="password" v-model="user.pwd" placeholder="请输入您的密码" required>
+                    <div class="change">
+                        <span>没有账号？</span>
+                        <label for="registered">
+                            <input id="registered" type="radio" value="registered" v-model="actionType">去注册
+                        </label>
                     </div>
-                    <div class="horizon"></div>
-                    <div class="formRow">
-                        <span v-show="showLoginWarn" class="text-danger">{{loginWarnText}}</span>
-                    </div>
-                    <label for="submit-login" class="formActions">
-                        <input id="submit-login" type="submit" value="登陆">
-                    </label>
-                </form>
-                <div class="protocol">
-                    <a href="#">手机验证码登陆</a>
-                    <a href="#">忘记密码？</a>
                 </div>
-                <div class="change">
-                    <span>没有账号？</span>
-                    <label for="registered">
-                        <input id="registered" type="radio" value="registered" v-model="actionType">去注册
-                    </label>
-                </div>
-            </div>
-            <div class="registered container" v-if="actionType === 'registered'">
-                <svg class="icon close" aria-hidden="true" @click="close">
-                    <use xlink:href="#icon-close"></use>
-                </svg>
-                <h1>Vue.js简历编辑器</h1>
-                <p>欢迎注册</p>
-                <form @submit.prevent=registered>
-                    <div class="formRow">
-                        <span>昵称:</span>
-                        <input type="text" v-model="user.name" placeholder="请输入您的昵称" required>
+                <div class="registered container" v-if="actionType === 'registered'">
+                    <svg class="icon close" aria-hidden="true" @click="close">
+                        <use xlink:href="#icon-close"></use>
+                    </svg>
+                    <h1>Vue.js简历编辑器</h1>
+                    <p>欢迎注册</p>
+                    <form @submit.prevent=registered>
+                        <div class="formRow">
+                            <span>昵称:</span>
+                            <input type="text" v-model="user.name" placeholder="请输入您的昵称" required>
+                        </div>
+                        <div class="horizon"></div>
+                        <div class="formRow">
+                            <span>邮箱:</span>
+                            <input type="email" v-model="user.email" placeholder="请输入您的邮箱地址" required>
+                        </div>
+                        <div class="horizon"></div>
+                        <div class="formRow">
+                            <span>密码:</span>
+                            <input type="password" v-model="user.pwd" placeholder="请输入您的密码" required>
+                        </div>
+                        <div class="horizon"></div>
+                        <div class="formRow">
+                            <span>确认密码:</span>
+                            <input type="password" v-model="user.confirmPwd" placeholder="请再次输入您的密码" required>
+                        </div>
+                        <div class="horizon"></div>
+                        <div class="formRow">
+                            <span v-show="showRegisteredWarn" class="text-danger">{{registeredWarnText}}</span>
+                        </div>
+                        <label for="submit-registered" class="formActions">
+                            <input id="submit-registered" type="submit" value="注册">
+                        </label>
+                    </form>
+                    <div class="protocol">
+                        <p>注册即代表你使用《假装协议》</p>
+                        <a href="#">注册机构号</a>
                     </div>
-                    <div class="horizon"></div>
-                    <div class="formRow">
-                        <span>邮箱:</span>
-                        <input type="email" v-model="user.email" placeholder="请输入您的邮箱地址" required>
+                    <div class="change">
+                        <span>已有账号？</span>
+                        <label for="login">
+                            <input id="login" type="radio" value="login" v-model="actionType">去登陆
+                        </label>
                     </div>
-                    <div class="horizon"></div>
-                    <div class="formRow">
-                        <span>密码:</span>
-                        <input type="password" v-model="user.pwd" placeholder="请输入您的密码" required>
-                    </div>
-                    <div class="horizon"></div>
-                    <div class="formRow">
-                        <span>确认密码:</span>
-                        <input type="password" v-model="user.confirmPwd" placeholder="请再次输入您的密码" required>
-                    </div>
-                    <div class="horizon"></div>
-                    <div class="formRow">
-                        <span v-show="showRegisteredWarn" class="text-danger">{{registeredWarnText}}</span>
-                    </div>
-                    <label for="submit-registered" class="formActions">
-                        <input id="submit-registered" type="submit" value="注册">
-                    </label>
-                </form>
-                <div class="protocol">
-                    <p>注册即代表你使用《假装协议》</p>
-                    <a href="#">注册机构号</a>
-                </div>
-                <div class="change">
-                    <span>已有账号？</span>
-                    <label for="login">
-                        <input id="login" type="radio" value="login" v-model="actionType">去登陆
-                    </label>
                 </div>
             </div>
         </div>

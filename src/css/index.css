@@ -1,470 +1,583 @@
 @media (min-width: 500px) {
-    div[v-cloak],
-    select[v-cloak] {
-        display: none;
-    }
-    .horizon {
-        width: 100%;
-        height: 1px;
-        background-color: #999;
-        margin-top: 4px;
-    }
-    .editable-span,
-    .editable-textarea {
-        display: flex;
-        align-items: center;
-    }
-    .editable-span svg,
-    .editable-textarea svg {
-        display: none;
-        width: 18px;
-        height: 18px;
-        fill: #757575;
-        margin-left: 6px;
-    }
-    .editable-span:hover svg,
-    .editable-textarea:hover svg {
-        display: block;
-    }
-    .editable-span:hover svg:hover,
-    .editable-textarea:hover svg:hover {
-        cursor: pointer;
-    }
-    .editable-span input,
-    .editable-textarea input {
-        min-width: 26vw;
-        color: #757575;
-        font-size: 16px;
-        line-height: 16px;
-        padding: 4px;
-    }
-    body {
-        position: relative;
-    }
-    /* 主页面css */
-    .app {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-    }
-    .app>.resume-edit-area {
-        display: flex;
-        height: 100vh;
-        width: 100vw;
-        /* position: absolute; */
-    }
-    .app>.resume-edit-area.edit-area-active {
-        pointer-events: none;
-    }
-    /* 侧边功能栏 */
-    .app>.resume-edit-area .side-navigation {
-        width: 120px;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-    }
-    .app>.resume-edit-area .side-navigation>li {
-        margin: 4px 0;
-    }
-    .app>.resume-edit-area .side-navigation>li>button {
-        width: 60px;
-        height: 40px;
-        border-radius: 5px;
-        border: none;
-        outline: none;
-        background: #c62f2f;
-        color: white;
-        font-size: 18px;
-        font-family: Arial, Helvetica, sans-serif;
-    }
-    .app>.resume-edit-area .side-navigation>li>button:hover {
-        cursor: pointer;
-        transition: all 0.2s linear;
-        transform: scale(1.1);
-    }
-    .app>.resume-edit-area>.main {
-        /* main宽度自动填充 */
-        flex-grow: 1;
-        padding: 0 40px;
-        background-color: #0070c0;
-        overflow: auto;
-    }
-    .resume-edit-area>.main>.resume {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-        background-color: white;
-    }
-    .resume-edit-area>.main>.resume section {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-        margin: 60px 0;
-        width: 48vw;
-    }
-    .resume-edit-area>.main>.resume section h1 {
-        padding: 4px 0;
-        width: 180px;
-        margin-bottom: 12px;
-        border-radius: 26px;
-        text-align: center;
-        color: #0070c0;
-        border: 1px solid #0070c0;
-    }
-    /* 个人简介信息 */
-    .resume-edit-area>.main>.resume>.self-introduction>.details {
-        border: 1px solid red;
-        min-width: 50vw;
-    }
-    .resume-edit-area>.main>.resume>.self-introduction>.details>div {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        margin: 6px;
-        padding: 6px;
-        /* border: 1px solid red; */
-    }
-    .resume-edit-area>.main>.resume>.self-introduction>.details>div>span {
-        font-size: 18px;
-        color: #666;
-        /* margin-right: 2px; */
-        /* border: 1px solid red; */
-    }
-    .resume-edit-area>.main>.resume>.self-introduction>.details>div .editable-span>span {
-        font-size: 20px;
-        color: #333;
-        margin-right: 2px;
-        /* border: 1px solid red; */
-    }
-    .resume-edit-area>.main>.resume>.self-introduction>.details  select {
-        border: 1px solid #999;
-        height: 28px;
-        line-height: 28px;
-        font-size: 16px;
-        margin-right: 2px;
-        border-radius: 4px;
-        /* outline: none; */
-    }
-    .resume-edit-area>.main>.resume>.self-introduction>.details  select:focus {
-        outline: none;
-    }
-    /* 技能编辑区 */
-    .resume-edit-area>.main>.resume>.skills>ul,
-    .resume-edit-area>.main>.resume>.projects>ol {
-        width: 100%;
-        padding: 6px 8px;
-        border: 1px solid orange;
-        /* display: flex;
-        flex-wrap: wrap; */
-    }
-    .resume-edit-area>.main>.resume>.skills>ul>li {
-        margin: 16px 0px;
-        /* border: 1px solid red; */
-        position: relative;
-        padding: 4px;
-        width: 98%;
-    }
-    .resume-edit-area>.main>.resume>.skills>ul>li .skill-name {
-        display: flex;
-        align-items: center;
-        /* margin-bottom: 12px; */
-    }
-    .resume-edit-area>.main>.resume>.skills>ul>li .skill-name>span {
-        font-size: 24px;
-        color: red;
-    }
-    .resume-edit-area>.main>.resume>.skills>ul>li .skill-name>input {
-        height: 32px;
-        line-height: 20px;
-        font-size: 20px;
-    }
-    .resume-edit-area>.main>.resume>.skills>ul>li .skill-description>svg {
-        position: absolute;
-        top: 0;
-        right: 6px;
-    }
-    .resume-edit-area>.main>.resume>.skills>ul>li .skill-description {
-        position: relative;
-        padding: 0 8px 8px 8px;
-    }
-    .resume-edit-area>.main>.resume>.skills>ul>li .skill-description>p,
-    .resume-edit-area>.main>.resume>.skills>ul>li .skill-description>textarea {
-        margin-top: 16px;
-        width: 100%;
-        font-size: 20px;
-        line-height: 20px;
-        border: 1px solid #999;
-        border-radius: 5px;
-        padding: 10px 8px;
-    }
-    .resume-edit-area>.main>.resume .remove {
-        position: absolute;
-        top: 2px;
-        right: 6px;
-        color: gray;
-        font-size: 28px;
-    }
-    .resume-edit-area>.main>.resume .remove:hover {
-        cursor: pointer;
-    }
-    .resume-edit-area>.main>.resume>.skills>ul>li .skill-description {
-        padding: 6px;
-        /* border: 1px solid blue; */
-    }
-    .resume-edit-area>.main>.resume>.skills .add-skill,
-    .resume-edit-area>.main>.resume>.projects .add-project {
-        width: 100px;
-        height: 40px;
-        border-radius: 5px;
-        line-height: 40px;
-        font-size: 18px;
-        background: #c62f2f;
-        text-align: center;
-        color: white;
-    }
-    .resume-edit-area>.main>.resume>.skills .add-skill:hover,
-    .resume-edit-area>.main>.resume>.projects .add-project:hover {
-        cursor: pointer;
-    }
-    .resume-edit-area>.main>.resume>.projects>ol li {
-        border: 1px solid red;
-        margin: 16px 0 12px 0;
-        position: relative;
-    }
-    .resume-edit-area>.main>.resume>.projects>ol li>div {
-        border: 1px solid red;
-        margin: 4px;
-        padding: 4px;
-    }
-    .resume-edit-area>.main>.resume>.projects>ol li>div:not(:nth-child(3)) {
-        display: flex;
-        align-items: center;
-    }
-    .resume-edit-area>.main>.resume>.projects>ol li>div.horizon {
-        width: 100%;
-        height: 1px;
-        background-color: #999;
-        margin-top: 4px;
-        padding: 0;
-    }
-    .resume-edit-area>.main>.resume>.projects>ol li>.project-name>span {
-        border: 1px solid red;
-    }
-    .resume-edit-area>.main>.resume>.projects>ol li>.project-description {
-        display: flex;
-        flex-direction: column;
-        /* background-color: red; */
-    }
-    .resume-edit-area>.main>.resume>.projects>ol li>.project-description .editable-textarea {
-        position: relative;
-    }
-    .resume-edit-area>.main>.resume>.projects>ol li>.project-description svg {
-        position: absolute;
-        top: -8px;
-        right: 4px;
-    }
-    .resume-edit-area>.main>.resume>.projects>ol li>.project-description span {
-        border: 1px solid red;
-    }
-    .resume-edit-area>.main>.resume>.projects>ol li>.project-description p,
-    .resume-edit-area>.main>.resume>.projects>ol li>.project-description textarea {
-        width: 36vw;
-        margin-top: 12px;
-        padding: 4px;
-        border: 1px solid #999;
-        border-radius: 5px;
-        font-size: 20px;
-        line-height: 20px;
-        color: #333;
-        flex-grow: 1;
-    }
-    .resume-edit-area>.main>.resume>.projects>ol li>.project-preview-link>span,
-    .resume-edit-area>.main>.resume>.projects>ol li>.project-code-link>span {
-        color: red;
-    }
-    /* 预览区域 */
-    .resume-preview {
-        border: 1px solid red;
-        background-color: white;
-    }
-    .login-or-registered {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 20px 20px;
-        background-image: url(../../img/background.png);
-        height: 90vh;
-        position: absolute;
-        z-index: 1;
-        border-radius: 6px;
-    }
-    .container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-content: center;
-        height: 88vh;
-        position: relative;
-    }
-    .container > .close {
-        position: absolute;
-        top: 0;
-        right: -6px;
-        width: 28px;
-        height: 28px;
-        fill: #565656;
-    }
-    .container > .close:hover {
-        cursor: pointer;
-    }
-    .container h1 {
-        color: #0084FF;
-        font-size: 36px;
-        text-align: center;
-        /* border: 1px solid red; */
-        margin-top: 36px;
-    }
-    .container>p {
-        margin-top: 34px;
-        text-align: center;
-        color: #0084FF;
-        font-size: 24px;
-    }
-    .login-or-registered .container form {
-        /* border: 1px solid red; */
-        /* width: 18vw; */
-        height: 48vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-    .container .formRow {
-        /* border: 1px solid black; */
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        margin-top: 8px;
-        margin-bottom: 2px;
-        padding: 2px;
-        /* border: 1px solid white; */
-    }
-    .container .formRow:first-child {
-        margin-top: 18px;
-        /* margin-bottom: 2px; */
-    }
-    .container .formRow span {
-        font-size: 16px;
-        margin-right: 6px;
-        color: #757575;
-        width: 5em;
-        text-align: right;
-        /* border: 1px solid red; */
-    }
-    .container .formRow span.text-danger {
-        /* word-break: keep-all; */
-        color: red;
-        width: 100%;
-        text-align: center;
-    }
-    .container .formRow input {
-        border: none;
-        outline: none;
-        background: transparent;
-        font-size: 16px;
-        /* padding: 6px; */
-        /* border: 1px solid red; */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .container .formRow input::-webkit-input-placeholder {
-        font-size: 14px;
-        color: #8590a6;
-        /* color: red; */
-    }
-    .container .formRow input:focus {
-        outline: none;
-        color: black;
-    }
-    .container .horizon {
-        height: 2px;
-        background-color: #ebebeb;
-    }
-    .container .formActions {
-        padding: 5px 0px;
-        margin-top: 8px;
-        display: flex;
-        justify-content: center;
-        border-radius: 6px;
-        background-color: #0084FF;
-        cursor: pointer;
-    }
-    .container .formActions.login-unable-click,
-    .container .formActions.registered-unable-click{
-        cursor: not-allowed;
-    }
-    .container .formActions input {
-        border-style: none;
-        background-color: #0084FF;
-        font-size: 20px;
-        color: white;
-        cursor: pointer;
-    }
-    .container .formActions.login-unable-click input,
-    .container .formActions.registered-unable-click input {
-        pointer-events: none;
-    }
-    .container .protocol {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 20px;
-    }
-    .container .protocol p {
-        font-size: 12px;
-        color: #8590a6;
-    }
-    .container .protocol a {
-        font-size: 12px;
-        color: #3b6ca9;
-        text-decoration: none;
-    }
-    .container .change {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        /* background-color: #F6F6F6; */
-        margin: 36px 0 0 0;
-        padding: 28px 0px;
-        /* align-items: center; */
-    }
-    .container .change span {
-        color: black;
-    }
-    .container .change>label {
-        color: #0084FF;
-    }
-    .container .change>label:hover {
-        cursor: pointer;
-    }
-    .container .change input[type="radio"] {
-        display: none;
-    }
-    /* 遮罩层 */
-    .cover {
-        top: 0;
-        left: 0;
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background: gray;
-        opacity: 0.8;
-        pointer-events: none;
-    }
+	/* 组件样式 */
+	div[v-cloak],
+	select[v-cloak] {
+		display: none;
+	}
+	.horizon {
+		width: 100%;
+		height: 1px;
+		background-color: #999;
+		margin-top: 8px;
+	}
+	.editable-span,
+	.editable-textarea {
+		display: flex;
+		align-items: center;
+	}
+	.editable-span svg,
+	.editable-textarea svg {
+		display: none;
+		width: 18px;
+		height: 18px;
+		fill: #757575;
+		margin-left: 6px;
+	}
+	.editable-span:hover svg,
+	.editable-textarea:hover svg {
+		display: block;
+	}
+	.editable-span:hover svg:hover,
+	.editable-textarea:hover svg:hover {
+		cursor: pointer;
+	}
+	.editable-span input,
+	.editable-textarea input {
+		min-width: 26vw;
+		color: #757575;
+		font-size: 16px;
+		line-height: 16px;
+		padding: 4px;
+	}
+	/* 页面样式 */
+	body {
+		position: relative;
+	}
+	body .app {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: relative;
+	}
+	body .app .resume {
+		display: flex;
+		height: 100vh;
+		width: 100vw;
+	}
+	body .app .resume.unable-click {
+		pointer-events: none;
+	}
+	/* 侧边功能栏 */
+	body .app .resume .side-navigation {
+		width: 120px;
+		height: 100vh;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		align-items: center;
+	}
+	body .app .resume .side-navigation li {
+		margin: 4px 0;
+	}
+	body .app .resume .side-navigation li button {
+		width: 60px;
+		height: 40px;
+		line-height: 40px;
+		border-radius: 5px;
+		border: none;
+		outline: none;
+		background: #c62f2f;
+		color: white;
+		font-size: 18px;
+	}
+	body .app .resume .side-navigation li button:hover,
+	body .app .resume .side-navigation li button.active {
+		cursor: pointer;
+		transition: all 0.2s linear;
+		transform: scale(1.1);
+	}
+	/* 简历 */
+	body .app .resume .main {
+		flex-grow: 1;
+		padding: 0 40px;
+		background-color: #0070c0;
+		overflow: auto;
+	}
+	body .app .resume .main .resume-edit {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		align-items: center;
+		background-color: white;
+	}
+	body .app .resume .main .resume-edit section {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		align-items: center;
+		margin: 20px 0;
+		width: 48vw;
+	}
+	body .app .resume .main .resume-edit section h1 {
+		padding: 4px 0;
+		width: 180px;
+		margin-bottom: 12px;
+		border-radius: 26px;
+		text-align: center;
+		color: #0070c0;
+		border: 1px solid #0070c0;
+	}
+	/* 个人简介 */
+	body .app .resume .main .resume-edit section.self-introduction .details {
+		min-width: 40vw;
+		/* border: 1px solid red; */
+		margin-top: 34px;
+	}
+	body .app .resume .main .resume-edit section.self-introduction .details>div {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		margin: 6px;
+		padding: 6px;
+	}
+	body .app .resume .main .resume-edit section.self-introduction .details>div>span {
+		font-size: 18px;
+		color: #333;
+	}
+	body .app .resume .main .resume-edit section.self-introduction .details>div .editable-span>span {
+		font-size: 18px;
+		color: #666;
+		margin-right: 2px;
+	}
+	body .app .resume .main .resume-edit section.self-introduction .details select {
+		height: 28px;
+		line-height: 28px;
+		font-size: 16px;
+		margin-right: 2px;
+		border-radius: 4px;
+		color: #666;
+		border: 1px solid #999;
+	}
+	body .app .resume .main .resume-edit section.self-introduction .details select:focus {
+		outline: none;
+	}
+	/* 技能与项目描述 */
+	body .app .resume .main .resume-edit .skills>ul,
+	body .app .resume .main .resume-edit .projects>ol {
+		width: 100%;
+		padding: 6px 8px;
+	}
+	body .app .resume .main .resume-edit .skills>ul li {
+		position: relative;
+		width: 98%;
+		padding: 4px;
+		margin: 16px 0px;
+	}
+	body .app .resume .main .resume-edit .skills>ul li .skill-name {
+		display: flex;
+		align-items: center;
+	}
+	body .app .resume .main .resume-edit .skills>ul li .skill-name>span {
+		font-size: 24px;
+		color: red;
+	}
+	body .app .resume .main .resume-edit .skills>ul li .skill-name>input {
+		height: 32px;
+		line-height: 32px;
+		font-size: 20px;
+	}
+	body .app .resume .main .resume-edit .skills>ul li .skill-description {
+		position: relative;
+		padding: 6px;
+	}
+	body .app .resume .main .resume-edit .skills>ul li .skill-description>svg {
+		position: absolute;
+		top: 0;
+		right: 6px;
+	}
+	body .app .resume .main .resume-edit .skills>ul li .skill-description>p,
+	body .app .resume .main .resume-edit .skills>ul li .skill-description>textarea {
+		width: 100%;
+		font-size: 20px;
+		border-radius: 5px;
+		padding: 10px 8px;
+		margin-top: 16px;
+		border: 1px solid #999;
+	}
+	body .app .resume .main .resume-edit .remove {
+		position: absolute;
+		top: 2px;
+		right: 6px;
+		color: gray;
+		font-size: 28px;
+	}
+	body .app .resume .main .resume-edit .remove:hover {
+		cursor: pointer;
+	}
+	body .app .resume .main .resume-edit .skills .add-skill,
+	body .app .resume .main .resume-edit .projects .add-project {
+		width: 100px;
+		height: 40px;
+		border-radius: 5px;
+		line-height: 40px;
+		font-size: 18px;
+		text-align: center;
+		color: white;
+		background: #c62f2f;
+	}
+	body .app .resume .main .resume-edit .skills .add-skill:hover,
+	body .app .resume .main .resume-edit .projects .add-project:hover {
+		cursor: pointer;
+	}
+	body .app .resume .main .resume-edit .projects ol>li {
+		margin: 16px 0 12px 0;
+		position: relative;
+	}
+	body .app .resume .main .resume-edit .projects ol>li>div {
+		margin: 4px;
+		padding: 4px;
+		display: flex;
+		align-items: center;
+	}
+	body .app .resume .main .resume-edit .projects ol>li>div.horizon {
+		width: 100%;
+		height: 1px;
+		background-color: #333;
+		padding: 0;
+	}
+	body .app .resume .main .resume-edit .projects ol>li>div>span {
+		font-size: 18px;
+		color: #353535;
+	}
+	body .app .resume .main .resume-edit .projects ol>li .editable-span>span,
+	body .app .resume .main .resume-edit .projects ol>li .editable-textarea>span {
+		font-size: 18px;
+		color: #999;
+	}
+	body .app .resume .main .resume-edit .projects ol>li>.project-description .editable-textarea {
+		position: relative;
+	}
+	body .app .resume .main .resume-edit .projects ol>li>.project-description .editable-textarea svg {
+		position: absolute;
+		top: -8px;
+		right: 4px;
+	}
+	body .app .resume .main .resume-edit .projects ol>li>.project-description span {
+		/* 项目名称 */
+		color: blue;
+	}
+	body .app .resume .main .resume-edit .projects ol>li>.project-description p,
+	body .app .resume .main .resume-edit .projects ol>li>.project-description textarea {
+		width: 46vw;
+		margin-top: 12px;
+		padding: 12px;
+		border: 1px solid #999;
+		border-radius: 5px;
+		font-size: 20px;
+		line-height: 20px;
+		color: #333;
+	}
+	body .app .resume .main .resume-edit .projects ol>li>.project-preview-link,
+	body .app .resume .main .resume-edit .projects ol>li>.project-code-link {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		/* border: 1px solid red; */
+	}
+	/* 预览区域 */
+	body .app .resume .main .resume-preview {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		align-items: center;
+		background-color: white;
+	}
+	body .app .resume .main .resume-preview section {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		align-items: center;
+		margin: 20px 0;
+		width: 48vw;
+	}
+	body .app .resume .main .resume-preview section h1 {
+		padding: 4px 0;
+		width: 180px;
+		margin-bottom: 12px;
+		border-radius: 26px;
+		text-align: center;
+		color: #0070c0;
+		border: 1px solid #0070c0;
+	}
+	body .app .resume .main .resume-preview section .preview {
+		width: 36px;
+		height: 36px;
+		fill: #0084FF;
+		margin-right: 6px;
+	}
+	body .app .resume .main .resume-preview section span {
+		font-size: 24px;
+		color: #0084FF;
+	}
+	body .app .resume .main .resume-preview .exit-preview
+	 {
+		width: 80px;
+		height: 40px;
+		line-height: 40px;
+		font-size: 16px;
+		border-radius: 5px;
+		border: none;
+		outline: none;
+		background: #c62f2f;
+		color: white;
+		position: absolute;
+		top: 10px;
+		right: 60px;
+	}
+	body .app .resume .main .resume-preview .print {
+		width: 80px;
+		height: 40px;
+		line-height: 40px;
+		font-size: 16px;
+		border-radius: 5px;
+		border: none;
+		outline: none;
+		background: #c62f2f;
+		color: white;
+		position: absolute;
+		top: 10px;
+		left: 60px;
+	}
+	body .app .resume .main .resume-preview .exit-preview:hover,
+	body .app .resume .main .resume-preview .print:hover{
+		cursor: pointer;
+		transform: scale(1.1);
+		transition: all 0.2s linear;
+	}
+	/* 个人简介 */
+	body .app .resume .main .resume-preview section.self-introduction .details {
+		min-width: 40vw;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		margin-top: 34px;
+	}
+	body .app .resume .main .resume-preview section.self-introduction .details>div {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		margin: 6px;
+		padding: 6px;
+	}
+	body .app .resume .main .resume-preview section.self-introduction .details>div>span {
+		font-size: 18px;
+		color: #333;
+	}
+	/* 技能与项目描述 */
+	body .app .resume .main .resume-preview .skills>ul,
+	body .app .resume .main .resume-preview .projects>ol {
+		width: 100%;
+		padding: 8px;
+	}
+	body .app .resume .main .resume-preview .skills>ul li {
+		width: 98%;
+		padding: 4px;
+		margin: 16px 0px;
+	}
+	body .app .resume .main .resume-preview .skills>ul li .skill-name,
+	body .app .resume .main .resume-preview .projects>ol li .project-name {
+		display: flex;
+		align-items: center;
+		/* border: 1px solid red; */
+	}
+	body .app .resume .main .resume-preview .skills>ul li .skill-description {
+		padding: 4px 8px;
+	}
+	body .app .resume .main .resume-preview .projects>ol li .project-links {
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		margin: 8px 0;
+	}
+	body .app .resume .main .resume-preview .projects>ol li .project-links a,
+	body .app .resume .main .resume-preview .projects>ol li .project-description-title,
+	body .app .resume .main .resume-preview .projects>ol li .project-keywords-title {
+		display: flex;
+		align-items: center;
+	}
+	body .app .resume .main .resume-preview .projects>ol li .project-links a span {
+		font-size: 18px;
+	}
+	body .app .resume .main .resume-preview .projects>ol li .project-links a svg {
+		width: 24px;
+		height: 24px;
+		margin: 0;
+	}
+	body .app .resume .main .resume-preview .projects p {
+		margin: 12px 0;
+	}
+	/* 登录或者注册区域 */
+	body .app .test {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		z-index: 1;
+	}
+	body .app .login-or-registered {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 20px 20px;
+		background-image: url(../../img/background.png);
+		height: 90vh;
+		position: absolute;
+		left: 460px;
+		top: 32px;
+		border-radius: 6px;
+		/* z-index: 1; */
+	}
+	body .app .login-or-registered .container {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-content: center;
+		height: 88vh;
+		position: relative;
+	}
+	body .app .login-or-registered .container>.close {
+		position: absolute;
+		top: 0;
+		right: -6px;
+		width: 28px;
+		height: 28px;
+		fill: #565656;
+	}
+	body .app .login-or-registered .container>.close:hover {
+		cursor: pointer;
+	}
+	body .app .login-or-registered .container>h1 {
+		color: #0084FF;
+		font-size: 36px;
+		text-align: center;
+		margin-top: 36px;
+	}
+	body .app .login-or-registered .container>p {
+		margin-top: 34px;
+		text-align: center;
+		color: #0084FF;
+		font-size: 24px;
+	}
+	body .app .login-or-registered .container form {
+		height: 48vh;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+	body .app .login-or-registered .container form .formRow {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		margin-top: 8px;
+		margin-bottom: 2px;
+		padding: 2px;
+	}
+	body .app .login-or-registered .container form .formRow:first-child {
+		margin-top: 18px;
+	}
+	body .app .login-or-registered .container form .formRow span {
+		font-size: 16px;
+		margin-right: 6px;
+		color: #757575;
+		width: 5em;
+		text-align: right;
+	}
+	body .app .login-or-registered .container form .formRow span.text-danger {
+		color: red;
+		width: 100%;
+		text-align: center;
+	}
+	body .app .login-or-registered .container form .formRow input {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border: none;
+		background-color: transparent;
+		font-size: 16px;
+	}
+	body .app .login-or-registered .container form .formRow input::-webkit-input-placeholder {
+		font-size: 14px;
+		color: #8590a6;
+	}
+	body .app .login-or-registered .container form .formRow input:focus {
+		outline: none;
+		color: #333;
+	}
+	body .app .login-or-registered .container .horizon {
+		height: 2px;
+		background-color: #ebebeb;
+	}
+	body .app .login-or-registered .container .formActions {
+		display: flex;
+		justify-content: center;
+		border-radius: 6px;
+		padding: 4px 0px;
+		background-color: #0084FF;
+		cursor: pointer;
+	}
+	body .app .login-or-registered .container .formActions input {
+		font-size: 24px;
+		background-color: #0084FF;
+		color: white;
+		border: none;
+	}
+	body .app .login-or-registered .container .formActions input:hover {
+		cursor: pointer;
+	}
+	body .app .login-or-registered .container .formActions input:focus {
+		outline: none;
+	}
+	body .app .login-or-registered .container .formActions.login-unable-click,
+	body .app .login-or-registered .container .formActions.registered-unable-click {
+		cursor: not-allowed;
+	}
+	body .app .login-or-registered .container .formActions.login-unable-click input,
+	body .app .login-or-registered .container .formActions.registered-unable-click input {
+		pointer-events: none;
+	}
+	body .app .login-or-registered .container .protocol {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		margin-top: 20px;
+	}
+	body .app .login-or-registered .container .protocol p {
+		font-size: 12px;
+		color: #8590a6;
+	}
+	body .app .login-or-registered .container .protocol a {
+		font-size: 12px;
+		color: #3b6ca9;
+	}
+	body .app .login-or-registered .container .change {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		margin: 36px 0 0 0;
+		padding: 28px 0px;
+	}
+	body .app .login-or-registered .container .change span {
+		color: #222;
+	}
+	body .app .login-or-registered .container .change label {
+		color: #0084FF;
+	}
+	body .app .login-or-registered .container .change label:hover {
+		cursor: pointer;
+	}
+	body .app .login-or-registered .container .change input[type="radio"] {
+		display: none;
+	}
+	/* 遮罩层 */
+	body .app .cover {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: gray;
+		opacity: 0.8;
+		pointer-events: none;
+	}
 }

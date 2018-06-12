@@ -7,57 +7,29 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>todoList</title>
     <script src="../vendors/vue/vue.min.js"></script>
+    <style>
+        .wrap {
+            width: 99%;
+            height: 99%;
+            margin: 1mm;
+            background: none;
+            font-size: 3pt;
+        }
+        
+    </style>
 </head>
 
 <body>
-    <div id="todo-list-example">
-        <input v-model="newTodoText" v-on:keyup.enter="addNewTodo" placeholder="add new todo">
-        <ul>
-            <li is="todo-item-template" v-for="(todo,index) in todoList" v-bind:key="todo.id" v-bind:title="todo.title" v-on:remove="todoList.splice(index,1)"></li>
-        </ul>
+    <div class="wrap">
+        <div id="userInfoDiv">
+            <div class="userInfo">
+                <span>abc</span>
+                <span>男</span>
+                <span>12岁</span>
+            </div>
+            <input id="printBtn" type="button" value="打印" onclick="printPage()">
+        </div>
     </div>
-    <script>
-        Vue.component('todo-item-template', {
-            props: ['title', 'key'],
-            template: `\
-        <li>\
-            {{title}}\
-            <button @click="$emit('remove')">X</button>\
-            {{key}} \
-        </li>\
-        `
-        })
-        var vm = new Vue({
-            el: '#todo-list-example',
-            data: {
-                todoList: [
-                    {
-                        id: 1,
-                        title: '苹果'
-                    },
-                    {
-                        id: 2,
-                        title: '香蕉'
-                    },
-                    {
-                        id: 3,
-                        title: '菠萝'
-                    }
-                ],
-                newTodoText: '',
-                nextTodoId: 4
-            },
-            methods: {
-                addNewTodo: function() {
-                    this.todoList.push({
-                        id: this.nextTodoId,
-                        title: this.newTodoText
-                    })
-                    this.newTodoText = ''
-                }
-            }
-        })
-    </script>
 </body>
 
 </html>

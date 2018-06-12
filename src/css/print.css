@@ -1,3 +1,133 @@
-.app .resume-edit-area aside {
+body .app .resume .side-navigation {
+    display: none;
+}
+
+body .app .resume .main .resume-edit {
+    display: none;
+}
+
+body .app .resume .main .resume-preview {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: space-between;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: none;
+}
+
+body .app .resume .main .resume-preview>div>button {
+    display: none;
+}
+
+body .app .resume .main .resume-preview section {
+    margin: 4mm;
+    font-size: inherit;
+    color: inherit;
+}
+
+body .app .resume .main .resume-preview section h1 {
+    margin-bottom: 1mm;
+    font-size: 32pt;
+    color: inherit;
+    text-align: center;
+}
+
+body .app .resume .main .resume-preview section h2 {
+    font-size: 26pt;
+    font-weight: 100;
+    color: inherit;
+}
+
+body .app .resume .main .resume-preview section .horizon {
+    display: none;
+}
+
+body .app .resume .main .resume-preview section.projects .horizon {
+    display: block;
+    width: 86%;
+    height: 0;
+    border-bottom: 1pt dotted black;
+    margin-top: 2mm;
+    /* margin: 1mm 0 1mm 0; */
+}
+
+body .app .resume .main .resume-preview section .preview {
+    width: 12pt;
+    height: 12pt;
+    fill: black;
+    margin-right: 2mm;
+}
+
+/* 个人简介 */
+
+body .app .resume .main .resume-preview section.self-introduction .details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+body .app .resume .main .resume-preview section.self-introduction .details span {
+    font-size: 16pt;
+}
+
+body .app .resume .main .resume-preview section.self-introduction .details>div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+/* 技能与项目描述 */
+
+body .app .resume .main .resume-preview .skills>ul,
+body .app .resume .main .resume-preview .projects>ol {
+    width: 100%;
+}
+
+body .app .resume .main .resume-preview .skills>ul {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+body .app .resume .main .resume-preview .skills>ul li {
+    width: 48%;
+    margin: 2mm 0 2mm 0;
+}
+
+body .app .resume .main .resume-preview .projects>ol li {
+    width: 100%;
+    margin: 4mm 0 4mm 0;
+    border: 1px solid red;
+}
+
+body .app .resume .main .resume-preview .skills>ul li .skill-name,
+body .app .resume .main .resume-preview .projects>ol li .project-name {
+    display: flex;
+    align-items: center;
+    font-size: 16pt;
+}
+
+body .app .resume .main .resume-preview .skills>ul li>div>span,
+body .app .resume .main .resume-preview .projects>ol li>div>span {
+    font-size: 18pt;
+}
+
+body .app .resume .main .resume-preview .projects>ol li .project-links {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+body .app .resume .main .resume-preview .projects>ol li .project-links a,
+body .app .resume .main .resume-preview .projects>ol li .project-description-title,
+body .app .resume .main .resume-preview .projects>ol li .project-keywords-title {
+    display: flex;
+    align-items: center;
+}
+
+body .app .resume .main .resume-preview .projects>ol li .project-links {
     display: none;
 }

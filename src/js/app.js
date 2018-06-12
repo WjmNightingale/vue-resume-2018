@@ -9301,8 +9301,8 @@
         data: {
             username:'',
             isEditAreaActive: true,
-            showEditArea: false,
-            showPreviewArea: true,
+            showEditArea: true,
+            showPreviewArea: false,
             showLogin: false,
             showCover: false,
             actionType: 'login',
@@ -9321,24 +9321,46 @@
                 currentUser: null,
             },
             resume: {
-                name: '请输入您的姓名',
-                gender: '',
-                age: '请输入您的年龄',
+                name: '王小名',
+                gender: '男',
+                age: '24',
                 address: {
                     prov: '北京',
                     city: '北京',
                     district: '东城区'
                 },
-                phone: '请输入您的手机号码',
-                email: '请输入您的电子邮箱',
-                blogLink: '请填写您的博客账号链接',
-                githubLink: '请填写您的Github账号链接',
-                jobTitle: '请输入您的求职岗位',
+                phone: '135-1345-1234',
+                email: '1186619054@qq.com',
+                blogLink: 'aaa.com',
+                githubLink: 'bbb.com',
+                jobTitle: '前端开发',
                 skills: [{
+                    name: '请填写技能名称',
+                    description: 'HTML基础知识扎实，能够独立制作精美网页，掌握CSS 3动画、过渡效果、响应式等常用技术等'
+                },
+                {
+                    name: '请填写技能名称',
+                    description: '请填写技能描述'
+                },
+                {
                     name: '请填写技能名称',
                     description: '请填写技能描述'
                 }],
                 projects: [{
+                    name: '请填写项目名称',
+                    keywords: '请填写项目关键词',
+                    description: '请填写项目描述',
+                    previewLink: '请填写项目预览链接',
+                    codeLink: '请填写项目源码链接'
+                },
+                {
+                    name: '请填写项目名称',
+                    keywords: '请填写项目关键词',
+                    description: '请填写项目描述',
+                    previewLink: '请填写项目预览链接',
+                    codeLink: '请填写项目源码链接'
+                },
+                {
                     name: '请填写项目名称',
                     keywords: '请填写项目关键词',
                     description: '请填写项目描述',
@@ -9435,6 +9457,11 @@
                 this.showEditArea = false
                 this.showPreviewArea = true
             },
+            exitPreview() {
+                console.log('这是退出预览')
+                this.showEditArea = true
+                this.showPreviewArea = false
+            },
             save(e) {
                 console.log('保存')
                 if (this.user.currentUser) {
@@ -9457,6 +9484,8 @@
                 console.log('分享')
             },
             print(e) {
+                this.showEditArea = false
+                this.showPreviewArea = true
                 window.print()
             },
             edit(e) {
@@ -9682,6 +9711,9 @@
                     // 'registered-unable-click': !(this.user.name && this.user.pwd && this.user.confirmPwd)
                 }
             },
+            location: function() {
+                return  this.resume.address.city+this.resume.address.district
+            }
             // username: function() {
             //     return !(this.user.currentUser)?'未登录':this.user.currentUser.attributes.username
             // }
