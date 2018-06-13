@@ -9299,7 +9299,7 @@
     var vm = new Vue({
         el: '#app',
         data: {
-            username:'',
+            username: '',
             isEditAreaActive: true,
             showEditArea: true,
             showPreviewArea: false,
@@ -9311,6 +9311,7 @@
             showLoginWarn: false,
             registeredWarnText: '',
             showRegisteredWarn: false,
+            shareLink: '这是分享链接',
             arr: arrAll,
             cityArr: [],
             districtArr: [],
@@ -9336,40 +9337,70 @@
                 githubLink: 'bbb.com',
                 jobTitle: '前端开发',
                 skills: [{
-                    name: '请填写技能名称',
-                    description: 'HTML基础知识扎实，能够独立制作精美网页，掌握CSS 3动画、过渡效果、响应式等常用技术等'
-                },
-                {
-                    name: '请填写技能名称',
-                    description: '请填写技能描述'
-                },
-                {
-                    name: '请填写技能名称',
-                    description: '请填写技能描述'
-                }],
+                        name: '请填写技能名称',
+                        description: 'HTML基础知识扎实，能够独立制作精美网页，掌握CSS 3动画、过渡效果、响应式等常用技术等'
+                    },
+                    {
+                        name: '请填写技能名称',
+                        description: '请填写技能描述'
+                    },
+                    {
+                        name: '请填写技能名称',
+                        description: '请填写技能描述'
+                    }
+                ],
                 projects: [{
-                    name: '请填写项目名称',
-                    keywords: '请填写项目关键词',
-                    description: '请填写项目描述',
-                    previewLink: '请填写项目预览链接',
-                    codeLink: '请填写项目源码链接'
-                },
-                {
-                    name: '请填写项目名称',
-                    keywords: '请填写项目关键词',
-                    description: '请填写项目描述',
-                    previewLink: '请填写项目预览链接',
-                    codeLink: '请填写项目源码链接'
-                },
-                {
-                    name: '请填写项目名称',
-                    keywords: '请填写项目关键词',
-                    description: '请填写项目描述',
-                    previewLink: '请填写项目预览链接',
-                    codeLink: '请填写项目源码链接'
-                }]
+                        name: '请填写项目名称',
+                        keywords: '请填写项目关键词',
+                        description: '请填写项目描述',
+                        previewLink: '请填写项目预览链接',
+                        codeLink: '请填写项目源码链接'
+                    },
+                    {
+                        name: '请填写项目名称',
+                        keywords: '请填写项目关键词',
+                        description: '请填写项目描述',
+                        previewLink: '请填写项目预览链接',
+                        codeLink: '请填写项目源码链接'
+                    },
+                    {
+                        name: '请填写项目名称',
+                        keywords: '请填写项目关键词',
+                        description: '请填写项目描述',
+                        previewLink: '请填写项目预览链接',
+                        codeLink: '请填写项目源码链接'
+                    }
+                ]
             },
-            previewResume: {}
+            displayResume: {
+                // 根据分享路径获取到的展示简历
+                name: '',
+                gender: '',
+                age: '',
+                address: {
+                    prov: '',
+                    city: '',
+                    district: ''
+                },
+                phone: '',
+                email: '',
+                blogLink: '',
+                githubLink: '',
+                jobTitle: '',
+                skills: [{
+                        name: '',
+                        description: ''
+                    }
+                ],
+                projects: [{
+                        name: '',
+                        keywords: '',
+                        description: '',
+                        previewLink: '',
+                        codeLink: ''
+                    }
+                ]
+            }
         },
         beforeCreate() {
             // 在实例初始化之后
@@ -9417,11 +9448,12 @@
             this.updateDistrict()
         },
         mounted() {
+            console.log('这里是挂载后的阶段')
             // el 被新创建的的 vm.$el替换，并且挂载到实例上去后调用这个钩子
             // 如果root实例挂载了一个文档内元素，当 mounted 被调用时，vm.$el也在文档内
             // mounted 不会保证所有的子组件也都一起被挂载
             // 如果你希望等到整个视图都渲染完毕，可以用 vm.$nextTick 替换掉 mounted
-            this.$nextTick(function() {
+            this.$nextTick(function () {
                 // code that will run only after the entire view has been rendered
                 // this.username =  !(this.user.currentUser)?'未登录':this.user.currentUser.attributes.username
             })
@@ -9438,12 +9470,12 @@
             // 如果要相应状态改变，通常最好使用计算属性或 watcher 取而代之
             // 注意 updated 不会承诺所有的子组件也都一起被重绘
             // 如果你希望等到整个视图都重绘完毕，可以用 vm.$nextTick 替换掉 updated
-            this.$nextTick(function() {
+            this.$nextTick(function () {
                 // code that will run only after the entire view has been re-rendered
             })
         },
         activated() {
-            
+
         },
         deactivated() {},
         beforeDestroy() {},
@@ -9481,10 +9513,24 @@
                 this.isEditAreaActive = true
             },
             share(e) {
-                console.log('分享')
+                console.log('这是分享按钮')
                 this.showShare = true
                 this.showCover = true
                 this.isEditAreaActive = false
+                // let location = window.location
+                // let url = location.href+'?user_id=test'
+                // console.log(url)
+            },
+            copy(e) {
+                let clipboard = new ClipboardJS('.copy-link-btn')
+                clipboard.on('success', (e) => {
+                    console.log('复制成功')
+                    clipboard.destroy()
+                })
+                clipboard.on('error', (e) => {
+                    console.log('浏览器不支持复制功能')
+                    clipboard.destroy()
+                })
             },
             print(e) {
                 this.showEditArea = false
@@ -9545,7 +9591,7 @@
                 this.resume.skills.splice(index, 1)
             },
             removeProject(index) {
-                this.resume.projects.splice(index,1)
+                this.resume.projects.splice(index, 1)
             },
             saveResume() {
                 let {
@@ -9714,8 +9760,8 @@
                     // 'registered-unable-click': !(this.user.name && this.user.pwd && this.user.confirmPwd)
                 }
             },
-            location: function() {
-                return  this.resume.address.city+this.resume.address.district
+            location: function () {
+                return this.resume.address.city + this.resume.address.district
             }
             // username: function() {
             //     return !(this.user.currentUser)?'未登录':this.user.currentUser.attributes.username

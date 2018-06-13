@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/WjmNightingale/vue-resume-2018#readme",
   "dependencies": {
+    "clipboard": "^2.0.1",
     "leancloud-storage": "^3.7.0",
     "vue": "^2.5.16"
   }
