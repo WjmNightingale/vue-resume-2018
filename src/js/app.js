@@ -9304,6 +9304,7 @@
             showEditArea: true,
             showPreviewArea: false,
             showLogin: false,
+            showShare: false,
             showCover: false,
             actionType: 'login',
             loginWarnText: '',
@@ -9480,8 +9481,10 @@
                 this.isEditAreaActive = true
             },
             share(e) {
-                alert('分享按钮')
                 console.log('分享')
+                this.showShare = true
+                this.showCover = true
+                this.isEditAreaActive = false
             },
             print(e) {
                 this.showEditArea = false

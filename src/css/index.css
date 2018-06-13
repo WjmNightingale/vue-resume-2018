@@ -8,7 +8,7 @@
 		width: 100%;
 		height: 1px;
 		background-color: #999;
-		margin-top: 8px;
+		margin: 8px 0 6px 0;
 	}
 	.editable-span,
 	.editable-textarea {
@@ -336,7 +336,7 @@
 		color: white;
 		position: absolute;
 		top: 10px;
-		left: 60px;
+		left: 44px;
 	}
 	body .app .resume .main .resume-preview .exit-preview:hover,
 	body .app .resume .main .resume-preview .print:hover{
@@ -568,6 +568,14 @@
 	}
 	body .app .login-or-registered .container .change input[type="radio"] {
 		display: none;
+	}
+	/* 分享 */
+	body .app .share-link {
+		border: 1px solid red;
+		position: absolute;
+		top: 10%;
+		left: 40%;
+
 	}
 	/* 遮罩层 */
 	body .app .cover {
