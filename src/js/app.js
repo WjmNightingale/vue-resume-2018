@@ -9315,65 +9315,65 @@
             arr: arrAll,
             cityArr: [],
             districtArr: [],
+            currentUser: {},
             user: {
                 name: '',
                 email: '',
                 pwd: '',
-                confirmPwd: '',
-                currentUser: null,
+                confirmPwd: ''
             },
             resume: {
-                name: '王小名',
+                name: '饥小谷',
                 gender: '男',
-                age: '24',
+                age: '18',
                 address: {
                     prov: '北京',
                     city: '北京',
                     district: '东城区'
                 },
-                phone: '135-1345-1234',
-                email: '1186619054@qq.com',
-                blogLink: 'aaa.com',
-                githubLink: 'bbb.com',
-                jobTitle: '前端开发',
+                phone: 'xxx-xxxx-xxxx',
+                email: 'example@example.com',
+                blogLink: 'https://myblog.com',
+                githubLink: 'https://mygithub.com',
+                jobTitle: '前端工程师',
                 skills: [{
-                        name: '请填写技能名称',
-                        description: 'HTML基础知识扎实，能够独立制作精美网页，掌握CSS 3动画、过渡效果、响应式等常用技术等'
+                        name: '技能名称1',
+                        description: '技能描述1'
                     },
                     {
-                        name: '请填写技能名称',
-                        description: '请填写技能描述'
+                        name: '技能名称2',
+                        description: '技能描述2'
                     },
                     {
-                        name: '请填写技能名称',
-                        description: '请填写技能描述'
+                        name: '技能名称3',
+                        description: '技能描述3'
                     }
                 ],
                 projects: [{
-                        name: '请填写项目名称',
-                        keywords: '请填写项目关键词',
-                        description: '请填写项目描述',
-                        previewLink: '请填写项目预览链接',
-                        codeLink: '请填写项目源码链接'
+                        name: '项目名称1',
+                        keywords: '项目关键词1',
+                        description: '项目描述1',
+                        previewLink: '预览链接1',
+                        codeLink: '源码链接1'
                     },
                     {
-                        name: '请填写项目名称',
-                        keywords: '请填写项目关键词',
-                        description: '请填写项目描述',
-                        previewLink: '请填写项目预览链接',
-                        codeLink: '请填写项目源码链接'
+                        name: '项目名称2',
+                        keywords: '项目关键词2',
+                        description: '项目描述2',
+                        previewLink: '预览链接2',
+                        codeLink: '源码链接2'
                     },
                     {
-                        name: '请填写项目名称',
-                        keywords: '请填写项目关键词',
-                        description: '请填写项目描述',
-                        previewLink: '请填写项目预览链接',
-                        codeLink: '请填写项目源码链接'
+                        name: '项目名称3',
+                        keywords: '项目关键词3',
+                        description: '项目描述3',
+                        previewLink: '预览链接3',
+                        codeLink: '源码链接3'
                     }
                 ]
             },
             displayResume: {
-                // 根据分享路径获取到的展示简历
+                // 根据分享路径获取到的所需要展示的简历信息
                 name: '',
                 gender: '',
                 age: '',
@@ -9448,7 +9448,11 @@
             this.updateDistrict()
         },
         mounted() {
+            // AV.User.logOut()
             console.log('这里是挂载后的阶段')
+            // this.currentUser = {}
+            // console.log(this.currentUser)
+            console.log(AV.User.current())
             // el 被新创建的的 vm.$el替换，并且挂载到实例上去后调用这个钩子
             // 如果root实例挂载了一个文档内元素，当 mounted 被调用时，vm.$el也在文档内
             // mounted 不会保证所有的子组件也都一起被挂载
@@ -9457,6 +9461,15 @@
                 // code that will run only after the entire view has been rendered
                 // this.username =  !(this.user.currentUser)?'未登录':this.user.currentUser.attributes.username
             })
+            // let search = window.location.search
+            // console.log(search)
+            // let regex = /user_id=([^&]+)/
+            // let userId
+            // if (regex.test(search)) {
+            //     let matchArr = search.match(regex)
+            //     userId = matchArr[1]
+            // }
+            // console.log(userId)
         },
         beforeUpdate() {
             // 数据更新时调用，发生在虚拟 DOM 打补丁之前
@@ -9497,9 +9510,11 @@
             },
             save(e) {
                 console.log('保存')
-                if (this.user.currentUser) {
+                console.log(this.currentUser)
+                if (this.currentUser) {
                     //todo 已经登陆执行保存
-                    this.saveResume()
+                    console.log('保存操作')
+                    // this.saveResume()
                 } else {
                     this.showLogin = true
                     this.showCover = true
@@ -9572,18 +9587,18 @@
             addSkill() {
                 console.log('add a skill')
                 this.resume.skills.push({
-                    name: '请填写技能名称',
-                    description: '请填写技能描述'
+                    name: '技能名称',
+                    description: '技能描述'
                 })
             },
             addProject() {
                 console.log('add a project')
                 this.resume.projects.push({
-                    name: '请填写项目名称',
-                    keywords: '请填写项目关键词',
-                    description: '请填写项目描述',
-                    previewLink: '请填写项目预览链接',
-                    codeLink: '请填写项目源码链接'
+                    name: '项目名称',
+                    keywords: '项目关键词',
+                    description: '项目描述',
+                    previewLink: '项目预览链接',
+                    codeLink: '项目源码链接'
                 })
             },
             removeSkill(index) {
@@ -9631,13 +9646,13 @@
                 if (!(this.user.pwd === this.user.confirmPwd)) {
                     console.log('前后密码输入不一致')
                     this.showRegisteredWarn = true
-                    this.registeredWarnText = '两次密码输入不一致!'
+                    this.registeredWarnText = '两次密码输入不一致'
                 } else {
                     console.log('前后密码一致')
                     if (!regExp.test(this.user.pwd)) {
                         console.log('密码格式bu规范')
                         this.showRegisteredWarn = true
-                        this.registeredWarnText = '密码必须为6-12位的字母、数字或下划线!'
+                        this.registeredWarnText = '密码须为6-12位的字母、数字或下划线'
                     } else {
                         console.log('密码格式规范')
                         let newUser = new AV.User()
@@ -9646,13 +9661,15 @@
                         newUser.setPassword(this.user.pwd)
                         console.log('开始登录')
                         newUser.signUp().then((loginedUser) => {
-                            console.log('登录成功，登录信息为---')
                             console.log(loginedUser)
                             alert('登录成功！')
                             this.showLogin = false
                             this.showCover = false
                             this.isEditAreaActive = true
-                            this.user.currentUser = AV.User.current()
+                            console.log('登录成功，当前用户信息为---')
+                            let currentUser = AV.User.current()
+                            console.log(currentUser)
+                            //this.currentUser = AV.User.current()
                             Object.assign(this.user, {
                                 name: '',
                                 email: '',
@@ -9686,9 +9703,6 @@
                     let currentUser = AV.User.current()
                     console.log('当前用户信息--')
                     console.dir(currentUser)
-                    this.user.currentUser = currentUser
-                    console.log('赋值后')
-                    console.log(this.user.currentUser)
                     this.showLogin = false
                     this.showCover = false
                     this.isEditAreaActive = true
