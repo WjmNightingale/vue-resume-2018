@@ -434,15 +434,15 @@
 		height: 88vh;
 		position: relative;
 	}
-	body .app .login-or-registered .container>.close {
+	body .app .close {
 		position: absolute;
-		top: 0;
-		right: -6px;
+		top: 4px;
+		right: 12px;
 		width: 28px;
 		height: 28px;
 		fill: #565656;
 	}
-	body .app .login-or-registered .container>.close:hover {
+	body .app .close:hover {
 		cursor: pointer;
 	}
 	body .app .login-or-registered .container>h1 {
@@ -602,6 +602,7 @@
 		padding: 12px;
 		font-size: 16px;
 		border-radius: 6px;
+		word-break: break-all;
 	}
 	body .app .share-link textarea:focus {
 		outline: none;

@@ -9295,7 +9295,6 @@
             name: "其他"
         }
     ]
-    console.dir(arrAll)
     var vm = new Vue({
         el: '#app',
         data: {
@@ -9315,7 +9314,13 @@
             arr: arrAll,
             cityArr: [],
             districtArr: [],
-            currentUser: {},
+            savedResumeId: '5b21d7fd2f301e0035f66450',
+            mode: 'edit',
+            currentUser: {
+                userId: '',
+                userName: '',
+                userEmail: ''
+            },
             user: {
                 name: '',
                 email: '',
@@ -9372,7 +9377,7 @@
                     }
                 ]
             },
-            displayResume: {
+            shareResume: {
                 // 根据分享路径获取到的所需要展示的简历信息
                 name: '',
                 gender: '',
@@ -9388,18 +9393,16 @@
                 githubLink: '',
                 jobTitle: '',
                 skills: [{
-                        name: '',
-                        description: ''
-                    }
-                ],
+                    name: '',
+                    description: ''
+                }],
                 projects: [{
-                        name: '',
-                        keywords: '',
-                        description: '',
-                        previewLink: '',
-                        codeLink: ''
-                    }
-                ]
+                    name: '',
+                    keywords: '',
+                    description: '',
+                    previewLink: '',
+                    codeLink: ''
+                }]
             }
         },
         beforeCreate() {
@@ -9461,15 +9464,28 @@
                 // code that will run only after the entire view has been rendered
                 // this.username =  !(this.user.currentUser)?'未登录':this.user.currentUser.attributes.username
             })
-            // let search = window.location.search
-            // console.log(search)
-            // let regex = /user_id=([^&]+)/
-            // let userId
-            // if (regex.test(search)) {
-            //     let matchArr = search.match(regex)
-            //     userId = matchArr[1]
-            // }
-            // console.log(userId)
+            let search = window.location.search
+            console.log(search)
+            let regex = /resume_id=([^&]+)/
+            let resumeId
+            if (regex.test(search)) {
+                let matchArr = search.match(regex)
+                resumeId = matchArr[1]
+            }
+            console.log(resumeId)
+            if (resumeId) {
+                this.showEditArea = false
+                this.showPreviewArea = true
+                let query = new AV.Query('Resume')
+                query.get(resumeId).then((resume) => {
+                    let resumeDataString = resume.attributes.resume
+                    let resumeData = JSON.parse(resumeDataString)
+                    console.log(resumeData)
+                    Object.assign(this.shareResume,resumeData)
+                    this.mode = 'preview'
+                    console.log(this.shareResume)
+                })
+            }
         },
         beforeUpdate() {
             // 数据更新时调用，发生在虚拟 DOM 打补丁之前
@@ -9510,11 +9526,9 @@
             },
             save(e) {
                 console.log('保存')
-                console.log(this.currentUser)
-                if (this.currentUser) {
+                if (AV.User.current()) {
                     //todo 已经登陆执行保存
-                    console.log('保存操作')
-                    // this.saveResume()
+                    this.saveResume()
                 } else {
                     this.showLogin = true
                     this.showCover = true
@@ -9528,13 +9542,28 @@
                 this.isEditAreaActive = true
             },
             share(e) {
-                console.log('这是分享按钮')
-                this.showShare = true
-                this.showCover = true
-                this.isEditAreaActive = false
+                if (AV.User.current()) {
+                    console.log('这是分享按钮')
+                    this.showShare = true
+                    this.showCover = true
+                    this.isEditAreaActive = false
+                    let location = window.location
+                    this.shareLink = location.href+`?resume_id=${this.savedResumeId}`
+                    console.log(this.shareLink)
+                } else {
+                    this.showLogin = true
+                    this.showCover = true
+                    this.isEditAreaActive = false
+                    alert('您还未登录，请先登录!')
+                }
                 // let location = window.location
                 // let url = location.href+'?user_id=test'
                 // console.log(url)
+            },
+            closeShare() {
+                this.showShare = false
+                this.showCover = false
+                this.isEditAreaActive = true
             },
             copy(e) {
                 let clipboard = new ClipboardJS('.copy-link-btn')
@@ -9557,7 +9586,21 @@
                 this.showEditArea = true
                 this.showPreviewArea = false
             },
-            logout(e) {},
+            logout(e) {
+                let query = new AV.Query('Resume')
+                query.include('owner')
+                query.descending('createdAt')
+                query.find().then((resumes) => {
+                    console.log(resumes)
+                    resumes.map((resume) => {
+                        console.log(resume.attributes.owner)
+                        console.log(resume.attributes.resume)
+                        console.log(typeof resume.attributes.resume)
+                    })
+                }).catch((error) => {
+                    console.log(error)
+                })
+            },
             updateCity() {
                 console.log('城市更新')
                 for (var key in this.arr) {
@@ -9609,14 +9652,18 @@
                 this.resume.projects.splice(index, 1)
             },
             saveResume() {
-                let {
-                    id
-                } = AV.User.current()
-                let user = AV.Object.createWithoutData('User', id)
-                user.set('resume', this.resume)
-                user.save().then((data) => {
+                let resumeDataString = JSON.stringify(this.resume)
+                let Resume = AV.Object.extend('Resume')
+                let resume = new Resume()
+                resume.set('resume',resumeDataString)
+                resume.set('owner',AV.User.current())
+                resume.save().then((data) => {
+                    console.log(data)
+                    let {id} = data
+                    this.savedResumeId = id
                     alert('保存成功！')
                 }, (error) => {
+                    console.log(error)
                     alert('保存失败')
                 })
             },
@@ -9666,16 +9713,23 @@
                             this.showLogin = false
                             this.showCover = false
                             this.isEditAreaActive = true
-                            console.log('登录成功，当前用户信息为---')
-                            let currentUser = AV.User.current()
-                            console.log(currentUser)
-                            //this.currentUser = AV.User.current()
+                            // console.log('登录成功，当前用户信息为---')
+                            // let currentUser = AV.User.current()
+                            let {
+                                id,
+                                attributes
+                            } = AV.User.current
+                            Object.assign(this.currentUser, {
+                                userId: id,
+                                ...attributes
+                            })
                             Object.assign(this.user, {
                                 name: '',
                                 email: '',
                                 pwd: '',
                                 confirmPwd: ''
                             })
+                            alert('注册成功！')
                         }, (error) => {
                             this.showLoginWarn = true
                             console.log(JSON.stringify(error))
@@ -9700,13 +9754,21 @@
                     console.log('登录成功,登录信息--')
                     console.dir(loginedUser)
                     this.showEditArea = true
-                    let currentUser = AV.User.current()
-                    console.log('当前用户信息--')
-                    console.dir(currentUser)
+                    // let currentUser = AV.User.current()
+                    // console.log('当前用户信息--')
+                    // console.dir(currentUser)
+                    let {
+                        id,
+                        attributes
+                    } = AV.User.current
+                    Object.assign(this.currentUser, {
+                        userId: id,
+                        ...attributes
+                    })
                     this.showLogin = false
                     this.showCover = false
                     this.isEditAreaActive = true
-                    alert('登录成功，即将跳转至编辑页面！')
+                    alert('登录成功！')
                     Object.assign(this.user, {
                         name: '',
                         email: '',
@@ -9775,7 +9837,14 @@
                 }
             },
             location: function () {
-                return this.resume.address.city + this.resume.address.district
+                if (this.mode === 'edit') {
+                    return this.resume.address.city + this.resume.address.district   
+                } else {
+                    return this.displayResume.address.city + this.displayResume.address.district 
+                }
+            },
+            displayResume: function () {
+                return this.mode === 'edit'?this.resume:this.shareResume
             }
             // username: function() {
             //     return !(this.user.currentUser)?'未登录':this.user.currentUser.attributes.username

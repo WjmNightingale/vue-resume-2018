@@ -143,27 +143,27 @@
                 </div>
                 <div id="resume-preview" class="resume-preview" v-show="showPreviewArea" v-cloak>
                     <div v-cloak>
-                        <button class="exit-preview" @click="exitPreview">退出预览</button>
-                        <button class="print" @click=print>打印</button>
+                        <button v-show="this.mode === 'edit'" class="exit-preview" @click="exitPreview">退出预览</button>
+                        <button v-show="this.mode === 'edit'" class="print" @click=print>打印</button>
                     </div>
                     <section class="self-introduction">
                         <h1>个人简介</h1>
                         <div class="details">
-                            <h2>{{resume.name}}</h2>
+                            <h2>{{displayResume.name}}</h2>
                             <div class="person">
-                                <span>{{resume.gender}}&nbsp; |</span>
-                                <span>&nbsp;{{resume.age}}&nbsp;|</span>
+                                <span>{{displayResume.gender}}&nbsp; |</span>
+                                <span>&nbsp;{{displayResume.age}}&nbsp;|</span>
                                 <span>&nbsp;{{location}}&nbsp;|</span>
-                                <span>&nbsp;{{resume.phone}}</span>
+                                <span>&nbsp;{{displayResume.phone}}</span>
                             </div>
                             <div class="job-title">
-                                <span>{{'求职意向：'+resume.jobTitle}}</span>
+                                <span>{{'求职意向：'+displayResume.jobTitle}}</span>
                             </div>
                             <div class="links">
-                                <span>{{'Github：'+resume.githubLink}}</span>
+                                <span>{{'Github：'+displayResume.githubLink}}</span>
                             </div>
                             <div class="links">
-                                <span>{{'博客：'+resume.blogLink}}</span>
+                                <span>{{'博客：'+displayResume.blogLink}}</span>
                             </div>
                         </div>
                     </section>
@@ -174,7 +174,7 @@
                     <section class="skills">
                         <h1>技能描述</h1>
                         <ul>
-                            <li v-for="(skill,index) in resume.skills">
+                            <li v-for="(skill,index) in displayResume.skills">
                                 <div class="skill-name">
                                     <svg class="icon preview" aria-hidden="true" @click="editingName = !editingName">
                                         <use xlink:href="#icon-discount"></use>
@@ -191,7 +191,7 @@
                     <section class="projects">
                         <h1>项目经历</h1>
                         <ol>
-                            <li v-for="(project,index) in resume.projects">
+                            <li v-for="(project,index) in displayResume.projects">
                                 <div class="project-name">
                                     <svg class="icon preview" aria-hidden="true">
                                         <use xlink:href="#icon-box"></use>
@@ -319,8 +319,11 @@
         </div>
         <div class="test" v-show="showShare" v-cloak>
             <div class="share-link">
+                <svg class="icon close" aria-hidden="true" @click="closeShare">
+                    <use xlink:href="#icon-close"></use>
+                </svg>
                 <h2>复制以下链接分享给面试官</h2>
-                <textarea id="shareLik" cols="60" rows="4" :value="shareLink" readonly></textarea>
+                <textarea id="shareLik" cols="60" rows="2" :value="shareLink" readonly></textarea>
                 <button class="copy-link-btn" :data-clipboard-text="shareLink" @click=copy>复制链接
                 </button>
             </div>
