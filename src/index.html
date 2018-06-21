@@ -18,7 +18,8 @@
 <body>
     <div id="app" class="app">
         <div id="resume" class="resume" :class="classObject">
-            <aside v-show="showEditArea">
+            <side-navigation v-bind:value="showEditArea"></side-navigation>
+            <!-- <aside v-show="showEditArea">
                 <ul class="side-navigation">
                     <li>
                         <button @click=edit>编辑</button>
@@ -36,14 +37,14 @@
                         <button @click=logout>退出</button>
                     </li>
                 </ul>
-            </aside>
+            </aside> -->
             <div class="main">
-                <div class="resume-edit" v-show="showEditArea">
-                    <div class="welcome" style="position: absolute;top:10px;right:120px;" v-cloak>
-                        <span>{{username}}</span>
-                    </div>
-                    <!-- <div>展示登陆后用户信息：{{user.currentUser}}</div>
+                <!-- <div>展示登陆后用户信息：{{user.currentUser}}</div>
                     <div>展示简历信息：{{resume}}</div> -->
+
+                    <resume-edit-area v-bind:resume="resume" v-bind:value="showEditArea"></resume-edit-area>
+                <!-- <div class="resume-edit" v-show="showEditArea">
+                    
                     <section class="self-introduction">
                         <h1>个人简介</h1>
                         <div class="details">
@@ -65,7 +66,6 @@
                             </div>
                             <div class="address" v-cloak>
                                 <span>居住地：</span>
-                                <!-- <editable-span v-bind:value="resume.address" v-on:edit="onEdit('address',$event)"></editable-span> -->
                                 <select name="address" id="address" v-model="resume.address.prov" v-cloak>
                                     <option v-for="option in arr" v-bind:value="option.name">{{option.name}}</option>
                                 </select>
@@ -94,10 +94,6 @@
                             </div>
                         </div>
                     </section>
-                    <!-- <section class="education">
-                        <h1>教育经历</h1>
-                        <p>XXX</p>
-                    </section> -->
                     <section class="skills">
                         <h1>技能描述</h1>
                         <ul>
@@ -124,7 +120,6 @@
                                     <editable-span v-bind:value="project.keywords" v-on:edit="onEdit(`projects[${index}].keywords`,$event)"></editable-span>
                                 </div>
                                 <div class="project-description">
-                                    <!-- <span>项目描述</span> -->
                                     <editable-textarea v-bind:value="project.description" v-on:edit="onEdit(`projects[${index}].description`,$event)"></editable-textarea>
                                 </div>
                                 <div class="project-preview-link">
@@ -140,7 +135,7 @@
                         </ol>
                         <span class="add-project" @click=addProject title="添加你的项目经历">添加项目</span>
                     </section>
-                </div>
+                </div> -->
                 <div id="resume-preview" class="resume-preview" v-show="showPreviewArea" v-cloak>
                     <div v-cloak>
                         <button v-show="this.mode === 'edit'" class="exit-preview" @click="exitPreview">退出预览</button>

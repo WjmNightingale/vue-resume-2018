@@ -43,4 +43,62 @@
             }
         }
     })
+    Vue.component('side-navigation', {
+        props: ['value'],
+        data() {
+            return {}
+        },
+        template: `
+        <div>
+        <aside v-show="value">
+        <ul class="side-navigation">
+            <li>
+                <button @click=edit>编辑</button>
+            </li>
+            <li>
+                <button @click=preview>预览</button>
+            </li>
+            <li>
+                <button @click=save>保存</button>
+            </li>
+            <li>
+                <button @click=share>分享</button>
+            </li>
+            <li>
+                <button @click=logout>退出</button>
+            </li>
+        </ul>
+    </aside>
+        </div>
+        `,
+        methods: {
+            edit() {
+                console.log('edit')
+            },
+            preview() {
+                console.log('preview')
+            },
+            save() {
+                console.log('save')
+            },
+            share() {
+                console.log('share')
+            },
+            logout() {
+                console.log('logout')
+            }
+        }
+    })
+    Vue.component('resume-edit-area',{
+        props: ["resume","value"],
+        data() {
+            return {}
+        },
+       template: `
+       <div>
+        <div>{{resume}}</div>
+        <div>{{value}}</div>
+       </div>
+       `
+    })
 }
