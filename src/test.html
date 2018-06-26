@@ -8,6 +8,12 @@
     <title>测试呢</title>
     <script src="../vendors/vue/vue.min.js"></script>
     <style>
+        .add-todo {
+            font-size: 32px;
+        }
+        .add-todo:hover {
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -36,6 +42,15 @@
 
 
     <div id="app">
+        <ul class="todoList">
+            <li v-for="(item,index) in todoList">
+                <span>数组下标：{{index}}</span>
+                <span>id: {{item.id}}</span>
+                <span>标题: {{item.title}}</span>
+                <span>内容: {{item.message}}</span>
+            </li>
+            <div class="add-todo" @click="addTodo">+</div>
+        </ul>
        <div class="parent" @click="showData">点我
        </div>
        <base-checkbox v-model="lovingVue"></base-checkbox>
@@ -80,6 +95,23 @@
             </label>
             `
         })
+        Vue.component('todo-document',{
+            props: {
+                id: Number,
+                title: String,
+                message: String
+            },
+            data() {
+                return {
+                    showNewTodoEdit: false
+                }
+            },
+            template: `
+            <template>
+            
+            </template>
+            `
+        })
         var vm = new Vue({
             el: '#app',
             beforeCreate() {},
@@ -100,12 +132,38 @@
                 testData: {
                     label: '我是一个Vue组件',
                     value: '外界传给组件的值'
+                },
+                todoList:[
+                    {
+                        id: 1,
+                        title: '任务1',
+                        message: '学习HTML'
+                    },
+                    {
+                        id: 2,
+                        title: '任务2',
+                        message: '学习CSS'
+                    },
+                    {
+                        id: 3,
+                        title: '任务3',
+                        message: '学习JS'
+                    }
+                ],
+                newTodo: {
+                    id: '',
+                    title: '假装标题',
+                    message: '假装内容',
                 }
             },
             methods: {
                 showData() {
                     console.log(this.lovingVue)
                     console.log(this.testData.value)
+                    console.log(this.newTodo)
+                },
+                addTodo() {
+                    console.log('addTodo')
                 }
             }
         })
