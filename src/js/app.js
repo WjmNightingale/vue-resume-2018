@@ -1,4 +1,5 @@
 {
+
     // 城市JSON数据
     var arrAll = [{
             name: "选择省份",
@@ -9481,7 +9482,7 @@
                     let resumeDataString = resume.attributes.resume
                     let resumeData = JSON.parse(resumeDataString)
                     console.log(resumeData)
-                    Object.assign(this.shareResume,resumeData)
+                    Object.assign(this.shareResume, resumeData)
                     this.mode = 'preview'
                     console.log(this.shareResume)
                 })
@@ -9548,7 +9549,7 @@
                     this.showCover = true
                     this.isEditAreaActive = false
                     let location = window.location
-                    this.shareLink = location.href+`?resume_id=${this.savedResumeId}`
+                    this.shareLink = location.href + `?resume_id=${this.savedResumeId}`
                     console.log(this.shareLink)
                 } else {
                     this.showLogin = true
@@ -9655,11 +9656,13 @@
                 let resumeDataString = JSON.stringify(this.resume)
                 let Resume = AV.Object.extend('Resume')
                 let resume = new Resume()
-                resume.set('resume',resumeDataString)
-                resume.set('owner',AV.User.current())
+                resume.set('resume', resumeDataString)
+                resume.set('owner', AV.User.current())
                 resume.save().then((data) => {
                     console.log(data)
-                    let {id} = data
+                    let {
+                        id
+                    } = data
                     this.savedResumeId = id
                     alert('保存成功！')
                 }, (error) => {
@@ -9838,17 +9841,18 @@
             },
             location: function () {
                 if (this.mode === 'edit') {
-                    return this.resume.address.city + this.resume.address.district   
+                    return this.resume.address.city + this.resume.address.district
                 } else {
-                    return this.displayResume.address.city + this.displayResume.address.district 
+                    return this.displayResume.address.city + this.displayResume.address.district
                 }
             },
             displayResume: function () {
-                return this.mode === 'edit'?this.resume:this.shareResume
+                return this.mode === 'edit' ? this.resume : this.shareResume
             }
             // username: function() {
             //     return !(this.user.currentUser)?'未登录':this.user.currentUser.attributes.username
             // }
         }
     })
+
 }
