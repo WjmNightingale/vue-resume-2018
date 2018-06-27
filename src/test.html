@@ -11,8 +11,13 @@
         .add-todo {
             font-size: 32px;
         }
+
         .add-todo:hover {
             cursor: pointer;
+        }
+
+        .new-todo-content {
+            border: 1px solid red;
         }
     </style>
 </head>
@@ -42,21 +47,39 @@
 
 
     <div id="app">
-        <ul class="todoList">
-            <li v-for="(item,index) in todoList">
-                <span>数组下标：{{index}}</span>
-                <span>id: {{item.id}}</span>
-                <span>标题: {{item.title}}</span>
-                <span>内容: {{item.message}}</span>
-            </li>
+        <div class="todo-content">
+            <ul class="todoList">
+                <li v-for="(item,index) in todoList">
+                    <span>数组下标：{{index}}</span>
+                    <span>id: {{item.id}}</span>
+                    <span>标题: {{item.title}}</span>
+                    <span>内容: {{item.message}}</span>
+                </li>
+            </ul>
             <div class="add-todo" @click="addTodo">+</div>
-        </ul>
-       <div class="parent" @click="showData">点我
-       </div>
-       <base-checkbox v-model="lovingVue"></base-checkbox>
-       <base-input v-model="testData.value"  v-bind="testData" ></base-input>
+            <div class="new-todo-content">
+                <button class="close">X</button>
+                <div class="line">
+                    <span>标题</span>
+                    <base-input v-model="newTodo.title" v-bind="newTodo"></base-input>
+                </div>
+                <div class="line">
+                    <span>内容</span>
+                    <base-textarea v-model="newTodo.message" v-bind="newTodo"></base-textarea>
+                </div>
+                <button class="save" @click="saveNewTodo">保存</button>
+            </div>
+        </div>
+        <div class="parent" @click="showData">点我
+        </div>
+        <base-checkbox v-model="lovingVue"></base-checkbox>
+        <base-input v-model="testData.value" v-bind="testData"></base-input>
+        <br>
+        <br>
+        <new-todo-content @close-new-toto-edit="closeNewTodoEdit" @save-new-todo="saveNewTodo"></new-todo-content>
     </div>
     <script>
+        var eventHub = new Vue()
         Vue.component('base-checkbox', {
             model: {
                 prop: 'checked',
@@ -69,20 +92,20 @@
             <input type="checkbox" v-bind:checked="checked" v-on:change="$emit('change',$event.target.checked)">
             `
         })
-        Vue.component('base-input',{
+        Vue.component('base-input', {
             inheritAttrs: false,
-            props: ['label','value'],
+            props: ['label', 'value'],
             computed: {
-                inputListeners: function() {
+                inputListeners: function () {
                     var vm = this
-                    return Object.assign(
-                        {},
+                    return Object.assign({},
                         // 从父级添加所有的监听器
                         this.$listeners,
                         // 然后添加自定义的监听器或者覆盖重写一些监听器的行为
                         {
-                            input: function(event) {
-                                vm.$emit('input',event.target.value)
+                            input: function (event) {
+                                console.log('这是 input 自定义事件')
+                                vm.$emit('input', event.target.value)
                             }
                         }
                     )
@@ -95,23 +118,86 @@
             </label>
             `
         })
-        Vue.component('todo-document',{
-            props: {
-                id: Number,
-                title: String,
-                message: String
-            },
-            data() {
-                return {
-                    showNewTodoEdit: false
+        Vue.component('base-textarea', {
+            inheritAttrs: false,
+            props: ['label', 'value'],
+            computed: {
+                inputListeners: function () {
+                    var vm = this
+                    return Object.assign({},
+                        this.$listeners, {
+                            input: function (event) {
+                                console.log('这是 textarea 自定义事件')
+                                vm.$emit('input', event.target.value)
+                            }
+                        }
+                    )
                 }
             },
             template: `
-            <template>
-            
-            </template>
+            <label>
+                <textarea rows=3 cols=33 v-bind="$attrs" v-bind:value="value" v-on="inputListeners"></textarea>
+            </label>
             `
         })
+        Vue.component('new-todo-content', {
+            // props: {
+            //     id: Number,
+            //     title: String,
+            //     message: String,
+            //     showNewTodoEdit: Boolean
+            // },
+            data() {
+                return {
+                    showNewTodoEdit: false,
+                    content: {
+                        title: 'String',
+                        message: 'String',
+                    }
+                }
+            },
+            template: `
+            <div class="new-todo-content" v-show="showNewTodoEdit">
+                    <button class="close" @click="close">X</button>
+                    <div class="line">
+                        <span>标题</span>
+                        <base-input v-model="content.title" ></base-input>
+                    </div>
+                    <div class="line">
+                        <span>内容</span>
+                        <base-textarea v-model="content.message"></base-textarea>
+                    </div>
+                    <button class="save" @click="save">保存</button>
+                </div>
+            `,
+            methods: {
+                close() {
+                    console.log('这是关闭')
+                    this.showNewTodoEdit = false
+                },
+                save() {
+                    console.log('这是保存')
+                    this.$emit('save-new-todo',this.content)
+                    // 清空
+                    Object.assign(this.content,{
+                        title: '',
+                        message: ''
+                    })
+                },
+                open() {
+                    console.log('监听 open-new-todo-edit 事件')
+                    this.showNewTodoEdit = true
+                }
+            },
+            created: function () {
+                console.log('全局监听父组件的 open-new-todo-edit 事件')
+                eventHub.$on('open-new-todo-edit', this.open)
+            },
+            beforeDestroy: function () {
+                eventHub.$off('open-new-todo-edit', this.open)
+            }
+        })
+
         var vm = new Vue({
             el: '#app',
             beforeCreate() {},
@@ -133,8 +219,8 @@
                     label: '我是一个Vue组件',
                     value: '外界传给组件的值'
                 },
-                todoList:[
-                    {
+                showNewTodoEdit: false,
+                todoList: [{
                         id: 1,
                         title: '任务1',
                         message: '学习HTML'
@@ -163,41 +249,65 @@
                     console.log(this.newTodo)
                 },
                 addTodo() {
-                    console.log('addTodo')
+                    console.log('全局发送 open-new-todo-edit 事件')
+                    eventHub.$emit('open-new-todo-edit')
+                },
+                saveNewTodo() {
+                    console.log('保存新增的todo')
+                    console.log(this.newTodo)
+                    this.todoList.push(this.newTodo)
+                },
+                closeNewTodoEdit() {
+                    console.log('监听到了new-todo-edit组件的关闭')
+                    this.showNewTodoEdit = false
+                },
+                saveNewTodo(data) {
+                    console.log('监听到了new-todo-edit组件的保存')
+                    console.log(data)
+                    Object.assign(this.newTodo,{
+                        id: this.todoList.length + 1,
+                        title: data.title,
+                        message: data.message
+                    })
+                    let newTodoContent = JSON.parse(JSON.stringify(this.newTodo))
+                    this.todoList.push(newTodoContent)
                 }
             }
         })
     </script>
     <script>
-        const Tab = {
-            template: '<div>foo</div>'
-        }
-        const Bar = {
-            template: '<div>bar</div>'
-        }
+        // const Tab = {
+        //     template: '<div>foo</div>'
+        // }
+        // const Bar = {
+        //     template: '<div>bar</div>'
+        // }
+
+
         // 2、定义路由
         // 每个路由应该映射一个组件 其中"components"可以是
         // 通过 Vue.extend() 创建的组件构造器
         // 或者 只是一个组件配置对象
         // 我们晚点再讨论嵌套路由
-        const routes = [
-            {
-                path: '/foo',
-                component: Tab
-            },
-            {
-                path: '/bar',
-                component: Bar
-            }
-        ]
+
+
+        // const routes = [{
+        //         path: '/foo',
+        //         component: Tab
+        //     },
+        //     {
+        //         path: '/bar',
+        //         component: Bar
+        //     }
+        // ]
         // 3、创建router 实例 然后传到routes配置
         // 还可以传别的配置参数
-        const router = new VueRouter({
-            routes // 等价于 routes: routes
-        })
-        const app = new Vue({
-            router
-        }).$mount('#app')
+        // const router = new VueRouter({
+        //     routes // 等价于 routes: routes
+        // })
+        // const app = new Vue({
+        //     router
+        // }).$mount('#app')
     </script>
 </body>
 
