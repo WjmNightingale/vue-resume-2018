@@ -18,8 +18,8 @@
 <body>
     <div id="app" class="app">
         <div id="resume" class="resume" :class="classObject">
-            <side-navigation v-bind:value="showEditArea"></side-navigation>
-            <!-- <aside v-show="showEditArea">
+           
+            <aside v-show="showEditArea">
                 <ul class="side-navigation">
                     <li>
                         <button @click=edit>编辑</button>
@@ -37,13 +37,13 @@
                         <button @click=logout>退出</button>
                     </li>
                 </ul>
-            </aside> -->
+            </aside>
             <div class="main">
                 <!-- <div>展示登陆后用户信息：{{user.currentUser}}</div>
                     <div>展示简历信息：{{resume}}</div> -->
 
-                    <resume-edit-area v-bind:resume="resume" v-bind:value="showEditArea"></resume-edit-area>
-                <!-- <div class="resume-edit" v-show="showEditArea">
+                   
+                <div class="resume-edit" v-show="showEditArea">
                     
                     <section class="self-introduction">
                         <h1>个人简介</h1>
@@ -94,6 +94,10 @@
                             </div>
                         </div>
                     </section>
+                    <section class="education">
+                        <h1>教育经历</h1>
+                        <p>XXX</p>
+                    </section>
                     <section class="skills">
                         <h1>技能描述</h1>
                         <ul>
@@ -135,7 +139,7 @@
                         </ol>
                         <span class="add-project" @click=addProject title="添加你的项目经历">添加项目</span>
                     </section>
-                </div> -->
+                </div>
                 <div id="resume-preview" class="resume-preview" v-show="showPreviewArea" v-cloak>
                     <div v-cloak>
                         <button v-show="this.mode === 'edit'" class="exit-preview" @click="exitPreview">退出预览</button>
@@ -162,10 +166,10 @@
                             </div>
                         </div>
                     </section>
-                    <!-- <section class="education">
+                    <section class="education">
                         <h1>教育经历</h1>
                         <p>XXX</p>
-                    </section> -->
+                    </section>
                     <section class="skills">
                         <h1>技能描述</h1>
                         <ul>

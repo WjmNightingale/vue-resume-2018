@@ -9588,19 +9588,22 @@
                 this.showPreviewArea = false
             },
             logout(e) {
-                let query = new AV.Query('Resume')
-                query.include('owner')
-                query.descending('createdAt')
-                query.find().then((resumes) => {
-                    console.log(resumes)
-                    resumes.map((resume) => {
-                        console.log(resume.attributes.owner)
-                        console.log(resume.attributes.resume)
-                        console.log(typeof resume.attributes.resume)
-                    })
-                }).catch((error) => {
-                    console.log(error)
-                })
+                // 查询
+                // let query = new AV.Query('Resume')
+                // query.include('owner')
+                // query.descending('createdAt')
+                // query.find().then((resumes) => {
+                //     console.log(resumes)
+                //     resumes.map((resume) => {
+                //         console.log(resume.attributes.owner)
+                //         console.log(resume.attributes.resume)
+                //         console.log(typeof resume.attributes.resume)
+                //     })
+                // }).catch((error) => {
+                //     console.log(error)
+                // })
+                console.log('这是退出按钮')
+                AV.User.logOut()
             },
             updateCity() {
                 console.log('城市更新')
