@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,137 @@
     <script src="../vendors/vue/vue.min.js"></script>
     <script src="../node_modules/vue-router/dist/vue-router.min.js"></script>
 </head>
+
 <body>
-    
+    <div id="app">
+        <h1>构建单页面应用</h1>
+        <p>{{testData}}</p>
+        <div class="navigation">
+            <!-- 使用 router-link 组件来导航. -->
+            <!-- 通过传入 `to` 属性指定链接. -->
+            <!-- <router-link> 默认会被渲染成一个 `<a>` 标签 -->
+            <router-link to="/foo">Go to the foo</router-link>
+            <router-link to="/bar">Go to the bar</router-link>
+            <router-link to="/user/12134">UserHome</router-link>
+            
+        </div>
+        <!-- 路由出口 -->
+        <!-- 路由匹配到的组件将渲染在这里 即router-view -->
+        <router-view></router-view>
+    </div>
+    <script>
+        const Foo = {
+            template: `<div>this is foo</div>`
+        }
+        const Bar = {
+            template: `<div>this is bar</div>`
+        }
+        const User = {
+            template: `
+            <div class="user">
+                <h2>User Id--{{$route.params.id}}</h2>
+                <router-link to="/user/11866/profile">Profile</router-link>
+                <router-link to="/user/19054/posts">Posts</router-link>
+                <router-view></router-view>
+            </div>
+            `,
+            beforeRouteUpdate(to,from,next) {
+                next()
+            }
+        }
+
+        const UserHome = {
+            template: `<div>这是UserHome组件<div>`
+        }
+
+        const UserProfile = {
+            template: `<div>这是UserProfile组件 {{$route.params.id}}<div>`
+        }
+
+        const UserPosts = {
+            template: `<div>这是UserPosts组件 {{$route.params.id}}<div>`
+        }
+
+        // 定义路由
+        // 每个路由应该映射一个组件。 其中"component" 可以是
+        // 通过 Vue.extend() 创建的组件构造器，
+        // 或者，只是一个组件配置对象。
+        // 我们晚点再讨论嵌套路由。
+
+        const routes = [
+            {
+                path: '/foo',
+                component: Foo
+            },
+            {
+                path: '/bar',
+                component: Bar
+            },
+            {
+                path: '/user/:id',
+                component: User,
+                // children 参数配置嵌套路由
+                children: [
+                    {
+                        // 当 /user/:id/profile 匹配成功，
+                        // UserProfile 会被渲染在 User 的 <router-view> 中
+                        path: 'profile',
+                        component: UserProfile
+                    },
+                    {
+                        // 当 /user/:id/posts 匹配成功
+                        // UserPosts 会被渲染在 User 的 <router-view> 中
+                        path: 'posts',
+                        component: UserPosts
+                    },
+                    {
+                        path: '',
+                        component: UserHome
+                    }
+                ]
+            }
+        ]
+
+        // 创建 router 实例，然后传 `routes` 配置
+        // 你还可以传别的配置参数, 不过先这么简单着吧。
+        const router = new VueRouter(
+            {
+                routes // 缩写，等价于 routes: routes
+            }
+        )
+
+        // 创建和挂载根实例。
+        // 记得要通过 router 配置参数注入路由，
+        // 从而让整个应用都有路由功能
+
+        const app = new Vue(
+            {
+                el: '#app',
+                router,
+                data: {
+                    testData: '单页面app'
+                },
+                beforeCreate() {
+                    console.log('vue实例还没创建')
+                },
+                created() {
+                    console.log('vue实例创建了')
+                },
+                beforeMount() {
+                    console.log('vue实例还没挂载')
+                },
+                mounted() {
+                    console.log('vue实例已经挂载了')
+                },
+                beforeDestroy() {
+                    console.log('vue实例还没销毁')
+                },
+                destroyed() {
+                    console.log('vue实例销毁了')
+                }
+            }
+        )
+    </script>
 </body>
+
 </html>
